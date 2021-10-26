@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wayne Walder</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div id="page-wrap">
+      <header>
+        <nav>
+          <a id="logo" href="./index.html">
+            Wayne Walder
+          </a>
+          <div id="nav-els">
+            <span class="nav-item">
+              <a href="./guided-meditations.html">Meditations</a>
+            </span>
+            <span class="nav-item">
+              <a href="./essays.html">Essays</a>
+            </span>
+            <span class="nav-item">
+              <a href="./sacred-journeys.html">Sacred Journeys</a>
+            </span>
+            <span class="nav-item">
+              <a href="./art-and-music.html">Art and Music</a>
+            </span>
+          </div>
+        </nav>
+      </header>
+      <section id="slider-container">
+        {% block content %}
+        {% endblock %}
+      </section>
+      <footer>
+        <p>
+          © Walder, Writer. 2021. All rights reserved.
+        </p>
+      </footer>
+    </div>
+</body>
+</html>

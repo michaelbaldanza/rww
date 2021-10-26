@@ -1,0 +1,138 @@
+body {
+  font-family: Avenir,Helvetica,Arial,sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  /* position: relative; */
+  background: #19181A;
+  color: rgba(250,177,98,.7);
+  font-size: 18px;
+}
+
+#page-wrap {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+#first-column, #second-column {
+  max-height: 593px;
+}
+
+a {
+  text-decoration: none;
+  color: rgba(250,177,98,.7);
+}
+
+a:hover {
+  color: rgba(115, 115, 115, 0.8);
+}
+
+header {
+  border-bottom: 1px solid rgba(250,177,98,.7);
+  margin-bottom: 1em;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+  /* padding: 18px 9px; */
+}
+
+.nav-item {
+  padding-left: 24px;
+}
+
+#nav-els {
+  padding: 0.2em 0 0 0;
+}
+
+#first-column {
+  position: relative;
+}
+
+#second-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  margin-right: 50px;
+  /* grid-template-rows: 1fr 1fr 1fr; */
+  /* padding-right: 226.81px; */
+}
+
+#logo {
+  font-size: 36px;
+}
+
+#slider-container {
+  min-width: 750px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  margin: 0 auto;
+}
+
+.pic {
+  position: relative;
+}
+
+/* img {
+  margin-left: 50px;
+} */
+
+.img-link:hover {
+  filter: grayscale(100%);
+}
+
+.txt-overlay {
+  position: absolute;
+  /* position: relative; */
+  max-width: 256px;
+  bottom: 140px;
+  /* top: 200px; */
+  /* right: 100px; */
+}
+
+#portrait {
+  margin-left: 50px;
+}
+
+.link-overlay {
+  position: absolute;
+  /* position: relative; */
+  /* max-width: 256px; */
+  top: 1em;
+  /* top: 200px; */
+  /* right: 100px; */
+}
+
+.big-word {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.medium-word {
+  font-size: 16px;
+  font-weight: bold;
+  padding-right: 0.5em;
+}
+
+footer {
+  /* position: fixed; */
+  bottom: 0;
+  font-size: 12px;
+}
+
+/* .link-pair:hover .img, .link-pair:hover p {
+  color: rgba(115, 115, 115, 0.8);
+  filter: grayscale(100%);
+} */
+
+.link-pair {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  pointer-events: none;
+}
+
+.link-pair img, .link-pair p {
+  pointer-events: all;
+}
