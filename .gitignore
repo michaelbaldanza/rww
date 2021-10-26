@@ -1,3 +1,6 @@
+# Secrets
+secrets.py
+
 # Django #
 *.log
 *.pot
