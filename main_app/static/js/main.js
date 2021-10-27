@@ -1,7 +1,7 @@
 let idx = 0;
 
 function changeSlide() {
-  let slides = document.getElementsByClassName('showSlide');
+  let slides = document.getElementsByClassName('slide');
   if (idx === slides.length - 1) {
     idx = 0;
   } else {

@@ -2,8 +2,8 @@
 {% block content %}
 {% load static %}
 
-
-<div class="slide showSlide" id="slide-1">
+<div id="slider-container">
+<div class="slide" id="slide-1">
   <img
     class="slide-image"
     src="{% static 'images/crops/34-wayne-praying.jpeg' %}"
@@ -18,7 +18,7 @@
     </p>
   </div>
 </div>
-<div class="slide showSlide" id="slide-2">
+<div class="slide" id="slide-2">
   <img
     class="slide-image"
     src="{% static 'images/crops/34-belize-sarnac.jpeg' %}"
@@ -33,7 +33,7 @@
     </p>
   </div>
 </div>
-<div class="slide showSlide" id="slide-3">
+<div class="slide" id="slide-3">
   <img
     class="slide-image"
     src="{% static 'images/crops/34-openings.jpeg' %}"
@@ -62,6 +62,7 @@
       porta. Ut pellentesques mollis magna et.
     </p>
   </div>
+</div>
 </div>
 
 {% endblock %}

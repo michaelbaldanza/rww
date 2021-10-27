@@ -63,11 +63,14 @@ nav {
   font-size: 36px;
 }
 
-#slider-container {
+section {
   min-width: 750px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   margin: 0 auto;
+}
+
+#slider-container {
+  margin: 0 auto;
+  width: 40%;
 }
 
 #slide-2, #slide-3, #slide-4 {
@@ -92,7 +95,7 @@ nav {
   max-width: 256px;
   bottom: 140px;
   /* top: 200px; */
-  /* right: 100px; */
+  left: 25%;
 }
 
 #portrait {
