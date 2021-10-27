@@ -2,63 +2,66 @@
 {% block content %}
 {% load static %}
 
-<h1>Home</h1>
-<div class="ghost"></div>
-          <div id="first-column">
-            <div class="image">
-              <img
-                id="portrait"
-                src="{% static 'images/wayne-praying.jpeg' %}"
-                width=auto
-                height=593
-              >
-              <div class="txt-overlay">
-                <p class="big-word">
-                  Lorem ipsum dolor sit amet.
-                </p>
-                <p>
-                  Consectetur adipiscing elit. Integer ultricies mi nec elit pretium
-                  porta. Ut pellentesques mollis magna et.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="ghost"></div>
-          <div id="second-column">
-            <a class="link-pair" href="./guided-meditations.html">
-              <p class="medium-word">
-                Guided Meditations
-              </p>
-              <img
-                class="img-link"
-                src="{% static 'images/crops/tomb-edited-crop.jpeg' %}"
-                width=190
-                height=190
-              >
-            </a>
-            <a class="link-pair" href="./spiritual-direction.html">
-              <p class="medium-word">
-                Spiritual Direction
-              </p>
-              <img
-                class="img-link"
-                src="{% static 'images/crops/openings-crop.jpeg' %}"
-                width=190
-                height=190
-              >
-            </a>
-            <a class="link-pair" href="./sacred-journeys.html">
-              <p class="medium-word">
-                Sacred Journeys
-              </p>
-              <img
-                class="img-link"
-                src="{% static 'images/crops/belize-sarnac-crop.jpeg' %}"
-                width=190
-                height=190
-              >
-            </a>
-          </div> 
-          <div class="ghost"></div>
+
+<div class="slide showSlide" id="slide-1">
+  <img
+    class="slide-image"
+    src="{% static 'images/crops/34-wayne-praying.jpeg' %}"
+    width=auto
+    height=593
+  >
+  <div class="txt-overlay">
+    <p class="big-word">Lorem ipsum dolor sit amet.</p>
+    <p>
+      Consectetur adipiscing elit. Integer ultricies mi nec elit pretium
+      porta. Ut pellentesques mollis magna et.
+    </p>
+  </div>
+</div>
+<div class="slide showSlide" id="slide-2">
+  <img
+    class="slide-image"
+    src="{% static 'images/crops/34-belize-sarnac.jpeg' %}"
+    width=auto
+    height=593
+  >
+  <div class="txt-overlay">
+    <p class="big-word">Lorem ipsum dolor sit amet.</p>
+    <p>
+      Consectetur adipiscing elit. Integer ultricies mi nec elit pretium
+      porta. Ut pellentesques mollis magna et.
+    </p>
+  </div>
+</div>
+<div class="slide showSlide" id="slide-3">
+  <img
+    class="slide-image"
+    src="{% static 'images/crops/34-openings.jpeg' %}"
+    width=auto
+    height=593
+  >
+  <div class="txt-overlay">
+    <p class="big-word">Lorem ipsum dolor sit amet.</p>
+    <p>
+      Consectetur adipiscing elit. Integer ultricies mi nec elit pretium
+      porta. Ut pellentesques mollis magna et.
+    </p>
+  </div>
+</div>
+<div class="slide showSlide" id="slide-4">
+  <img
+    class="slide-image"
+    src="{% static 'images/crops/34-tomb-edited.jpeg' %}"
+    width=auto
+    height=593
+  >
+  <div class="txt-overlay">
+    <p class="big-word">Lorem ipsum dolor sit amet.</p>
+    <p>
+      Consectetur adipiscing elit. Integer ultricies mi nec elit pretium
+      porta. Ut pellentesques mollis magna et.
+    </p>
+  </div>
+</div>
 
 {% endblock %}

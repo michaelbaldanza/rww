@@ -70,6 +70,10 @@ nav {
   margin: 0 auto;
 }
 
+#slide-2, #slide-3, #slide-4 {
+  display: none;
+}
+
 .pic {
   position: relative;
 }
