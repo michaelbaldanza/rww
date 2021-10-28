@@ -14,21 +14,21 @@
     <div id="page-wrap">
       <header>
         <nav>
-          <a id="logo" href="./index.html">
+          <a id="logo" href="{% url 'home' %}">
             Wayne Walder
           </a>
           <div id="nav-els">
             <span class="nav-item">
-              <a href="./guided-meditations.html">Meditations</a>
+              <a href="{% url 'meditations' %}">Meditations</a>
             </span>
             <span class="nav-item">
-              <a href="./essays.html">Essays</a>
+              <a href="{% url 'essays' %}">Essays</a>
             </span>
             <span class="nav-item">
-              <a href="./sacred-journeys.html">Sacred Journeys</a>
+              <a href="{% url 'sacred' %}">Sacred Journeys</a>
             </span>
             <span class="nav-item">
-              <a href="./art-and-music.html">Art and Music</a>
+              <a href="{% url 'art' %}">Art and Music</a>
             </span>
           </div>
         </nav>

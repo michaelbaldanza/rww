@@ -10,8 +10,6 @@ function changeSlide() {
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = 'none';
   }
-  console.log(idx);
-  console.log(slides[idx]);
   slides[idx].style.display = 'block';
 }
 let slideChange = setInterval(changeSlide, 5000);
