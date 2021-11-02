@@ -5,9 +5,6 @@ from .models import Post
 def art(request):
   return render(request, 'art-and-music.html')
 
-def essays(request):
-  return render(request, 'essays.html')
-
 def home(request):
   return render(request, 'index.html')
 

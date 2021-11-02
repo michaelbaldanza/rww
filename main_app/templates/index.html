@@ -2,67 +2,138 @@
 {% block content %}
 {% load static %}
 
-<div id="slider-container">
-<div class="slide" id="slide-1">
-  <img
-    class="slide-image"
-    src="{% static 'images/crops/34-wayne-praying.jpeg' %}"
-    width=auto
-    height=593
-  >
-  <div class="txt-overlay">
-    <p class="big-word">Lorem ipsum dolor sit amet.</p>
-    <p>
-      Consectetur adipiscing elit. Integer ultricies mi nec elit pretium
-      porta. Ut pellentesques mollis magna et.
-    </p>
-  </div>
-</div>
-<div class="slide" id="slide-2">
-  <img
-    class="slide-image"
-    src="{% static 'images/crops/34-belize-sarnac.jpeg' %}"
-    width=auto
-    height=593
-  >
-  <div class="txt-overlay">
-    <p class="big-word">Lorem ipsum dolor sit amet.</p>
-    <p>
-      Consectetur adipiscing elit. Integer ultricies mi nec elit pretium
-      porta. Ut pellentesques mollis magna et.
-    </p>
-  </div>
-</div>
-<div class="slide" id="slide-3">
-  <img
-    class="slide-image"
-    src="{% static 'images/crops/34-openings.jpeg' %}"
-    width=auto
-    height=593
-  >
-  <div class="txt-overlay">
-    <p class="big-word">Lorem ipsum dolor sit amet.</p>
-    <p>
-      Consectetur adipiscing elit. Integer ultricies mi nec elit pretium
-      porta. Ut pellentesques mollis magna et.
-    </p>
-  </div>
-</div>
-<div class="slide showSlide" id="slide-4">
-  <img
-    class="slide-image"
-    src="{% static 'images/crops/34-tomb-edited.jpeg' %}"
-    width=auto
-    height=593
-  >
-  <div class="txt-overlay">
-    <p class="big-word">Lorem ipsum dolor sit amet.</p>
-    <p>
-      Consectetur adipiscing elit. Integer ultricies mi nec elit pretium
-      porta. Ut pellentesques mollis magna et.
-    </p>
-  </div>
-</div>
-</div>
+<main>
+  <section id="part-one">
+    <div id="txt-container">
+      <div id="txt">
+        <div class="phrase">
+          <div>Insight and meaning.</div>
+          <div>Every day.</div>
+        </div>
+        
+          <div>
+            Excepteur sint
+            occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+            mollit anim id est laborum. Ut enim ad minim
+            veniam, quis nostrud exercitation.
+          </div>
+          <div>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+            veniam, quis exercitation. Duis aute irure dolor in reprehenderit in voluptate
+            velit esse cillum dolore eu fugiat nulla pariatur.
+          </div>
+          <div>
+            Ullamco laboris nisi ut aliquip ex ea
+            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+            velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit in voluptate
+            velit esse cillum dolore eu fugiat nulla pariatur.
+          </div>
+          <div>
+            Ullamco laboris nisi ut aliquip ex ea
+            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+            velit esse cillum dolore eu fugiat nulla pariatur.
+          </div>
+        
+      </div>
+    </div>
+    <div id="slide-container">
+      <div class="slide" id="slide-1">
+        <img
+          class="slide-image"
+          src="{% static 'images/crops/34-wayne-praying.jpeg' %}"
+          width=auto
+          height=565
+        >
+      </div>
+      <div class="slide" id="slide-2">
+        <img
+          class="slide-image"
+          src="{% static 'images/crops/34-belize-sarnac.jpeg' %}"
+          width=auto
+          height=565
+        >
+      </div>
+      <div class="slide" id="slide-3">
+        <img
+          class="slide-image"
+          src="{% static 'images/crops/34-openings.jpeg' %}"
+          width=auto
+          height=565
+        >
+      </div>
+      <div class="slide showSlide" id="slide-4">
+        <img
+          class="slide-image"
+          src="{% static 'images/crops/34-tomb-edited.jpeg' %}"
+          width=auto
+          height=565
+        >
+      </div>
+    </div>
+  </section>
+  <section id="part-two">
+      <div class="row" id="row-1">
+        <a href="{% url 'blog' %}">
+          <div class="img-frame" id="img-blog">
+            <img
+            class="img-link"
+            src="{% static 'images/lily-2020.jpeg' %}"
+            width=auto
+            height=320
+            >
+          </div>
+        </a>
+        <div class="img-frame" id="img-spiritual-direction">
+          <img
+          class="img-link"
+          src="{% static 'images/crops/23-stupa-rain-crop.jpeg' %}"
+          width=auto
+          height=320
+          >
+        </div>
+      </div>
+      <div class="row" id="row-2">
+        <div class="img-frame" id="img-guided-meditations">
+          <img
+          class="img-link"
+          src="{% static 'images/steam-smudged.jpeg' %}"
+          width=auto
+          height=320
+          >
+        </div>
+        <div class="img-frame" id="img-sacred-journeys">
+          <img
+          class="img-link"
+          src="{% static 'images/crops/23-monastery-crop.jpeg' %}"
+          width=auto
+          height=320
+          >
+        </div>
+      </div>
+      <div class="row" id="row-3">
+        <a>        
+          <div class="img-frame" id="img-music">
+            <img
+            class="img-link"
+            src="{% static 'images/mystic-morning.jpeg' %}"
+            width=auto
+            height=320
+            >
+          </div>
+        </a>
+        <a>
+          <div class="img-frame" id="img-photography">
+            <img
+            class="img-link"
+            src="{% static 'images/leaf-lens.jpeg' %}"
+            width=auto
+            height=320
+            >
+          </div>
+        </a>
+      </div>
+  </section>
+</main>
 
 {% endblock %}

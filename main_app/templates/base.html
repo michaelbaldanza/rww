@@ -7,31 +7,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wayne Walder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <script defer src="{% static 'js/main.js' %}"></script>
 </head>
 <body>
     <div id="page-wrap">
       <header>
-        <nav>
           <a id="logo" href="{% url 'home' %}">
-            Wayne Walder
+            REVEREND WAYNE WALDER
           </a>
-          <div id="nav-els">
-            <span class="nav-item">
-              <a href="{% url 'meditations' %}">Meditations</a>
-            </span>
-            <span class="nav-item">
-              <a href="{% url 'essays' %}">Essays</a>
-            </span>
-            <span class="nav-item">
-              <a href="{% url 'sacred' %}">Sacred Journeys</a>
-            </span>
-            <span class="nav-item">
-              <a href="{% url 'art' %}">Art and Music</a>
-            </span>
-          </div>
-        </nav>
       </header>
       <section id="container">
         {% block content %}
