@@ -77,42 +77,48 @@
         <a href="{% url 'blog' %}">
           <div class="img-frame" id="img-blog">
             <img
+              class="img-link"
+              src="{% static 'images/lily-2020.jpeg' %}"
+              width=auto
+              height=320
+            >
+          </div>
+        </a>
+        <a href="{% url 'direction' %}">
+          <div class="img-frame" id="img-spiritual-direction">
+            <img
+              class="img-link"
+              src="{% static 'images/crops/23-stupa-rain-crop.jpeg' %}"
+              width=auto
+              height=320
+            >
+          </div>
+        </a>
+      </div>
+      <div class="row" id="row-2">
+        <a href="{% url 'meditations' %}">
+          <div class="img-frame" id="img-guided-meditations">
+            <img
             class="img-link"
-            src="{% static 'images/lily-2020.jpeg' %}"
+            src="{% static 'images/steam-smudged.jpeg' %}"
             width=auto
             height=320
             >
           </div>
         </a>
-        <div class="img-frame" id="img-spiritual-direction">
-          <img
-          class="img-link"
-          src="{% static 'images/crops/23-stupa-rain-crop.jpeg' %}"
-          width=auto
-          height=320
-          >
-        </div>
-      </div>
-      <div class="row" id="row-2">
-        <div class="img-frame" id="img-guided-meditations">
-          <img
-          class="img-link"
-          src="{% static 'images/steam-smudged.jpeg' %}"
-          width=auto
-          height=320
-          >
-        </div>
-        <div class="img-frame" id="img-sacred-journeys">
-          <img
-          class="img-link"
-          src="{% static 'images/crops/23-monastery-crop.jpeg' %}"
-          width=auto
-          height=320
-          >
-        </div>
+        <a href="{% url 'journeys' %}">
+          <div class="img-frame" id="img-sacred-journeys">
+            <img
+            class="img-link"
+            src="{% static 'images/crops/23-monastery-crop.jpeg' %}"
+            width=auto
+            height=320
+            >
+          </div>
+        </a>
       </div>
       <div class="row" id="row-3">
-        <a>        
+        <a href="{% url 'music' %}">        
           <div class="img-frame" id="img-music">
             <img
             class="img-link"
@@ -122,7 +128,7 @@
             >
           </div>
         </a>
-        <a>
+        <a href="{% url 'photography' %}">
           <div class="img-frame" id="img-photography">
             <img
             class="img-link"

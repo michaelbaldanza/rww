@@ -114,6 +114,11 @@ header {
   background-color: rgba(250,177,98,.7);
 }
 
+#ham:hover {
+  cursor: pointer;
+  background-color: rgba(115, 115, 115, 0.8);
+}
+
 nav {
   display: flex;
   justify-content: space-between;

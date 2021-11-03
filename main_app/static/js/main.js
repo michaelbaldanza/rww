@@ -8,6 +8,22 @@ let on = false;
 
 hamburger.addEventListener('click', hamMenu);
 
+bars.addEventListener('mouseenter', e => {
+  if (!on) {
+    bars.style.backgroundColor = 'rgba(115, 115, 115, 0.8)';
+  } else {
+    bars.style.backgroundColor = 'rgba(250,177,98,.7)';
+  }
+})
+
+bars.addEventListener('mouseleave', e => {
+  if (!on) {
+    bars.style.backgroundColor = 'rgba(250,177,98,.7)';
+  } else {
+    bars.style.backgroundColor = 'rgba(115, 115, 115, 0.8)';
+  }
+})
+
 function hamMenu() {
   if (!on) {
     hamburger.classList.toggle('active');
