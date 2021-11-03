@@ -11,8 +11,20 @@ def home(request):
 def meditations(request):
   return render(request, 'guided-meditations.html')
 
-def sacred(request):
+def ministry(request):
+  return render(request, 'ministry.html')
+
+def music(request):
+  return render(request, 'music.html')
+
+def photography(request):
+  return render(request, 'photography.html')
+
+def sacred_journeys(request):
   return render(request, 'sacred-journeys.html')
+
+def spiritual_direction(request):
+  return render(request, 'spiritual-direction.html')
 
 # Blog Views
 

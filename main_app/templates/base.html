@@ -16,13 +16,61 @@
 <body>
     <div id="page-wrap">
       <header>
-          <a id="logo" href="{% url 'home' %}">
+        <div id="socmedia-container">
+          <div id="soc-shell">
+            <img
+              src="{% static 'images/brands/fb-blue.png' %}"
+              id="fb-blue"
+              width="auto"
+              height="26"
+            >
+            <img
+              src="{% static 'images/brands/twitter-blue.svg' %}"
+              id="twitter-blue"
+              width="auto"
+              height="25"
+            >
+          </div>
+        </div>
+        <a id="logo" href="{% url 'home' %}">
             REVEREND WAYNE WALDER
-          </a>
+        </a>
+        <div class="ham-container">
+          <svg id="ham" viewBox="0 0 100 80" width="40" height="40">
+            <rect width="100" height="20"></rect>
+            <rect y="30" width="100" height="20"></rect>
+            <rect y="60" width="100" height="20"></rect>
+          </svg>
+        </div>
       </header>
       <section id="container">
-        {% block content %}
-        {% endblock %}
+        <ul class="nav-menu">
+          <li class="nav-link">
+            <a href="{% url 'blog' %}">BLOG</a>
+          </li>
+          <li class="nav-link">
+            <a href="{% url 'direction' %}">SPIRITUAL DIRECTION</a>
+          </li>
+          <li class="nav-link">
+            <a href="{% url 'ministry' %}">MINISTRY</a>
+          </li>
+          <li class="nav-link">
+            <a href="{% url 'meditations' %}">GUIDED MEDITATIONS</a>
+          </li>
+          <li class="nav-link">
+            <a href="{% url 'journeys' %}">SACRED JOURNEYS</a>
+          </li>
+          <li class="nav-link">
+            <a href="{% url 'photography' %}">PHOTOGRAPHY</a>
+          </li>
+          <li class="nav-link">
+            <a href="{% url 'music' %}">MUSIC</a>
+          </li>
+        </ul>
+        <main id="main">
+          {% block content %}
+          {% endblock %}
+        </main>
       </section>
       <footer>
         <p>

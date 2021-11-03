@@ -1,3 +1,32 @@
+// hamburger
+const hamburger = document.querySelector('.ham-container');
+const bars = document.getElementById('ham');
+const navMenu = document.querySelector('.nav-menu');
+const main = document.getElementById('main');
+console.log(main);
+let on = false;
+
+hamburger.addEventListener('click', hamMenu);
+
+function hamMenu() {
+  if (!on) {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+    bars.style.backgroundColor = 'rgba(115, 115, 115, 0.8)';
+    main.style.display = 'none';
+    on = true;
+  } else {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+    bars.style.backgroundColor = 'rgba(250,177,98,.7)';
+    main.style.display = 'block';
+    on = false;
+  }
+  
+}
+
+
+// slideshow
 let idx = 0;
 
 function changeSlide() {
@@ -5,7 +34,7 @@ function changeSlide() {
   if (idx === slides.length - 1) {
     idx = 0;
   } else {
-    idx++;
+    idx ++;
   }
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = 'none';
