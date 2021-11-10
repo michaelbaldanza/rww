@@ -92,6 +92,7 @@ if ( typeof Object.create !== 'function' ) {
 
 			// Create a container width to allow for a smooth float right.
 			self.totalSliderWidth = $(self.sliderId).outerWidth(true) + $($(self.sliderId).parent()).children('[class^=coda-nav-left]').outerWidth(true) + $($(self.sliderId).parent()).children('[class^=coda-nav-right]').outerWidth(true);
+			console.log(self.totalSliderWidth);
 			$($(self.sliderId).parent()).css('width', self.totalSliderWidth);
 
 			// Align navigation tabs
