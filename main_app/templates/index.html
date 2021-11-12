@@ -75,15 +75,19 @@
     </div>
   </section>
   <section id="part-two">
+    <div id="img-grid">
       <div class="row" id="row-1">
         <a href="{% url 'blog' %}">
-          <div class="img-frame" id="img-blog">
+          <div class="img-frame" id="spiritual-direction">
             <img
               class="img-link"
-              src="{% static 'images/lily-2020.jpeg' %}"
+              src="{% static 'images/lily-2020.jpeg'%}"
               width=auto
               height=320
             >
+            <h2 class="img-heading">
+              BLOG
+            </h2>
           </div>
         </a>
         <a href="{% url 'direction' %}">
@@ -94,6 +98,9 @@
               width=auto
               height=320
             >
+            <h2 class="img-heading">
+              SPIRITUAL<br>DIRECTION
+            </h2>
           </div>
         </a>
       </div>
@@ -106,6 +113,9 @@
             width=auto
             height=320
             >
+            <h2 class="img-heading">
+              GUIDED<br>MEDITATIONS
+            </h2>
           </div>
         </a>
         <a href="{% url 'journeys' %}">
@@ -116,6 +126,9 @@
             width=auto
             height=320
             >
+            <h2 class="img-heading">
+              SACRED<br>JOURNEYS
+            </h2>
           </div>
         </a>
       </div>
@@ -128,6 +141,9 @@
             width=auto
             height=320
             >
+            <h2 class="img-heading">
+              MINISTRY
+            </h2>
           </div>
         </a>
         <a href="{% url 'photography' %}">
@@ -138,9 +154,27 @@
             width=auto
             height=320
             >
+            <h2 class="img-heading">
+              PHOTOGRAPHY
+            </h2>
           </div>
         </a>
       </div>
+      <div id="word-grid">
+        <div>
+          
+          <div class="img-heading">O</div>
+        </div>
+        <div>
+          <div class="img-heading">O</div>
+          <div class="img-heading">O</div>
+        </div>
+        <div>
+          <div class="img-heading">O</div>
+          <div class="img-heading">O</div>
+        </div>
+      </div>
+    </div>
   </section>
 
 {% endblock %}
