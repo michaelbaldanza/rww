@@ -18,6 +18,10 @@ body {
   margin: 0 auto;
 }
 
+#txt > h2 {
+  margin: 0;
+}
+
 #part-one {
   display: flex;
   margin-bottom: 2em;
@@ -26,7 +30,7 @@ body {
 .row {
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
+  margin: 30px 0;
 }
 
 #part-two {
