@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import generic
 from .models import Post
 
-def art(request):
+def art_and_music(request):
   return render(request, 'art-and-music.html')
 
 def home(request):
@@ -27,7 +27,6 @@ def spiritual_direction(request):
   return render(request, 'spiritual-direction.html')
 
 # Blog Views
-
 class PostList(generic.ListView):
   queryset = Post.objects.filter(status=1).order_by('-created_on')
   template_name = 'blog/index.html'

@@ -6,8 +6,8 @@
   {% for post in post_list %}
   <div class="post">
     <h2>{{ post.title }}</h2>
-    <p>{{ post.author }}</p>
-    <p>{{ post.content|slice:":200" | markdown | safe }}</p>
+    <p>Posted on {{ post.created_on }} by {{ post.author }}</p>
+    {{ post.content|slice:":200" | markdown | safe }}
     <a href="{% url 'post_detail' post.slug %}">Read More</a>
   </div>
   {% endfor %}
