@@ -55,7 +55,9 @@ css-tricks.com/musings-on-preprocessing/
       *
       *******************************************************/
       height: 565px;
-      width: 420px;
+      /* width: 420px; */
+      /* HERE'S THE CHANGE TO MAKE */
+      width: 840px;
     }
       
       .coda-slider-wrapper .coda-slider .panel .panel-wrapper {

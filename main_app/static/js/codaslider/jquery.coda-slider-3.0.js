@@ -8,6 +8,7 @@
 *  GPL license & MIT license
 *
 ************************************************************************/
+// search "EDIT" to find changes made by Michael Baldanza
 
 // Utility for creating objects in older browsers
 if ( typeof Object.create !== 'function' ) {
@@ -92,7 +93,6 @@ if ( typeof Object.create !== 'function' ) {
 
 			// Create a container width to allow for a smooth float right.
 			self.totalSliderWidth = $(self.sliderId).outerWidth(true) + $($(self.sliderId).parent()).children('[class^=coda-nav-left]').outerWidth(true) + $($(self.sliderId).parent()).children('[class^=coda-nav-right]').outerWidth(true);
-			console.log(self.totalSliderWidth);
 			$($(self.sliderId).parent()).css('width', self.totalSliderWidth);
 
 			// Align navigation tabs
@@ -115,7 +115,8 @@ if ( typeof Object.create !== 'function' ) {
 			// Variable for the % sign if needed (responsive), otherwise px
 			self.pSign = 'px';
 
-			self.slideWidth = $(self.sliderId).width();
+			//EDIT multiply sliderId width by 2
+			self.slideWidth = $(self.sliderId).width() * 2;
 
 			// Puts the margin at the starting point with no animation. Made for both continuous and firstPanelToLoad features.
 			// ~~(self.options.continuous) will equal 1 if true, otherwise 0
@@ -378,11 +379,11 @@ if ( typeof Object.create !== 'function' ) {
 		autoHeightEaseFunction: "easeInOutExpo",
 		autoSlide: true,
 		autoSliderDirection: 'right',
-		autoSlideInterval: 7000,
+		autoSlideInterval: 6000,
 		autoSlideControls: false,
 		autoSlideStartText: 'Start',
 		autoSlideStopText: 'Stop',
-		autoSlideStopWhenClicked: true,
+		autoSlideStopWhenClicked: false,
 		continuous: true,
 		crossLinking: true, // No longer used
 		dynamicArrows: false,
