@@ -14,7 +14,7 @@ body {
 } */
 
 #page-wrap {
-  width: 1000px;
+  width: 1200px;
   margin: 0 auto;
 }
 
@@ -32,6 +32,29 @@ body {
   justify-content: space-between;
   margin: 30px 0;
 }
+
+.backdrop-container {
+  position: relative;
+}
+
+.slide-image {
+  position: absolute;
+}
+
+
+
+.overlay {
+  position: absolute;
+  height: 565px;
+  width: 420px;
+  background-color: rgba(250,177,98);
+}
+
+/* .overlay {
+  height: 565px;
+  width: 420px;
+  background-color: rgba(250,177,98,.7);
+} */
 
 #part-two {
   /* position: relative; */
@@ -269,3 +292,35 @@ footer {
 .link-pair img, .link-pair p {
   pointer-events: all;
 } */
+
+#all-but-footer {
+  min-height: 100vh;
+}
+
+#txt > p {
+  margin: 0;
+}
+
+.post {
+  padding: 0 1em;
+  border: 0.5px solid rgba(250,177,98,.7);
+  margin-bottom: 1em;
+}
+
+#meditation-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.meditation {
+  padding: 0 1em 1em 1em;
+  margin: 1em 0;
+  width: 340px;
+  height: 340px;
+  border: 0.5px solid rgba(250,177,98,.7);
+}
+
+.meditation > audio {
+  width: 250px;
+}

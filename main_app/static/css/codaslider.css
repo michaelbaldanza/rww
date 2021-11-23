@@ -55,8 +55,8 @@ css-tricks.com/musings-on-preprocessing/
       *
       *******************************************************/
       height: 565px;
-      /* width: 420px; */
-      /* HERE'S THE CHANGE TO MAKE */
+      width: 420px;
+      /* EDIT for transition panel */
       width: 840px;
     }
       

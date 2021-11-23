@@ -1,59 +1,46 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+{% load markdown_extras %}
 
 
   <section id="part-one">
     <div id="txt-container">
       <div id="txt">
-          <h2>Insight and meaning.<br>Every day.</h2>
+        
+          <h2>{{ frag_a.content }}</h2>
+
+        {{frag_b.content| markdown | safe}}
         
         
-          <div>
-            Excepteur sint
-            occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            mollit anim id est laborum. Ut enim ad minim
-            veniam, quis nostrud exercitation.
-          </div>
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis exercitation. Duis aute irure dolor in reprehenderit in voluptate
-            velit esse cillum dolore eu fugiat nulla pariatur.
-          </div>
-          <div>
-            Ullamco laboris nisi ut aliquip ex ea
-            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-            velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit in voluptate
-            velit esse cillum dolore eu fugiat nulla pariatur.
-          </div>
-          <div>
-            Ullamco laboris nisi ut aliquip ex ea
-            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-            velit esse cillum dolore eu fugiat nulla pariatur.
-          </div>
+          
         
       </div>
     </div>
     <div id="cdsldrcntnr">
       <div class="coda-slider"  id="slider-id">
         <div>
-          <img
+          <div class="backdrop-container">
+            <img
             class="slide-image"
             src="{% static 'images/crops/34-wayne-praying.jpeg' %}"
             width=auto
             height=565
-          >
+            >
+          </div>
         </div>
         <div>
+          <div class="backdrop-container">
           <img
             class="slide-image"
             src="{% static 'images/crops/34-belize-sarnac.jpeg' %}"
             width=auto
             height=565
           >
+          </div>
         </div>
         <div>
+          <div class="backdrop-container">
           <img
             class="slide-image"
             src="{% static 'images/crops/34-openings.jpeg' %}"
@@ -61,13 +48,16 @@
             height=565
           >
         </div>
+        </div>
         <div>
+          <div class="backdrop-container">
           <img
             class="slide-image"
             src="{% static 'images/crops/34-tomb-edited.jpeg' %}"
             width=auto
             height=565
           >
+        </div>
         </div>
       </div>
     </div>

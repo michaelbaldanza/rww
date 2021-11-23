@@ -115,6 +115,8 @@ if ( typeof Object.create !== 'function' ) {
 			// Variable for the % sign if needed (responsive), otherwise px
 			self.pSign = 'px';
 
+			self.slideWidth = $(self.sliderId).width();
+
 			//EDIT multiply sliderId width by 2
 			self.slideWidth = $(self.sliderId).width() * 2;
 
@@ -252,6 +254,7 @@ if ( typeof Object.create !== 'function' ) {
 
 		setCurrent: function( direction ){
 			var self = this;
+			console.log(`run setCurrent()`);
 			if (self.clickable) {
 			
 				if (typeof direction == 'number') {	self.currentTab = direction;	}
