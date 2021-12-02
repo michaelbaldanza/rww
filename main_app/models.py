@@ -3,6 +3,10 @@ import re
 from django.db import models
 from django.contrib.auth.models import User
 
+PREFIX = 'https://docs.google.com/uc?export=download&id='
+SUFFIX = '&export=download'
+PHOTO_PREFIX = 'https://docs.google.com/uc?export=view&id='
+
 STATUS = (
   (0, "Draft"),
   (1, "Publish")
@@ -46,9 +50,6 @@ class MinistryFragment(models.Model):
     return self.role
 
 class Meditation(models.Model):
-  PREFIX = 'https://docs.google.com/uc?export=download&id='
-  SUFFIX = '&export=download'
-
   title = models.CharField(max_length=200, unique=True)
   source = models.URLField(blank=True)
   description = models.CharField(max_length=250, blank=True)
@@ -68,9 +69,41 @@ class Meditation(models.Model):
 
   @property
   def audio_link(self):
-    return self.PREFIX + self.get_source_id()
+    return PREFIX + self.get_source_id()
 
   @property
   def download_link(self):
-    return self.PREFIX + self.get_source_id() + self.SUFFIX
-  
+    return PREFIX + self.get_source_id() + SUFFIX
+
+class Photo(models.Model):
+  PEOPLE = 'PE'
+  PLACES = 'PL'
+  MYSTICAL_MOMENTS = 'MM'
+  NATURE = 'NA'
+  CATEGORY_CHOICES = [
+    (PEOPLE, 'People'),
+    (PLACES, 'Places'),
+    (MYSTICAL_MOMENTS, 'Mystical Moments'),
+    (NATURE, 'Nature'),
+  ]
+
+  name_of_file = models.CharField(max_length=200, unique=True)
+  category = models.CharField(max_length=2, choices=CATEGORY_CHOICES)
+  source = models.URLField(blank=True)
+  description = models.CharField(max_length=250, blank=True)
+  updated_on = models.DateTimeField(auto_now=True)
+  created_on = models.DateTimeField(auto_now=True)
+
+  class Meta:
+    ordering = ['-created_on']
+
+  def __str__(self):
+    return self.name_of_file
+
+  def get_source_id(self):
+    source_id = re.search('/d/(.+?)/view', self.source).group(1)
+    return source_id
+
+  @property
+  def photo_link(self):
+    return PHOTO_PREFIX + self.get_source_id()

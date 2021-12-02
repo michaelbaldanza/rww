@@ -400,7 +400,7 @@ if ( typeof Object.create !== 'function' ) {
 		firstPanelToLoad: 1,
 		hashLinking: false,
 		panelTitleSelector: "h2.title",
-		slideEaseDuration: 1500,
+		slideEaseDuration: 3000,
 		slideEaseFunction: "easeInOutExpo"
 	};
 

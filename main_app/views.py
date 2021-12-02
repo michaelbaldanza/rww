@@ -2,10 +2,30 @@ import re
 
 from django.shortcuts import render
 from django.views import generic
-from .models import MainPageFragment, Meditation, Post
+from .models import MainPageFragment, Meditation, Photo, Post
 
 def art_and_music(request):
-  return render(request, 'art-and-music.html')
+  print(request)
+  photos = Photo.objects.all()
+  cat_choices = ['MM', 'NA', 'PE', 'PL']
+  pair_list = []
+  def pair_creator(some_list):
+    for thing in some_list:
+      first = Photo.objects.filter(category=thing).order_by('-created_on').first()
+      second = first.get_category_display()
+      pair = [first, second]
+      pair_list.append(pair)
+    return pair_list
+  display = pair_creator(cat_choices)
+  print(display)
+  return render(
+    request, 'art-and-music.html', {
+      'display': display,
+      }
+    )
+
+def photos_category(request):
+  pass
 
 # def home(request):
 #   return render(request, 'index.html')
@@ -22,9 +42,6 @@ def ministry(request):
 
 def music(request):
   return render(request, 'music.html')
-
-def photography(request):
-  return render(request, 'photography.html')
 
 def sacred_journeys(request):
   return render(request, 'sacred-journeys.html')
@@ -57,3 +74,36 @@ def meditations_index(request):
   return render(
     request, 'guided-meditations.html', {'meditations': meditations}
     )
+
+# Photos
+def photos(request):
+  photos = Photo.objects.all()
+  mm_display = Photo.objects.filter(category='MM').order_by('-created_on').first()
+  pe_display = Photo.objects.filter(category='PE').order_by('-created_on').first()
+  pl_display = Photo.objects.filter(category='PL').order_by('-created_on').first()
+  na_display = Photo.objects.filter(category='NA').order_by('-created_on').first()
+  return render(
+    request, 'photos.html', {
+      'photos': photos,
+      'mm_display': mm_display,
+      'pe_display': pe_display,
+      'pa_display': pl_display,
+      'na_display': na_display
+      }
+    )
+
+def photos_people(request):
+  display = Photo.objects.filter(category='PE').order_by('-created_on')
+  pass
+
+def photos_nature(request):
+  display = Photo.objects.filter(category='NA').order_by('-created_on')
+  pass
+
+def photos_mystical(request):
+  display = Photo.objects.filter(category='MM').order_by('-created_on')
+  pass
+
+def photos_places(request):
+  display = Photo.objects.filter(category='PL').order_by('-created_on')
+  pass

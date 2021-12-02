@@ -19,7 +19,8 @@ body {
 }
 
 #txt > h2 {
-  margin: 0;
+  margin-top: 0;
+  margin-bottom: 11px;
 }
 
 #part-one {
@@ -31,6 +32,7 @@ body {
   display: flex;
   justify-content: space-between;
   margin: 30px 0;
+  flex-wrap: wrap;
 }
 
 .backdrop-container {
@@ -60,15 +62,13 @@ body {
   /* position: relative; */
 }
 
-#img-blog {
+/* #img-blog {
   background: url('/static/images/lily-2020.jpeg');
   background-size: contain;
   backdrop-filter: grayscale(100%);
-}
+} */
 
 .img-frame {
-  width: 480px;
-  height: 320px;
   position: relative;
   padding: none;
   margin: none;
