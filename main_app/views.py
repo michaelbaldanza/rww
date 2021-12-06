@@ -5,27 +5,32 @@ from django.views import generic
 from .models import MainPageFragment, Meditation, Photo, Post
 
 def art_and_music(request):
-  print(request)
-  photos = Photo.objects.all()
-  cat_choices = ['MM', 'NA', 'PE', 'PL']
+  print(Photo.CATEGORY_CHOICES)
   pair_list = []
-  def pair_creator(some_list):
-    for thing in some_list:
-      first = Photo.objects.filter(category=thing).order_by('-created_on').first()
-      second = first.get_category_display()
-      pair = [first, second]
-      pair_list.append(pair)
-    return pair_list
-  display = pair_creator(cat_choices)
-  print(display)
+  for cat in Photo.CATEGORY_CHOICES:
+    first = Photo.objects.filter(category=cat[0]).order_by('-created_on').first()
+    second = first.get_category_display()
+    third = second.lower().replace(' ', '-')
+    pair = [first, second, third]
+    pair_list.append(pair)  
+  display = pair_list
   return render(
     request, 'art-and-music.html', {
       'display': display,
       }
     )
 
-def photos_category(request):
-  pass
+def photos_category(request, url_cat):
+  for cat in Photo.CATEGORY_CHOICES:
+    if cat[1].lower().replace(' ', '-') == url_cat:
+      display = Photo.objects.filter(category=cat[0]).order_by('-created_on')
+      print('PRINTING ITEM')
+      print(display)
+      for dis in display:
+        print('PRINTING ITEM')
+        print(dis)
+      title = cat[1]
+  return render(request, 'photo-cat.html', { 'display': display, 'title': title })
 
 # def home(request):
 #   return render(request, 'index.html')
@@ -94,7 +99,7 @@ def photos(request):
 
 def photos_people(request):
   display = Photo.objects.filter(category='PE').order_by('-created_on')
-  pass
+  return render(request, {'display': display})
 
 def photos_nature(request):
   display = Photo.objects.filter(category='NA').order_by('-created_on')

@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
   path('', views.home, name='home'),
   path('art-and-music/', views.art_and_music, name='art_and_music'),
-  path('art-and-music/<str:category>', views.photos_category, name='photos_category'),
+  path('art-and-music/<str:url_cat>/', views.photos_category, name='photos_category'),
   path('art-and-music/photos/', views.photos, name='photos'),
   path('art-and-music/photos/mystical-moments', views.photos_mystical, name='photos_mystical'),
   path('art-and-music/photos/people', views.photos_people, name='photos_people'),
