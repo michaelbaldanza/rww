@@ -20,12 +20,21 @@ class Post(models.Model):
   content = models.TextField()
   created_on = models.DateTimeField(auto_now_add=True)
   status = models.IntegerField(choices=STATUS, default=0)
+  image_source = models.URLField(blank=True, null=True)
 
   class Meta:
     ordering = ['-created_on']
   
   def __str__(self):
     return self.title
+
+  def get_image_source_id(self):
+    image_source_id = re.search('/d/(.+?)/view', self.image_source).group(1)
+    return image_source_id
+
+  @property
+  def photo_link(self):
+    return PHOTO_PREFIX + self.get_image_source_id()
 
 class MainPageFragment(models.Model):
   role = models.CharField(max_length=20, unique=True)
@@ -51,8 +60,8 @@ class MinistryFragment(models.Model):
 
 class Meditation(models.Model):
   title = models.CharField(max_length=200, unique=True)
-  source = models.URLField(blank=True)
-  description = models.CharField(max_length=250, blank=True)
+  source = models.URLField(blank=True, null=True)
+  description = models.CharField(max_length=250, blank=True, null=True)
   updated_on = models.DateTimeField(auto_now=True)
   created_on = models.DateTimeField(auto_now=True)
   status = models.IntegerField(choices=STATUS, default=0)
@@ -89,8 +98,8 @@ class Photo(models.Model):
 
   name_of_file = models.CharField(max_length=200, unique=True)
   category = models.CharField(max_length=2, choices=CATEGORY_CHOICES)
-  source = models.URLField(blank=True)
-  description = models.CharField(max_length=250, blank=True)
+  source = models.URLField(blank=True, null=True)
+  description = models.CharField(max_length=250, blank=True, null=True)
   updated_on = models.DateTimeField(auto_now=True)
   created_on = models.DateTimeField(auto_now=True)
 

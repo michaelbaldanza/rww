@@ -35,6 +35,11 @@ body {
   flex-wrap: wrap;
 }
 
+.post-link {
+  width: 300px;
+  height: 300px;
+}
+
 .backdrop-container {
   position: relative;
 }
@@ -301,11 +306,12 @@ footer {
   margin: 0;
 }
 
-.post {
+/* .post {
   padding: 0 1em;
   border: 0.5px solid rgba(250,177,98,.7);
   margin-bottom: 1em;
-}
+} */
+
 
 #meditation-container {
   display: flex;

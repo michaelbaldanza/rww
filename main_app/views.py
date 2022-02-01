@@ -32,16 +32,6 @@ def photos_category(request, url_cat):
       title = cat[1]
   return render(request, 'photo-cat.html', { 'display': display, 'title': title })
 
-# def home(request):
-#   return render(request, 'index.html')
-
-# def home(request):
-#   # tl = HomeText.objects.filter(role='tagline')
-#   # print(tl)
-#   # print(tl.role)
-#   home_texts = HomeText.objects.all()
-#   return render(request, 'index.html', {'home_texts': home_texts})
-
 def ministry(request):
   return render(request, 'ministry.html')
 
@@ -65,50 +55,17 @@ class PostList(generic.ListView):
   queryset = Post.objects.filter(status=1).order_by('-created_on')
   template_name = 'blog/index.html'
 
+def posts_index(request):
+  posts = Post.objects.filter(status=1).order_by('-created_on')
+  return render(request, 'blog/index.html', {'posts': posts})
+
 class PostDetail(generic.DetailView):
   model = Post
   template_name = 'blog/post_detail.html'
 
 # Guided Meditations
-class MeditationList(generic.ListView):
-  queryset = Meditation.objects.filter(status=1).order_by('-created_on')
-  template_name = 'guided-meditations.html'
-
 def meditations_index(request):
   meditations = Meditation.objects.all()
   return render(
     request, 'guided-meditations.html', {'meditations': meditations}
     )
-
-# Photos
-def photos(request):
-  photos = Photo.objects.all()
-  mm_display = Photo.objects.filter(category='MM').order_by('-created_on').first()
-  pe_display = Photo.objects.filter(category='PE').order_by('-created_on').first()
-  pl_display = Photo.objects.filter(category='PL').order_by('-created_on').first()
-  na_display = Photo.objects.filter(category='NA').order_by('-created_on').first()
-  return render(
-    request, 'photos.html', {
-      'photos': photos,
-      'mm_display': mm_display,
-      'pe_display': pe_display,
-      'pa_display': pl_display,
-      'na_display': na_display
-      }
-    )
-
-def photos_people(request):
-  display = Photo.objects.filter(category='PE').order_by('-created_on')
-  return render(request, {'display': display})
-
-def photos_nature(request):
-  display = Photo.objects.filter(category='NA').order_by('-created_on')
-  pass
-
-def photos_mystical(request):
-  display = Photo.objects.filter(category='MM').order_by('-created_on')
-  pass
-
-def photos_places(request):
-  display = Photo.objects.filter(category='PL').order_by('-created_on')
-  pass
