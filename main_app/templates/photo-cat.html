@@ -4,13 +4,20 @@
 
 <h1>{{ title }}</h1>
 <div class="row">
+
   {% for dis in display %}
-<img
-  src="{{ dis.photo_link }}"
-  width=auto
-  height=340
->
-{% endfor %}
+    <div class="img-frame">
+      <img
+        src="{{ dis.photo_link }}"
+        width=auto
+        height=340
+      >
+      {% if dis.description %}
+      <div class="caption">{{ dis.description }}</div>
+      {% else %}
+      {% endif %}
+    </div>
+  {% endfor %}
 
 </div>
 

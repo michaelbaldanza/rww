@@ -4,8 +4,9 @@
 
 <h2>Photography</h2>
 <div class="row">
-{% for dis in display %}
 
+{% for dis in display %}
+  {% if dis %}
   <a href="{% url 'photos_category' dis.2 %}">
     <div class="img-frame" id="mystical-moments">
       <img
@@ -19,6 +20,9 @@
       </h2>
     </div>
   </a>
+  {% else %}
+
+  {% endif %}
 
 {% endfor %}
 </div>

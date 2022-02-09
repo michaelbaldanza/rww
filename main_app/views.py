@@ -7,13 +7,20 @@ from .models import MainPageFragment, Meditation, Photo, Post
 def art_and_music(request):
   print(Photo.CATEGORY_CHOICES)
   pair_list = []
+  print('ART AND MUSIC 1')
   for cat in Photo.CATEGORY_CHOICES:
-    first = Photo.objects.filter(category=cat[0]).order_by('-created_on').first()
-    second = first.get_category_display()
-    third = second.lower().replace(' ', '-')
-    pair = [first, second, third]
-    pair_list.append(pair)  
+    cat_photos = first = Photo.objects.filter(category=cat[0])
+    if cat_photos:
+      first = Photo.objects.filter(category=cat[0]).order_by('-created_on').first()
+      second = first.get_category_display()
+      third = second.lower().replace(' ', '-')
+      pair = [first, second, third]
+      pair_list.append(pair)  
+    else:
+      pair = None
+      pair_list.append(pair)
   display = pair_list
+  print(display)
   return render(
     request, 'art-and-music.html', {
       'display': display,
@@ -44,13 +51,13 @@ def sacred_journeys(request):
 def spiritual_direction(request):
   return render(request, 'spiritual-direction.html')
 
-#Home
+#### Home #####
 def home(request):
   frag_a = MainPageFragment.objects.filter(role='tagline').get()
   frag_b = MainPageFragment.objects.filter(role='introduction').get()
   return render(request, 'index.html', {'frag_a': frag_a, 'frag_b': frag_b})
 
-# Blog
+#### Blog #####
 class PostList(generic.ListView):
   queryset = Post.objects.filter(status=1).order_by('-created_on')
   template_name = 'blog/index.html'
@@ -63,7 +70,7 @@ class PostDetail(generic.DetailView):
   model = Post
   template_name = 'blog/post_detail.html'
 
-# Guided Meditations
+#### Guided Meditations ####
 def meditations_index(request):
   meditations = Meditation.objects.all()
   return render(

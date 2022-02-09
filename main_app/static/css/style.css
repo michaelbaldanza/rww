@@ -9,6 +9,10 @@ body {
   font-size: 18px;
 }
 
+#logo {
+  font-size: 96px;
+}
+
 /* #cdsldrcntnr {
   width: 420px;
 } */
@@ -229,10 +233,6 @@ nav {
   /* padding-right: 226.81px; */
 }
 
-#logo {
-  font-size: 42px;
-}
-
 section {
   min-width: 750px;
   margin: 0 auto;
@@ -329,4 +329,12 @@ footer {
 
 .meditation > audio {
   width: 250px;
+}
+
+.caption {
+  background-color:antiquewhite;
+  color:#19181A;
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
 }
