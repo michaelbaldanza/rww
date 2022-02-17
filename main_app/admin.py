@@ -1,9 +1,13 @@
 from django.contrib import admin
-from .models import MainPageFragment, MinistryFragment, Photo, Post, Meditation
+from .models import MainPageFragment, MinistryFragment, Photo, Post, Meditation, MainPagePhoto
 
 class MainPageFragmentAdmin(admin.ModelAdmin):
     list_display = ('role', 'content', 'created_on')
     search_fields = ['role', 'content']
+
+class MainPagePhotoAdmin(admin.ModelAdmin):
+    list_display = ('photo', 'status', 'role', 'order', 'hyperlink')
+    search_fields = ['role', 'status', 'photo', 'order', 'hyperlink']
 
 class MinistryFragmentAdmin(admin.ModelAdmin):
     list_display = ('role', 'content', 'created_on')
@@ -28,4 +32,5 @@ admin.site.register(Post, PostAdmin)
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Meditation, MeditationAdmin)
 admin.site.register(MainPageFragment, MainPageFragmentAdmin)
+admin.site.register(MainPagePhoto, MainPagePhotoAdmin)
 admin.site.register(MinistryFragment, MinistryFragmentAdmin)

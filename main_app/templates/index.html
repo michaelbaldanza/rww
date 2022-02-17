@@ -11,149 +11,41 @@
     </div>
     <div id="cdsldrcntnr">
       <div class="coda-slider"  id="slider-id">
-        <div>
-          <div class="backdrop-container">
-            <img
-            class="slide-image"
-            src="{% static 'images/crops/34-wayne-praying.jpeg' %}"
-            width=auto
-            height=565
-            >
-          </div>
-        </div>
-        <div>
-          <div class="backdrop-container">
-          <img
-            class="slide-image"
-            src="{% static 'images/crops/34-belize-sarnac.jpeg' %}"
-            width=auto
-            height=565
-          >
-          </div>
-        </div>
-        <div>
-          <div class="backdrop-container">
-          <img
-            class="slide-image"
-            src="{% static 'images/crops/34-openings.jpeg' %}"
-            width=auto
-            height=565
-          >
-        </div>
-        </div>
-        <div>
-          <div class="backdrop-container">
-          <img
-            class="slide-image"
-            src="{% static 'images/crops/34-tomb-edited.jpeg' %}"
-            width=auto
-            height=565
-          >
-        </div>
-        </div>
+        {% for slide_image in slideshow_images %}
+          {% if slide_image %}
+            <div>
+              <div class="backdrop-container">
+                <img
+                  class="slide-image"
+                  src="{{ slide_image.photo.photo_link }}"
+                  width=auto
+                  height=565
+                >
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+        
       </div>
     </div>
   </section>
   <section id="part-two">
     <div id="img-grid">
-      <div class="row" id="row-1">
-        <a href="{% url 'blog' %}">
+      {% for menu_image in menu_images %}
+        <a href="{{ menu_image.1 }}">
           <div class="img-frame" id="spiritual-direction">
             <img
               class="img-link"
-              src="{% static 'images/lily-2020.jpeg'%}"
+              src="{{ menu_image.0.photo.photo_link }}"
               width=auto
               height=380
             >
             <h2 class="img-heading">
-              BLOG
+              {{ menu_image.2 }}
             </h2>
           </div>
         </a>
-        <a href="{% url 'direction' %}">
-          <div class="img-frame" id="img-spiritual-direction">
-            <img
-              class="img-link"
-              src="{% static 'images/crops/23-stupa-rain-crop.jpeg' %}"
-              width=auto
-              height=380
-            >
-            <h2 class="img-heading">
-              SPIRITUAL<br>DIRECTION
-            </h2>
-          </div>
-        </a>
-      </div>
-      <div class="row" id="row-2">
-        <a href="{% url 'meditations' %}">
-          <div class="img-frame" id="img-guided-meditations">
-            <img
-            class="img-link"
-            src="{% static 'images/steam-smudged.jpeg' %}"
-            width=auto
-            height=380
-            >
-            <h2 class="img-heading">
-              GUIDED<br>MEDITATIONS
-            </h2>
-          </div>
-        </a>
-        <a href="{% url 'journeys' %}">
-          <div class="img-frame" id="img-sacred-journeys">
-            <img
-            class="img-link"
-            src="{% static 'images/crops/23-monastery-crop.jpeg' %}"
-            width=auto
-            height=380
-            >
-            <h2 class="img-heading">
-              SACRED<br>JOURNEYS
-            </h2>
-          </div>
-        </a>
-      </div>
-      <div class="row" id="row-3">
-        <a href="{% url 'ministry' %}">        
-          <div class="img-frame" id="img-music">
-            <img
-            class="img-link"
-            src="{% static 'images/mystic-morning.jpeg' %}"
-            width=auto
-            height=380
-            >
-            <h2 class="img-heading">
-              MINISTRY
-            </h2>
-          </div>
-        </a>
-        <a href="{% url 'art_and_music' %}">
-          <div class="img-frame" id="img-art-and-music">
-            <img
-            class="img-link"
-            src="{% static 'images/leaf-lens.jpeg' %}"
-            width=auto
-            height=380
-            >
-            <h2 class="img-heading">
-              ART AND MUSIC
-            </h2>
-          </div>
-        </a>
-      </div>
-      <div id="word-grid">
-        <div>
-          
-          <div class="img-heading">O</div>
-        </div>
-        <div>
-          <div class="img-heading">O</div>
-          <div class="img-heading">O</div>
-        </div>
-        <div>
-          <div class="img-heading">O</div>
-          <div class="img-heading">O</div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </section>
 

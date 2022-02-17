@@ -32,11 +32,16 @@ body {
   margin-bottom: 2em;
 }
 
-.row {
+/* .row {
   display: flex;
   justify-content: space-between;
   margin: 30px 0;
   flex-wrap: wrap;
+} */
+
+#img-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .post-link {
