@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 {% load markdown_extras %}
-<div class="row">
+<div class="post-grid">
   {% for post in posts %}
   {% if post.photo_link != Null %}
   <a class="post-link" href="{% url 'post_detail' post.slug %}">
@@ -22,9 +22,9 @@
   <a href="{% url 'post_detail' post.slug %}">
     <div class="img-frame post">
       <div
-        class="img-link"
-        style="height: 300px; width: 300px; background-color: green;"
+        class="img-link no-picture"
         height=300
+        width=300
       >
       </div>
       <h2 class="img-heading">

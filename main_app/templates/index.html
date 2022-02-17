@@ -30,10 +30,10 @@
     </div>
   </section>
   <section id="part-two">
-    <div id="img-grid">
+    <div class="img-grid">
       {% for menu_image in menu_images %}
         <a href="{{ menu_image.1 }}">
-          <div class="img-frame" id="spiritual-direction">
+          <div class="img-frame" id="{{ menu_image.1 }}">
             <img
               class="img-link"
               src="{{ menu_image.0.photo.photo_link }}"

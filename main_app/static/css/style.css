@@ -39,14 +39,29 @@ body {
   flex-wrap: wrap;
 } */
 
-#img-grid {
+.img-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+.post-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.no-picture {
+  width: 300px;
+  height: 300px;
 }
 
 .post-link {
   width: 300px;
   height: 300px;
+}
+
+.post-image {
+  float: left;
+  padding: 0px 25px 2px 0px;
 }
 
 .backdrop-container {
