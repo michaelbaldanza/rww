@@ -1,26 +1,64 @@
-import re
+# Python Imports
+import re, warnings
+from urllib import request as ulreq
+from PIL import ImageFile
 
+# Helper functions
+
+def getsizes(uri):
+    warnings.filterwarnings("ignore", "(Possibly )?corrupt EXIF data", UserWarning)
+    # get file size *and* image size (None if not known)
+    file = ulreq.urlopen(uri)
+    size = file.headers.get("content-length")
+    if size: 
+        size = int(size)
+    p = ImageFile.Parser()
+    while True:
+        data = file.read(1024)
+        if not data:
+            break
+        p.feed(data)
+        if p.image:
+            return size, p.image.size
+            break
+    file.close()
+    return(size, None)
+
+# Django Imports
 from django.shortcuts import render
 from django.views import generic
 from .models import MainPageFragment, Meditation, Photo, Post, MainPagePhoto
 
 def art_and_music(request):
-  print(Photo.CATEGORY_CHOICES)
   pair_list = []
-  print('ART AND MUSIC 1')
   for cat in Photo.CATEGORY_CHOICES:
+    photo_dict = {}
     cat_photos = first = Photo.objects.filter(category=cat[0])
     if cat_photos:
       first = Photo.objects.filter(category=cat[0]).order_by('-created_on').first()
-      second = first.get_category_display()
+      photo = Photo.objects.filter(category=cat[0]).order_by('-created_on').first()
+      photo_dict['url'] = photo.photo_link
+      second = photo.get_category_display()
+      photo_dict['group_name'] = photo.get_category_display()
       third = second.lower().replace(' ', '-')
+      photo_dict['group_path'] = photo.get_category_display().lower().replace(' ', '-')
+      print(photo_dict)
+      if photo:
+        print('**********PRINTING PHOTO_DICT **********')
+        size = getsizes(photo_dict['url'])
+        photo_dict['width'] = size[1][0]
+        photo_dict['height'] = size[1][1]
+        photo_dict['aspect_ratio'] = photo_dict['width'] / photo_dict['height']
+        print(photo_dict['group_name'])
+        print(photo_dict['width'])
+        print(photo_dict['height'])
+        print(photo_dict['aspect_ratio'])
       pair = [first, second, third]
       pair_list.append(pair)  
     else:
       pair = None
       pair_list.append(pair)
   display = pair_list
-  print(display)
   return render(
     request, 'art-and-music.html', {
       'display': display,

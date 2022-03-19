@@ -1,3 +1,4 @@
+# Python Imports
 import re
 
 from django.db import models
@@ -148,3 +149,4 @@ class MainPagePhoto(models.Model):
 
   def __str__(self):
     return self.photo.name_of_file
+  

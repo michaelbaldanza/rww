@@ -2,20 +2,28 @@
 {% block content %}
 {% load static %}
 {% load markdown_extras %}
-<div class="post-grid">
+<div class="">
   {% for post in posts %}
   {% if post.photo_link != Null %}
   <a class="post-link" href="{% url 'post_detail' post.slug %}">
-    <div class="img-frame post">
-      <img
-        class="img-link"
+    <div class="post-preview">
+      <div class="post-preview-image-container">
+        <img
+        class="post-preview-image"
         src="{{ post.photo_link }}"
-        width=300
-        height=300
-      >
-      <h2 class="img-heading">
-        {{ post.title }}
-      </h2>
+        >
+      </div>
+      <div>
+        <h2 class="post-preview-heading">
+          {{ post.title }}
+        </h2>
+        <p class="post-preview-text">
+          {{ post.content|truncatewords:15}}
+        </p>
+        <p>
+          {{ post.created_on|date:"M j" }}
+        </p>
+      </div>
     </div>
   </a>
   {% else %}
