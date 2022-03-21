@@ -52,6 +52,18 @@
         <li class="nav-link">
           <a href="{% url 'art_and_music' %}">ART AND MUSIC</a>
         </li>
+        {% if user.is_authenticated %}
+          <li class="nav-link">
+            <a href="{% url 'logout' %}">LOG OUT</a>
+          </li>
+        {% else %}
+        <li class="nav-link">
+          <a href="{% url 'signup' %}">SIGN UP</a>
+        </li>
+          <li class="nav-link">
+            <a href="{% url 'login' %}">LOG IN</a>
+          </li>
+        {% endif %}
       </ul>
       <main id="main">
         {% block content %}
