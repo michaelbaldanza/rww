@@ -1,22 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-
-<h2>Journey Title</h2>
-
-<h3>Itinerary</h3>
-<div class="row">
-  <ul>
-    <li>Jan 1/li>
-      <ul>
-        <li>
-          6:00 a.m. - Departure from airport
-        </li>
-        <li>
-          6:00 a.m. - Departure from airport
-        </li>
-      </ul>
-    <li>Get breakfast</li>
-  </ul>
+{% load markdown_extras %}
+<div id="blog-container">
+  <div class="post">
+    {% if sacredjourney.banner_picture %}
+      <img class="post-image" src="{{ sacredjourney.banner_picture }}">
+    {% endif %}
+    <h2>{{ sacredjourney.name }}</h2>
+    <p>{{ sacredjourney.start_date }} - {{ sacredjourney.end_date }}</p>
+    <p>{{ sacredjourney.destination }}</p>
+    <p>{{ sacredjourney.description | markdown | safe }}</p>
+    <p>{{ sacredjourney.itinerary | markdown | safe}}</p>
+  </div>
 </div>
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MainPageFragment, MinistryFragment, Photo, Post, Meditation, MainPagePhoto
+from .models import MainPageFragment, MinistryFragment, Photo, Post, Meditation, MainPagePhoto, SacredJourney
 
 class MainPageFragmentAdmin(admin.ModelAdmin):
     list_display = ('role', 'content', 'created_on')
@@ -28,6 +28,15 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ['title', 'content']
     prepopulated_fields = {'slug': ('title',)}
 
+class SacredJourneyAdmin(admin.ModelAdmin):
+    list_display = (
+        'name', 'destination', 'start_date', 'end_date', 'updated_on', 'status'
+        )
+    list_filter = ('status',)
+    search_fields = ['name', 'destination']
+    prepopulated_fields = {'slug': ('name',)}
+
+admin.site.register(SacredJourney, SacredJourneyAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Meditation, MeditationAdmin)

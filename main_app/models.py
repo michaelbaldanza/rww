@@ -150,3 +150,27 @@ class MainPagePhoto(models.Model):
   def __str__(self):
     return self.photo.name_of_file
   
+class SacredJourney(models.Model):
+  name = models.CharField(max_length=200, unique=True)
+  start_date = models.DateField()
+  end_date = models.DateField()
+  destination = models.CharField(max_length=50)
+  banner_picture = models.URLField(blank=True, null=True)
+  worldwidequest_link = models.URLField(blank=True, null=True)
+  description = models.TextField()
+  itinerary = models.TextField(blank=True, null=True)
+  tour_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+  group_size = models.IntegerField(blank=True, null=True)
+  map_image = models.URLField(blank=True, null=True)
+  included_features = models.TextField(blank=True, null=True)
+  updated_on = models.DateTimeField(auto_now=True)
+  created_on = models.DateTimeField(auto_now=True)
+  status = models.IntegerField(choices=STATUS, default=0)
+  slug = models.SlugField(max_length=200, unique=True)
+
+  class Meta:
+    ordering = ['-created_on']
+  
+  def __str__(self):
+    return self.name
+

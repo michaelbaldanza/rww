@@ -28,16 +28,21 @@
   </a>
   {% else %}
   <a href="{% url 'post_detail' post.slug %}">
-    <div class="img-frame post">
-      <div
-        class="img-link no-picture"
-        height=300
-        width=300
-      >
+    <div class="post-preview">
+      <div class="post-preview-image-container" width="300" height="300">
+        <div class="post-no-image"></div>
       </div>
-      <h2 class="img-heading">
-        {{ post.title }}
-      </h2>
+      <div>
+        <h2 class="post-preview-heading">
+          {{ post.title }}
+        </h2>
+        <p class="post-preview-text">
+          {{ post.content|truncatewords:15}}
+        </p>
+        <p>
+          {{ post.created_on|date:"M j" }}
+        </p>
+      </div>
     </div>
   </a>
   {% endif %}

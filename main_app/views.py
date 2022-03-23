@@ -2,6 +2,7 @@
 import re, warnings
 from urllib import request as ulreq
 from PIL import ImageFile
+from datetime import date
 
 # Helper functions
 
@@ -29,7 +30,7 @@ from django.shortcuts import redirect, render
 from django.views import generic
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .models import MainPageFragment, Meditation, Photo, Post, MainPagePhoto
+from .models import MainPageFragment, Meditation, Photo, Post, MainPagePhoto, SacredJourney
 
 def art_and_music(request):
   pair_list = []
@@ -85,8 +86,33 @@ def ministry(request):
 def music(request):
   return render(request, 'music.html')
 
-def sacred_journeys(request):
-  return render(request, 'sacred-journeys.html')
+### Sacred Journeys ###
+def sacred_journeys_index(request):
+  journeys = SacredJourney.objects.filter(status=1).order_by('-created_on')
+  today = date.today()
+  upcoming_journeys = []
+  previous_journeys = []
+  for journey in journeys:
+    print(journey.banner_picture)
+    print(today)
+    if journey.start_date > today:
+      upcoming_journeys.append(journey)
+    else:
+      previous_journeys.append(journey)
+  print(upcoming_journeys)
+  print(previous_journeys)
+  return render(
+    request,
+    'sacred-journeys/index.html',
+    {
+      'upcoming_journeys': upcoming_journeys,
+      'previous_journeys': previous_journeys
+    },
+    )
+
+class SacredJourneyDetail(generic.DetailView):
+  model = SacredJourney
+  template_name = 'sacred-journeys/detail.html'
 
 def signup(request):
   error_message = ''
@@ -119,8 +145,10 @@ def home(request):
   pair_list = []
   for menu_image in menu_images:
     image = menu_image
+    print('DEFAULT HYPERLINK DISPLAY')
+    print(menu_image.get_hyperlink_display())
     hyperlink_display = menu_image.get_hyperlink_display().lower().replace('_', '-')
-    text_display = menu_image.get_hyperlink_display().upper().replace('_', ' ')
+    text_display = menu_image.get_hyperlink_display().replace('_', ' ').title()
     print(text_display)
     pair = [image, hyperlink_display, text_display]
     pair_list.append(pair)

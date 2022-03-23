@@ -35,33 +35,33 @@
     <section id="container">
       <ul class="nav-menu">
         <li class="nav-link">
-          <a href="{% url 'blog' %}">BLOG</a>
+          <a href="{% url 'blog' %}">Blog</a>
         </li>
         <li class="nav-link">
-          <a href="{% url 'spiritual_direction' %}">SPIRITUAL DIRECTION</a>
+          <a href="{% url 'spiritual_direction' %}">Spiritual Direction</a>
         </li>
         <li class="nav-link">
-          <a href="{% url 'ministry' %}">MINISTRY</a>
+          <a href="{% url 'ministry' %}">Ministry</a>
         </li>
         <li class="nav-link">
-          <a href="{% url 'guided_meditations' %}">GUIDED MEDITATIONS</a>
+          <a href="{% url 'guided_meditations' %}">Guided Meditations</a>
         </li>
         <li class="nav-link">
-          <a href="{% url 'sacred_journeys' %}">SACRED JOURNEYS</a>
+          <a href="{% url 'sacred_journeys' %}">Sacred Journeys</a>
         </li>
         <li class="nav-link">
-          <a href="{% url 'art_and_music' %}">ART AND MUSIC</a>
+          <a href="{% url 'art_and_music' %}">Art and Music</a>
         </li>
         {% if user.is_authenticated %}
           <li class="nav-link">
-            <a href="{% url 'logout' %}">LOG OUT</a>
+            <a href="{% url 'logout' %}">Log out</a>
           </li>
         {% else %}
         <li class="nav-link">
-          <a href="{% url 'signup' %}">SIGN UP</a>
+          <a href="{% url 'signup' %}">Sign up</a>
         </li>
           <li class="nav-link">
-            <a href="{% url 'login' %}">LOG IN</a>
+            <a href="{% url 'login' %}">Log in</a>
           </li>
         {% endif %}
       </ul>
