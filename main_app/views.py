@@ -28,6 +28,7 @@ def getsizes(uri):
 # Django Imports
 from django.shortcuts import redirect, render
 from django.views import generic
+from django.views.generic.edit import CreateView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from .models import MainPageFragment, Meditation, Photo, Post, MainPagePhoto, SacredJourney
@@ -174,6 +175,11 @@ def posts_index(request):
 class PostDetail(generic.DetailView):
   model = Post
   template_name = 'blog/post_detail.html'
+
+class PostCreate(CreateView):
+  model = Post
+  fields = ['title', 'author', 'content', 'status', 'image_source']
+
 
 #### Guided Meditations ####
 def meditations_index(request):

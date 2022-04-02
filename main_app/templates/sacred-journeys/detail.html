@@ -7,9 +7,12 @@
     {% if sacredjourney.banner_picture %}
       <img class="post-image" src="{{ sacredjourney.banner_picture }}">
     {% endif %}
-    <h2>{{ sacredjourney.name }}</h2>
-    <p>{{ sacredjourney.start_date }} - {{ sacredjourney.end_date }}</p>
-    <p>{{ sacredjourney.destination }}</p>
+    <a href="{{ sacredjourney.worldwidequest_link }}"><h2>{{ sacredjourney.name }}</h2></a>
+    <div class="journey-info">
+      <span>{{ sacredjourney.start_date }} - {{ sacredjourney.end_date }}</span>
+      |
+      <span>{{ sacredjourney.destination }}</span>
+    </div>
     <p>{{ sacredjourney.description | markdown | safe }}</p>
     <p>{{ sacredjourney.itinerary | markdown | safe}}</p>
   </div>

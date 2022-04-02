@@ -3,6 +3,8 @@ import re
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
+from django.urls import reverse
 
 PREFIX = 'https://docs.google.com/uc?export=download&id='
 SUFFIX = '&export=download'
@@ -29,9 +31,17 @@ class Post(models.Model):
   def __str__(self):
     return self.title
 
+  def save(self, *args, **kwargs):
+    if not self.id:
+      self.slug = slugify(self.title)
+    super(Post, self).save(*args, **kwargs)
+
   def get_image_source_id(self):
     image_source_id = re.search('/d/(.+?)/view', self.image_source).group(1)
     return image_source_id
+
+  def get_absolute_url(self):
+    return reverse('post_detail', kwargs={'slug': self.slug})
 
   @property
   def photo_link(self):

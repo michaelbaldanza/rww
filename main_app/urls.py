@@ -13,5 +13,6 @@ urlpatterns = [
   path('sacred-journeys/<slug:slug>/', views.SacredJourneyDetail.as_view(), name='sacred_journey_detail'),
   path('spiritual-direction/', views.spiritual_direction, name='spiritual_direction'),
   path('blog/', views.posts_index, name='blog'),
-  path('blog/<slug:slug>/', views.PostDetail.as_view(), name='post_detail')
+  path('blog/create/', views.PostCreate.as_view(), name='post_create'),
+  path('blog/<slug:slug>/', views.PostDetail.as_view(), name='post_detail'),
 ]

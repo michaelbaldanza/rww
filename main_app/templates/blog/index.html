@@ -2,6 +2,7 @@
 {% block content %}
 {% load static %}
 {% load markdown_extras %}
+<h2><a href="{% url 'post_create' %}">Add a Post</a></h2>
 <div class="">
   {% for post in posts %}
   {% if post.photo_link != Null %}
@@ -18,8 +19,8 @@
           {{ post.title }}
         </h2>
         <p class="post-preview-text">
-          {{ post.content|truncatewords:15}}
-        </p>
+          {{ post.content|truncatewords:15|markdown|safe }}
+        </p> 
         <p>
           {{ post.created_on|date:"M j" }}
         </p>
@@ -37,7 +38,7 @@
           {{ post.title }}
         </h2>
         <p class="post-preview-text">
-          {{ post.content|truncatewords:15}}
+          {{ post.content|truncatewords:15|markdown|safe|cut:"#" }}
         </p>
         <p>
           {{ post.created_on|date:"M j" }}
