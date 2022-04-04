@@ -155,6 +155,13 @@ def home(request):
     pair_list.append(pair)
   for p in pair_list:
     print(p)
+
+  num_visits = request.session.get('num_visits', 0)
+  request.session['num_visits'] = num_visits + 1
+
+  print('# of visits:')
+  print(num_visits)
+
   return render(request, 'index.html', {
     'frag_a': frag_a,
     'frag_b': frag_b,
