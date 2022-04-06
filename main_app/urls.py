@@ -8,6 +8,7 @@ urlpatterns = [
   path('art-and-music/<str:url_cat>/', views.photos_category, name='photos_category'),
   path('guided-meditations/', views.meditations_index, name='guided_meditations'),
   path('ministry/', views.ministry, name="ministry"),
+  path('ministry/ministerial-record', views.ministerial_record, name="ministerial_record"),
   path('music/', views.music, name="music"),
   path('sacred-journeys/', views.sacred_journeys_index, name='sacred_journeys'),
   path('sacred-journeys/<slug:slug>/', views.SacredJourneyDetail.as_view(), name='sacred_journey_detail'),

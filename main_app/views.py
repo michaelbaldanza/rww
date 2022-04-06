@@ -1,6 +1,8 @@
 # Python Imports
 import re, warnings
 from urllib import request as ulreq
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from PIL import ImageFile
 from datetime import date
 
@@ -31,7 +33,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .models import MainPageFragment, Meditation, Photo, Post, MainPagePhoto, SacredJourney
+from .models import MainPageFragment, Meditation, Photo, Post, MainPagePhoto, SacredJourney, MinisterialRecord, MinisterialRecordImage
 
 def art_and_music(request):
   pair_list = []
@@ -83,6 +85,21 @@ def photos_category(request, url_cat):
 
 def ministry(request):
   return render(request, 'ministry.html')
+
+@login_required
+def ministerial_record(request):
+  min_rec = MinisterialRecord.objects.get()
+  min_images = MinisterialRecordImage.objects.order_by('position')
+  print(min_images)
+  # print(min_rec.pastoral_care)
+  # this is not working
+  context = {
+    'min_rec': min_rec,
+    'min_images': min_images
+  }
+  print(context)
+  context['min_rec'].pastoral_care
+  return render(request, 'ministerial-record.html', context)
 
 def music(request):
   return render(request, 'music.html')
@@ -176,6 +193,8 @@ class PostList(generic.ListView):
   template_name = 'blog/index.html'
 
 def posts_index(request):
+  print('printing request info')
+  print(request.user.get_all_permissions())
   posts = Post.objects.filter(status=1).order_by('-created_on')
   return render(request, 'blog/index.html', {'posts': posts})
 
@@ -183,9 +202,13 @@ class PostDetail(generic.DetailView):
   model = Post
   template_name = 'blog/post_detail.html'
 
-class PostCreate(CreateView):
+class PostCreate(LoginRequiredMixin, CreateView):
   model = Post
   fields = ['title', 'author', 'content', 'status', 'image_source']
+
+  # def test_func(self):
+  #   print(self.request.user)
+  #   return self.request.user.email.endswith('@example.com')
 
 
 #### Guided Meditations ####

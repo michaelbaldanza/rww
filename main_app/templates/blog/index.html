@@ -2,7 +2,9 @@
 {% block content %}
 {% load static %}
 {% load markdown_extras %}
-<h2><a href="{% url 'post_create' %}">Add a Post</a></h2>
+{% if user.is_authenticated %}
+  <h2><a href="{% url 'post_create' %}">Add a Post</a></h2>
+{% endif %}
 <div class="">
   {% for post in posts %}
   {% if post.photo_link != Null %}
