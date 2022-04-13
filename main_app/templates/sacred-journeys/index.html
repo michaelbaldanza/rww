@@ -1,19 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-
 <div class="">
   <h2>Upcoming Journeys</h2>
   {% if upcoming_journeys %}
     {% for journey in upcoming_journeys %}
-      {% if journey.banner_picture %}
         <a class="post-link" href="{% url 'sacred_journey_detail' journey.slug %}">
           <div class="post-preview">
             <div class="post-preview-image-container">
+              {% if journey.banner_picture %}
               <img
-              class="post-preview-image"
-              src="{{ journey.banner_picture }}"
+                class="post-preview-image"
+                src="{{ journey.banner_picture }}"
               >
+              {% else %}
+              <div class="post-no-image"></div>
+              {% endif %}
             </div>
             <div>
               <h2 class="post-preview-heading">
@@ -21,6 +23,18 @@
               </h2>
               <p>
                 {{ journey.start_date|date:"M j" }} - {{ journey.end_date|date:"M j"}}
+                {% if perms.main_app.change_sacred_journey or perms.main_app.delete_sacred_journey %}
+                  |
+                {% endif %}
+                {% if perms.main_app.change_sacred_journey %}
+                  <a href="{% url 'sacred_journey_update' journey.slug %}">Edit</a>
+                {% endif %}
+                {% if perms.main_app.change_sacred_journey and perms.main_app.delete_sacred_journey %}
+                  |
+                {% endif %}
+                {% if perms.main_app.delete_sacred_journey %}
+                  <a href="{% url 'sacred_journey_delete' journey.slug %}">Delete</a>
+                {% endif %}
               </p>
               <p class="post-preview-text">
                 {{ journey.description|truncatewords:15}}
@@ -28,38 +42,26 @@
             </div>
           </div>
         </a>
-      {% else %}
-        <a href="{% url 'sacred_journey_detail' journey.slug %}">
-          <div class="img-frame post">
-            <div
-              class="img-link no-picture"
-              height=300
-              width=300
-            >
-            </div>
-            <h2 class="img-heading">
-              {{ journey.name }}
-            </h2>
-          </div>
-        </a>
-      {% endif %}
     {% endfor %}
   {% else %}
   <p>There are no upcoming journeys.</p>
   {% endif %}
 
   <h2>Previous Journeys</h2>
-
+<div>
   {% if previous_journeys %}
     {% for journey in previous_journeys %}
-      {% if journey.banner_picture %}
         <a class="post-link" href="{% url 'sacred_journey_detail' journey.slug %}">
           <div class="post-preview">
             <div class="post-preview-image-container">
-              <img
-              class="post-preview-image"
-              src="{{ journey.banner_picture }}"
-              >
+              {% if journey.banner_picture %}
+                <img
+                class="post-preview-image"
+                src="{{ journey.banner_picture }}"
+                >
+              {% else %}
+                <div class="post-no-image"></div>
+              {% endif %}
             </div>
             <div>
               <h2 class="post-preview-heading">
@@ -67,6 +69,18 @@
               </h2>
               <p>
                 {{ journey.start_date|date:"M j" }} - {{ journey.end_date|date:"M j"}}
+                {% if perms.main_app.change_sacred_journey or perms.main_app.delete_sacred_journey %}
+                  |
+                {% endif %}
+                {% if perms.main_app.change_sacred_journey %}
+                  <a href="{% url 'sacred_journey_update' journey.slug %}">Edit</a>
+                {% endif %}
+                {% if perms.main_app.change_sacred_journey and perms.main_app.delete_sacred_journey %}
+                  |
+                {% endif %}
+                {% if perms.main_app.delete_sacred_journey %}
+                  <a href="{% url 'sacred_journey_delete' journey.slug %}">Delete {{ journey.slug }}</a>
+                {% endif %}
               </p>
               <p class="post-preview-text">
                 {{ journey.description|truncatewords:15}}
@@ -74,25 +88,12 @@
             </div>
           </div>
         </a>
-      {% else %}
-        <a href="{% url 'sacred_journey_detail' journey.slug %}">
-          <div class="img-frame post">
-            <div
-              class="img-link no-picture"
-              height=300
-              width=300
-            >
-            </div>
-            <h2 class="img-heading">
-              {{ journey.name }}
-            </h2>
-          </div>
-        </a>
-      {% endif %}
 
     {% endfor %}
   {% else %}
     <p>There are no previous journeys.</p>
   {% endif %}
   </div>
+
+</div>
 {% endblock %}

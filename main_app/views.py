@@ -1,8 +1,6 @@
 # Python Imports
 import re, warnings
 from urllib import request as ulreq
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from PIL import ImageFile
 from datetime import date
 
@@ -30,9 +28,11 @@ def getsizes(uri):
 # Django Imports
 from django.shortcuts import redirect, render
 from django.views import generic
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 from .models import MainPageFragment, Meditation, Photo, Post, MainPagePhoto, SacredJourney, MinisterialRecord, MinisterialRecordImage
 
 def art_and_music(request):
@@ -132,6 +132,16 @@ class SacredJourneyDetail(generic.DetailView):
   model = SacredJourney
   template_name = 'sacred-journeys/detail.html'
 
+class SacredJourneyUpdate(PermissionRequiredMixin, UpdateView):
+  permission_required = 'sacred_journey.update_sacred_journeys'
+  model = SacredJourney
+  fields = '__all__'
+
+class SacredJourneyDelete(PermissionRequiredMixin, DeleteView):
+  permission_required = 'sacred_journey.delete_sacred_journey'
+  model = SacredJourney
+  success_url = '/sacred-journeys/'
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
@@ -139,7 +149,7 @@ def signup(request):
     if form.is_valid():
       user = form.save()
       login(request, user)
-      return redirect('homeq')
+      return redirect('home')
     else:
       error_message = 'Invalid sign up - try again'
   form = UserCreationForm()
@@ -175,7 +185,7 @@ def home(request):
 
   num_visits = request.session.get('num_visits', 0)
   request.session['num_visits'] = num_visits + 1
-
+  print(request.user)
   print('# of visits:')
   print(num_visits)
 
@@ -202,7 +212,9 @@ class PostDetail(generic.DetailView):
   model = Post
   template_name = 'blog/post_detail.html'
 
-class PostCreate(LoginRequiredMixin, CreateView):
+class PostCreate(PermissionRequiredMixin, CreateView):
+  permission_required = 'post.add_posts'
+
   model = Post
   fields = ['title', 'author', 'content', 'status', 'image_source']
 
@@ -210,6 +222,15 @@ class PostCreate(LoginRequiredMixin, CreateView):
   #   print(self.request.user)
   #   return self.request.user.email.endswith('@example.com')
 
+class PostUpdate(PermissionRequiredMixin, UpdateView):
+  permission_required = 'post.update_posts'
+  model = Post
+  fields = ['title', 'content', 'status', 'image_source']
+
+class PostDelete(PermissionRequiredMixin, DeleteView):
+  permission_required = 'post.delete_posts'
+  model = Post
+  success_url = '/blog/'
 
 #### Guided Meditations ####
 def meditations_index(request):

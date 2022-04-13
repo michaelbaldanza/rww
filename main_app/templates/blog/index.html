@@ -2,19 +2,23 @@
 {% block content %}
 {% load static %}
 {% load markdown_extras %}
-{% if user.is_authenticated %}
+
+{% if perms.main_app.add_post %}
   <h2><a href="{% url 'post_create' %}">Add a Post</a></h2>
 {% endif %}
 <div class="">
   {% for post in posts %}
-  {% if post.photo_link != Null %}
   <a class="post-link" href="{% url 'post_detail' post.slug %}">
     <div class="post-preview">
       <div class="post-preview-image-container">
+        {% if post.photo_link != Null %}
         <img
         class="post-preview-image"
         src="{{ post.photo_link }}"
         >
+        {% else %}
+        <div class="post-no-image"></div>
+        {% endif %}
       </div>
       <div>
         <h2 class="post-preview-heading">
@@ -24,31 +28,23 @@
           {{ post.content|truncatewords:15|markdown|safe }}
         </p> 
         <p>
-          {{ post.created_on|date:"M j" }}
+          {{ post.author }} | {{ post.created_on|date:'M j' }}
+          {% if perms.main_app.change_post or perms.main_app.delete_post %}
+            |
+          {% endif %}
+          {% if perms.main_app.change_post %}
+            <a href="{% url 'post_update' post.slug %}">Edit</a>
+          {% endif %}
+          {% if perms.main_app.change_post and perms.main_app.delete_post %}
+            |
+          {% endif %}
+          {% if perms.main_app.delete_post %}
+            <a href="{% url 'post_delete' post.slug %}">Delete</a>
+          {% endif %}
         </p>
       </div>
     </div>
   </a>
-  {% else %}
-  <a href="{% url 'post_detail' post.slug %}">
-    <div class="post-preview">
-      <div class="post-preview-image-container" width="300" height="300">
-        <div class="post-no-image"></div>
-      </div>
-      <div>
-        <h2 class="post-preview-heading">
-          {{ post.title }}
-        </h2>
-        <p class="post-preview-text">
-          {{ post.content|truncatewords:15|markdown|safe|cut:"#" }}
-        </p>
-        <p>
-          {{ post.created_on|date:"M j" }}
-        </p>
-      </div>
-    </div>
-  </a>
-  {% endif %}
 
   {% endfor %}
   </div>

@@ -9,6 +9,17 @@ body {
   font-size: 18px;
 }
 
+#ministry-page-container {
+  display: flex;
+}
+
+.in-text-link {
+  border-bottom:rgba(250,177,98,.7) 1.5px solid;
+}
+.in-text-link:hover {
+  border-bottom: none;
+}
+
 .journey-info {
   display: inline-block;
   color: rgba(250,177,98,.7);
@@ -54,6 +65,10 @@ body {
 .post-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+}
+
+.post-link {
+  /* display: block; */
 }
 
 .no-picture {
@@ -145,6 +160,10 @@ body {
   filter: grayscale(100%);
 }
 .post-preview:hover > .post-preview-heading {
+  filter: grayscale(100%);
+}
+
+.post-preview:hover .post-no-image {
   filter: grayscale(100%);
 }
 

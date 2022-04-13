@@ -3,12 +3,26 @@
 {% load static %}
 
 <h1>Ministry</h1>
-
-<div>
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/r01EvyngNIk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-<div>
-    <a href="{% url 'ministerial_record' %}">View my ministerial record.</a>
+<div id="ministry-page-container">
+  <div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/r01EvyngNIk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <p>Wayne preaching before 500 colleagues in Asilomar, California.</p>
+  </div>
+  <div>
+    {% if user.is_authenticated %}
+      <a href="{% url 'ministerial_record' %}"><h1>View my ministerial record.</h1></a>
+    {% else %}
+      <h1>
+        If you don't have an account, <a class="in-text-link" href="{% url 'signup' %}">sign up</a> to request
+        permission to view Wayne's ministerial record.
+      </h1>
+      <h1>
+        If you do have an account and have permission to view Wayne's ministerial record,
+        <a class="in-text-link" href="{% url 'ministerial_record' %}">login</a>
+        here.
+      </h1>
+    {% endif %}
+  </div>
 </div>
 
 {% endblock %}
