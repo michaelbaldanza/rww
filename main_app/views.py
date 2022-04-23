@@ -203,9 +203,12 @@ class PostList(generic.ListView):
   template_name = 'blog/index.html'
 
 def posts_index(request):
-  print('printing request info')
-  print(request.user.get_all_permissions())
+  # print('printing request info')
+  # print(request.user.get_all_permissions())
   posts = Post.objects.filter(status=1).order_by('-created_on')
+  for post in posts:
+    if post.image:
+      print(post.image)
   return render(request, 'blog/index.html', {'posts': posts})
 
 class PostDetail(generic.DetailView):
@@ -216,7 +219,7 @@ class PostCreate(PermissionRequiredMixin, CreateView):
   permission_required = 'post.add_posts'
 
   model = Post
-  fields = ['title', 'author', 'content', 'status', 'image_source']
+  fields = ['title', 'author', 'content', 'status', 'image_source', 'image']
 
   # def test_func(self):
   #   print(self.request.user)
@@ -225,7 +228,7 @@ class PostCreate(PermissionRequiredMixin, CreateView):
 class PostUpdate(PermissionRequiredMixin, UpdateView):
   permission_required = 'post.update_posts'
   model = Post
-  fields = ['title', 'content', 'status', 'image_source']
+  fields = ['title', 'content', 'status', 'image_source', 'image']
 
 class PostDelete(PermissionRequiredMixin, DeleteView):
   permission_required = 'post.delete_posts'

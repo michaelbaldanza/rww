@@ -11,6 +11,8 @@ PREFIX = 'https://docs.google.com/uc?export=download&id='
 SUFFIX = '&export=download'
 PHOTO_PREFIX = 'https://docs.google.com/uc?export=view&id='
 
+MEDIA_PREFIX = 'https://revwaynew.s3.amazonaws.com/'
+
 STATUS = (
   (0, "Draft"),
   (1, "Publish")
@@ -25,6 +27,7 @@ class Post(models.Model):
   created_on = models.DateTimeField(auto_now_add=True)
   status = models.IntegerField(choices=STATUS, default=0)
   image_source = models.URLField(blank=True, null=True)
+  image = models.FileField(upload_to='media/', blank=True, null=True)
 
   class Meta:
     ordering = ['-created_on']
@@ -47,6 +50,10 @@ class Post(models.Model):
   @property
   def photo_link(self):
     return PHOTO_PREFIX + self.get_image_source_id()
+  
+  @property
+  def image_link(self):
+    return MEDIA_PREFIX + self.image.__str__()
 
 class MainPageFragment(models.Model):
   role = models.CharField(max_length=20, unique=True)

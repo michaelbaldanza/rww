@@ -4,8 +4,11 @@
 {% load markdown_extras %}
 <div id="blog-container">
   <div class="post">
-    {% if post.photo_link != Null %}
+    {% if post.photo_link != Null%}
       <img class="post-image" src="{{ post.photo_link }}" height=300 width=auto>
+    {% endif %}
+    {% if post.image %}
+      <img class="post-image" src="{{ post.image_link }}" height=300 width=auto>
     {% endif %}
     <h2>{{ post.title }}</h2>
     <p>
@@ -23,6 +26,9 @@
         <a href="{% url 'post_delete' post.slug %}">Delete</a>
       {% endif %}
     </p>
+    {% if post.image %}
+    {{ post.image }}
+  {% endif %}
     {{ post.content | markdown | safe }}
   </div>
 </div>
