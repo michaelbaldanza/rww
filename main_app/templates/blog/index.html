@@ -24,12 +24,6 @@
         <h2 class="post-preview-heading">
           {{ post.title }}
         </h2>
-        {% if post.image %}
-        {{ post.image }}
-        
-        {% else %}
-        <h1>no image</h1>
-        {% endif %}
         <p class="post-preview-text">
           {{ post.content|truncatewords:15|markdown|safe }}
         </p> 
