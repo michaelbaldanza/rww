@@ -107,10 +107,6 @@ body {
   background-color: rgba(250,177,98,.7);
 } */
 
-#part-two {
-  /* position: relative; */
-}
-
 /* #img-blog {
   background: url('/static/images/lily-2020.jpeg');
   background-size: contain;
@@ -145,14 +141,14 @@ body {
 }
 
 .post-preview-image {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
 }
 
 .post-no-image {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   background-color: #F0EAD6;
 }
 
@@ -332,7 +328,7 @@ section {
 }
 
 .img-link {
-
+  object-fit: cover;
 }
 
 
@@ -421,4 +417,26 @@ footer {
   position: absolute;
   width: 100%;
   bottom: 0px;
+}
+
+.mr-img-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  }
+  
+.mr-img {
+  height: 200px;
+  width: 300px;
+}
+  
+.mr-img-heading {
+  position: absolute;
+  top: 50%;
+  left: 37%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  display: none;
+  text-align: center;
+  font-weight: bold;
+  font-size: 190%
 }

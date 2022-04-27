@@ -3,7 +3,62 @@
 {% load static %}
 {% load markdown_extras %}
 <div>
-  Ministerial Record
+  <h1>Ministerial Record</h1>
+  {% if perms.main_app.change_ministerial_record %}
+    <a href="{% url 'ministerial_record_update' min_rec.id %}">Edit</a>
+  {% endif %}
+  <div class="mr-img-grid">
+      <a href="#preaching-worship">
+        <div class="img-frame" id="preaching-worship">
+          {% if min_rec.preaching_worship_image %}
+          <img
+            class="img-link mr-img"
+            src="{{ min_rec.pw_image_link }}"
+          >
+          {% else %}
+          <div>no image</div>
+          {% endif %}
+          <h2 class="img-heading mr-img-heading">
+            Preaching/Worship
+          </h2>
+        </div>
+      </a>
+  </div>
+  <div class="subheading">
+    <h1 id="preaching-worship">Preaching/Worship</h1>
+  </div>
+  <div class="subheading">
+    <h1 id="pastoral-care">Pastoral Care</h1>
+  </div>
+  <div class="subheading">
+    <h1 id="spiritual-life">Spiritual Life</h1>
+  </div>
+  <div class="subheading">
+    <h1 id="community-connection">Community Connection</h1>
+  </div>
+  <div class="subheading">
+    <h1 id="religious-education">Religious Education</h1>
+  </div>
+  <div class="subheading">
+    <h1 id="administration">Administration</h1>
+  </div>
+  <h3>Why are you seeking a ministry now?</h3>
+  <div>
+    {{ min_rec.why_are_you_seeking_a_ministry_now | markdown | safe }}
+  </div>
+  <h3>Describe the new ministry you hope for:</h3>
+  <div>
+    {{ min_rec.describe_the_new_ministry_you_hope_for | markdown | safe }}
+  </div>
+  <h3>Personal and family situation:</h3>
+  <div>
+    {{ min_rec.personal_and_family_situation | markdown | safe }}
+  </div>
+  <h3>Non-professional interests:</h3>
+  <div>
+    {{ min_rec.nonprofessional_interests | markdown | safe }}
+  </div>
+  <h3></h3>
 </div>
 
 {% endblock %}

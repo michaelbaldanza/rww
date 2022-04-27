@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MainPageFragment, MinistryFragment, Photo, Post, Meditation, MainPagePhoto, SacredJourney, MinisterialRecord, MinisterialRecordImage
+from .models import MainPageFragment, MinistryPage, Photo, Post, Meditation, MainPagePhoto, SacredJourney, MinisterialRecord, MinisterialRecordImage
 
 class MainPageFragmentAdmin(admin.ModelAdmin):
     list_display = ('role', 'content', 'created_on')
@@ -9,9 +9,9 @@ class MainPagePhotoAdmin(admin.ModelAdmin):
     list_display = ('photo', 'status', 'role', 'order', 'hyperlink')
     search_fields = ['role', 'status', 'photo', 'order', 'hyperlink']
 
-class MinistryFragmentAdmin(admin.ModelAdmin):
-    list_display = ('role', 'content', 'created_on')
-    search_fields = ['role', 'content']
+class MinistryPageAdmin(admin.ModelAdmin):
+    list_display = ('heading', 'video_caption', 'created_on')
+    search_fields = ['heading',]
 
 class MinisterialRecordAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name')
@@ -50,6 +50,6 @@ admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Meditation, MeditationAdmin)
 admin.site.register(MainPageFragment, MainPageFragmentAdmin)
 admin.site.register(MainPagePhoto, MainPagePhotoAdmin)
-admin.site.register(MinistryFragment, MinistryFragmentAdmin)
+admin.site.register(MinistryPage, MinistryPageAdmin)
 admin.site.register(MinisterialRecord, MinisterialRecordAdmin)
 admin.site.register(MinisterialRecordImage, MinisterialRecordImageAdmin)

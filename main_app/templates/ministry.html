@@ -2,11 +2,33 @@
 {% block content %}
 {% load static %}
 
-<h1>Ministry</h1>
+<h1>
+  {% if ministry_page.heading %}
+    {{ ministry_page.heading }}
+  {% else %}
+    Ministry
+  {% endif %}
+</h1>
 <div id="ministry-page-container">
   <div>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/r01EvyngNIk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    <p>Wayne preaching before 500 colleagues in Asilomar, California.</p>
+    <iframe width="560" height="315" src="
+    {% if ministry_page.video_link %}
+      {{ ministry_page.video_link }}
+    {% else %}
+      https://www.youtube.com/embed/r01EvyngNIk
+    {% endif %}
+    " title="YouTube video player
+    " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <p>
+        {% if ministry_page.video_caption %}
+          {{ ministry_page.video_caption }}
+        {% else %}
+          Wayne preaching before 500 colleagues in Asilomar, California.
+        {% endif %}
+      </p>
+      {% if ministry_page.other_text %}
+        {{ ministry_page.other_text }}
+      {% endif %}
   </div>
   <div>
     {% if user.is_authenticated %}

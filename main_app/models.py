@@ -66,16 +66,18 @@ class MainPageFragment(models.Model):
   def __str__(self):
     return self.role
 
-class MinistryFragment(models.Model):
-  role = models.CharField(max_length=20, unique=True)
-  content = models.TextField()
+class MinistryPage(models.Model):
+  heading = models.CharField(max_length=20, default='Ministry')
+  video_link = models.URLField(blank=True, null=True)
+  video_caption = models.TextField(blank=True, null=True)
+  other_text = models.TextField(blank=True, null=True)
   created_on = models.DateTimeField(auto_now=True)
 
   class Meta:
     ordering = ['created_on']
 
   def __str__(self):
-    return self.role
+    return self.heading
 
 class MinisterialRecordImage(models.Model):
   PREACHING_WORSHIP = 'PW'
@@ -158,9 +160,39 @@ class MinisterialRecord(models.Model):
   community_connection = models.TextField(blank=True, null=True)
   religious_education = models.TextField(blank=True, null=True)
   administration = models.TextField(blank=True, null=True)
-  
+  preaching_worship_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
+  pastoral_care_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
+  spiritual_life_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
+  community_connection_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
+  religious_education_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
+  administration_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
+
   def __str__(self):
     return self.first_name
+
+  @property
+  def pw_image_link(self):
+    return MEDIA_PREFIX + self.preaching_worship_image.__str__()
+
+  @property
+  def pc_image_link(self):
+    return MEDIA_PREFIX + self.pastoral_care_image.__str__()
+  
+  @property
+  def sl_image_link(self):
+    return MEDIA_PREFIX + self.spiritual_life_image.__str__()
+
+  @property
+  def cc_image_link(self):
+    return MEDIA_PREFIX + self.community_connection_image.__str__()
+
+  @property
+  def re_image_link(self):
+    return MEDIA_PREFIX + self.religious_education_image.__str__()
+
+  @property
+  def a_image_link(self):
+    return MEDIA_PREFIX + self.administration_image.__str__()
 
 class Meditation(models.Model):
   title = models.CharField(max_length=200, unique=True)

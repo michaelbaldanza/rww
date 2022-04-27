@@ -33,7 +33,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
-from .models import MainPageFragment, Meditation, Photo, Post, MainPagePhoto, SacredJourney, MinisterialRecord, MinisterialRecordImage
+from .models import MainPageFragment, Meditation, Photo, Post, MainPagePhoto, SacredJourney, MinisterialRecord, MinisterialRecordImage, MinistryPage
 
 def art_and_music(request):
   pair_list = []
@@ -84,11 +84,13 @@ def photos_category(request, url_cat):
   return render(request, 'photo-cat.html', { 'display': display, 'title': title })
 
 def ministry(request):
-  return render(request, 'ministry.html')
+  ministry_page = MinistryPage.objects.first()
+  print(ministry_page)
+  return render(request, 'ministry.html', {'ministry_page': ministry_page})
 
 @login_required
 def ministerial_record(request):
-  min_rec = MinisterialRecord.objects.get()
+  min_rec = MinisterialRecord.objects.first()
   min_images = MinisterialRecordImage.objects.order_by('position')
   print(min_images)
   # print(min_rec.pastoral_care)
@@ -98,8 +100,18 @@ def ministerial_record(request):
     'min_images': min_images
   }
   print(context)
+  print(MinisterialRecord._meta.get_fields())
+  for field_name in MinisterialRecord._meta.get_fields():
+    print(field_name.name)
+  
   context['min_rec'].pastoral_care
-  return render(request, 'ministerial-record.html', context)
+  return render(request, 'ministerial-record.html', {'min_rec': min_rec})
+
+class MinisterialRecordUpdate(PermissionRequiredMixin, UpdateView):
+  permission_required = 'ministerial_record.update_ministerial_records'
+  model = MinisterialRecord
+  fields = '__all__'
+  success_url = '/ministry/ministerial-record/'
 
 def music(request):
   return render(request, 'music.html')

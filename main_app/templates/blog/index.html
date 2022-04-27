@@ -11,10 +11,10 @@
   <a class="post-link" href="{% url 'post_detail' post.slug %}">
     <div class="post-preview">
       <div class="post-preview-image-container">
-        {% if post.photo_link != Null %}
+        {% if post.image %}
         <img
         class="post-preview-image"
-        src="{{ post.photo_link }}"
+        src="{{ post.image_link }}"
         >
         {% else %}
         <div class="post-no-image"></div>
