@@ -26,9 +26,6 @@
         <a href="{% url 'post_delete' post.slug %}">Delete</a>
       {% endif %}
     </p>
-    {% if post.image %}
-    {{ post.image }}
-  {% endif %}
     {{ post.content | markdown | safe }}
   </div>
 </div>
