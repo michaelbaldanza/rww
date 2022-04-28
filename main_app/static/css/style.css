@@ -9,6 +9,18 @@ body {
   font-size: 18px;
 }
 
+#title-container {
+  position: relative;
+}
+
+#by-rev-wayne {
+  /* width: auto;
+  margin: auto; */
+  position: absolute;
+  top: 70%;
+  left: 50%
+}
+
 #ministry-page-container {
   display: flex;
 }
@@ -29,6 +41,7 @@ body {
 
 #logo {
   font-size: 96px;
+  color: #9ECE9A;
 }
 
 /* #cdsldrcntnr {
