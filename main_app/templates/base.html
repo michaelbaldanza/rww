@@ -36,8 +36,8 @@
         </svg>
       </div>
     </header>
-    <section id="container">
-      <ul class="nav-menu">
+    <nav>
+      <ul class="nav-horizontal-menu">
         <li class="nav-link">
           <a href="{% url 'blog' %}">Blog</a>
         </li>
@@ -56,19 +56,59 @@
         <li class="nav-link">
           <a href="{% url 'art_and_music' %}">Art and Music</a>
         </li>
+        <li class="nav-link">
+          <a href="mailto:revwayne@live.ca">Contact</a>
+        </li>
         {% if user.is_authenticated %}
           <li class="nav-link">
             <a href="{% url 'logout' %}">Log out</a>
           </li>
         {% else %}
-        <li class="nav-link">
-          <a href="{% url 'signup' %}">Sign up</a>
-        </li>
+          <li class="nav-link">
+            <a href="{% url 'signup' %}">Sign up</a>
+          </li>
           <li class="nav-link">
             <a href="{% url 'login' %}">Log in</a>
           </li>
         {% endif %}
       </ul>
+    </nav>
+    <ul class="nav-menu">
+      <li class="nav-link">
+        <a href="{% url 'blog' %}">Blog</a>
+      </li>
+      <li class="nav-link">
+        <a href="{% url 'spiritual_direction' %}">Spiritual Direction</a>
+      </li>
+      <li class="nav-link">
+        <a href="{% url 'ministry' %}">Ministry</a>
+      </li>
+      <li class="nav-link">
+        <a href="{% url 'guided_meditations' %}">Guided Meditations</a>
+      </li>
+      <li class="nav-link">
+        <a href="{% url 'sacred_journeys' %}">Sacred Journeys</a>
+      </li>
+      <li class="nav-link">
+        <a href="{% url 'art_and_music' %}">Art and Music</a>
+      </li>
+      <li class="nav-link">
+        <a href="mailto:revwayne@live.ca">Contact</a>
+      </li>
+      {% if user.is_authenticated %}
+        <li class="nav-link">
+          <a href="{% url 'logout' %}">Log out</a>
+        </li>
+      {% else %}
+      <li class="nav-link">
+        <a href="{% url 'signup' %}">Sign up</a>
+      </li>
+        <li class="nav-link">
+          <a href="{% url 'login' %}">Log in</a>
+        </li>
+      {% endif %}
+    </ul>
+    <section id="container">
       <main id="main">
         {% block content %}
         {% endblock %}

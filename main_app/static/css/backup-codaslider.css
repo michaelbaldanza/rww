@@ -11,8 +11,7 @@ css-tricks.com/musings-on-preprocessing/
 ********************************************/
 
 #slider-id-wrapper {
-  /* width: 420px; */
-  width: 445px;
+  width: 420px;
 }
 
 .coda-slider-wrapper {
@@ -42,11 +41,9 @@ css-tricks.com/musings-on-preprocessing/
     * match this with the width of the panel as well. 
     *
     *******************************************************/
-    /* width: 420px;
-    height: 565px; */
+    width: 420px;
+    height: 565px;
     background-color: rgba(250,177,98,.7);
-    width: 445px;
-    height: 600px;
   }
     
     .coda-slider-wrapper .coda-slider .panel {
@@ -57,13 +54,10 @@ css-tricks.com/musings-on-preprocessing/
       * of the container as well. 
       *
       *******************************************************/
-      /* height: 565px; */
+      height: 565px;
       /* width: 420px; */
       /* EDIT for transition panel */
-      /* width: 840px; */
-
-      height: 600px;
-      width: 890px;
+      width: 840px;
     }
       
       .coda-slider-wrapper .coda-slider .panel .panel-wrapper {

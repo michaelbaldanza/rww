@@ -18,8 +18,6 @@
                 <img
                   class="slide-image"
                   src="{{ slide_image.photo.photo_link }}"
-                  width=auto
-                  height=565
                 >
               </div>
             </div>
@@ -32,8 +30,9 @@
   <section id="part-two">
     <div class="img-grid">
       {% for menu_image in menu_images %}
-        <a href="{{ menu_image.1 }}">
-          <div class="img-frame" id="{{ menu_image.1 }}">
+      <div class="img-grid-item">
+        <a href="{{ menu_image.1 }} " class="menu-img" id="menu-img-{{ forloop.counter }}">
+          <div class="img-frame">
             <img
               class="img-link img-main-page"
               src="{{ menu_image.0.photo.photo_link }}"
@@ -43,6 +42,7 @@
             </h2>
           </div>
         </a>
+      </div>
       {% endfor %}
     </div>
   </section>
