@@ -12,6 +12,7 @@ urlpatterns = [
   path('ministry/ministerial-record/<int:pk>/edit/', views.MinisterialRecordUpdate.as_view(), name="ministerial_record_update"),
   path('music/', views.music, name="music"),
   path('sacred-journeys/', views.sacred_journeys_index, name='sacred_journeys'),
+  path('sacred-journeys/add/', views.SacredJourneyCreate.as_view(), name='sacred_journey_create'),
   path('sacred-journeys/<slug:slug>/edit/', views.SacredJourneyUpdate.as_view(), name='sacred_journey_update'),
   path('sacred-journeys/<slug:slug>/delete/', views.SacredJourneyDelete.as_view(), name='sacred_journey_delete'),
   path('sacred-journeys/<slug:slug>/', views.SacredJourneyDetail.as_view(), name='sacred_journey_detail'),

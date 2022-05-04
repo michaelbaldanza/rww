@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+
+{% if perms.main_app.add_sacred_journey %}
+  <h2><a href="{% url 'sacred_journey_create' %}">Add a Sacred Journey</a></h2>
+{% endif %}
 <div class="">
   <h2>Upcoming Journeys</h2>
   {% if upcoming_journeys %}

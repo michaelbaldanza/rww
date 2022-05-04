@@ -239,6 +239,11 @@ class SacredJourney(models.Model):
   def get_absolute_url(self):
     return reverse('sacred_journey_detail', kwargs={'slug': self.slug})
 
+  def save(self, *args, **kwargs):
+    if not self.id:
+      self.slug = slugify(self.title)
+    super(SacredJourney, self).save(*args, **kwargs)
+
   @property
   def image_link(self):
     return MEDIA_PREFIX + self.image.__str__()

@@ -147,6 +147,11 @@ class SacredJourneyDetail(generic.DetailView):
   model = SacredJourney
   template_name = 'sacred-journeys/detail.html'
 
+class SacredJourneyCreate(PermissionRequiredMixin, CreateView):
+  permission_required = 'sacred_journey.add_sacred_journeys'
+  model = SacredJourney
+  fields = '__all__'
+
 class SacredJourneyUpdate(PermissionRequiredMixin, UpdateView):
   permission_required = 'sacred_journey.update_sacred_journeys'
   model = SacredJourney
