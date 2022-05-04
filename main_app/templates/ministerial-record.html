@@ -2,63 +2,56 @@
 {% block content %}
 {% load static %}
 {% load markdown_extras %}
+{% load app_extras %}
 <div>
   <h1>Ministerial Record</h1>
   {% if perms.main_app.change_ministerial_record %}
     <a href="{% url 'ministerial_record_update' min_rec.id %}">Edit</a>
   {% endif %}
-  <div class="mr-img-grid">
-      <a href="#preaching-worship">
-        <div class="img-frame" id="preaching-worship">
-          {% if min_rec.preaching_worship_image %}
+  <div class="img-grid"> 
+    {% for menu_image in menu_images %}
+    <div class="img-grid-item">
+      <a href="#{{ menu_image.text|slugify }}" class="menu-img" id="menu-img-{{ forloop.counter }}">
+        <div class="img-frame">
+          {% if menu_image.image_link %}
           <img
-            class="img-link mr-img"
-            src="{{ min_rec.pw_image_link }}"
+            class="img-link img-main-page"
+            src="{{ menu_image.image_link }}"
           >
           {% else %}
-          <div>no image</div>
+          <div class="substitute"></div>
           {% endif %}
-          <h2 class="img-heading mr-img-heading">
-            Preaching/Worship
+          <h2 class="img-heading">
+            {% if 'preaching' in menu_image.text %}
+              {{ menu_image.text|title|insert_slash:' ' }}
+            {% else %}
+              {{ menu_image.text|title }}
+            {% endif %}
           </h2>
         </div>
       </a>
+    </div>
+    {% endfor %}
   </div>
-  <div class="subheading">
-    <h1 id="preaching-worship">Preaching/Worship</h1>
-  </div>
-  <div class="subheading">
-    <h1 id="pastoral-care">Pastoral Care</h1>
-  </div>
-  <div class="subheading">
-    <h1 id="spiritual-life">Spiritual Life</h1>
-  </div>
-  <div class="subheading">
-    <h1 id="community-connection">Community Connection</h1>
-  </div>
-  <div class="subheading">
-    <h1 id="religious-education">Religious Education</h1>
-  </div>
-  <div class="subheading">
-    <h1 id="administration">Administration</h1>
-  </div>
-  <h3>Why are you seeking a ministry now?</h3>
-  <div>
-    {{ min_rec.why_are_you_seeking_a_ministry_now | markdown | safe }}
-  </div>
-  <h3>Describe the new ministry you hope for:</h3>
-  <div>
-    {{ min_rec.describe_the_new_ministry_you_hope_for | markdown | safe }}
-  </div>
-  <h3>Personal and family situation:</h3>
-  <div>
-    {{ min_rec.personal_and_family_situation | markdown | safe }}
-  </div>
-  <h3>Non-professional interests:</h3>
-  <div>
-    {{ min_rec.nonprofessional_interests | markdown | safe }}
-  </div>
-  <h3></h3>
+  <h1 id="preaching-worship">Preaching/Worship</h1>
+  {{ min_rec.preaching_worship|markdown|safe }}
+  <h1 id="pastoral-care">Pastoral Care</h1>
+  {{ min_rec.pastoral_care|markdown|safe }}
+  <h1 id="spiritual-life">Spiritual Life</h1>
+  {{ min_rec.spiritual_life|markdown|safe }}
+  {{ min_rec.background_and_development|markdown|safe }}
+  {{ min_rec.theological_orientation }}
+  <h1 id="community-connection">Community Connection</h1>
+  {{ min_rec.community_connection|markdown|safe }}
+  <h1 id="religious-education">Religious Education</h1>
+  {{ min_rec.approach_religious_education|markdown|safe }}
+  <h1 id="administration">Administration</h1>
+  {{ min_rec.administration|markdown|safe }}
+  <h1>Other Stuff</h1>
+  {% for paragraph in paragraphs %}
+  <h3>{{ paragraph.0|insert_space:'_'|title }}</h3>
+  <div>{{ paragraph.1 }}</div>
+  {% endfor %}
 </div>
 
 {% endblock %}

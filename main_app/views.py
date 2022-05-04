@@ -4,6 +4,8 @@ from urllib import request as ulreq
 from PIL import ImageFile
 from datetime import date
 
+S3_PREFIX = 'https://revwaynew.s3.amazonaws.com/'
+
 # Helper functions
 
 def getsizes(uri):
@@ -33,7 +35,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
-from .models import MainPageFragment, Meditation, Photo, Post, MainPagePhoto, SacredJourney, MinisterialRecord, MinisterialRecordImage, MinistryPage
+from .models import MainPageFragment, Meditation, Photo, Post, MainPagePhoto, SacredJourney, SpiritualDirection, MinisterialRecord, MinistryPage
 
 def art_and_music(request):
   pair_list = []
@@ -91,21 +93,22 @@ def ministry(request):
 @login_required
 def ministerial_record(request):
   min_rec = MinisterialRecord.objects.first()
-  min_images = MinisterialRecordImage.objects.order_by('position')
-  print(min_images)
-  # print(min_rec.pastoral_care)
-  # this is not working
-  context = {
-    'min_rec': min_rec,
-    'min_images': min_images
-  }
-  print(context)
-  print(MinisterialRecord._meta.get_fields())
-  for field_name in MinisterialRecord._meta.get_fields():
-    print(field_name.name)
-  
-  context['min_rec'].pastoral_care
-  return render(request, 'ministerial-record.html', {'min_rec': min_rec})
+  menu_images = []
+  paragraphs = []
+  if min_rec:
+    for pair in min_rec.get_fields():
+      if 'image' in pair[0]:
+        image_dict = {
+          'text': pair[0].replace('_', ' ').replace(' image', ''),
+        }
+        if pair[1]:
+          image_dict['image_link'] = S3_PREFIX + pair[1].__str__()
+        else:
+          image_dict['image_link'] = False
+        menu_images.append(image_dict)
+      elif 'id' is not pair[0] and pair[1]:
+        paragraphs.append(pair)
+  return render(request, 'ministerial-record.html', {'min_rec': min_rec, 'menu_images': menu_images, 'paragraphs': paragraphs})
 
 class MinisterialRecordUpdate(PermissionRequiredMixin, UpdateView):
   permission_required = 'ministerial_record.update_ministerial_records'
@@ -169,7 +172,27 @@ def signup(request):
   return render(request, 'registration/signup.html', context)
 
 def spiritual_direction(request):
-  return render(request, 'spiritual-direction.html')
+  spi_dir = SpiritualDirection.objects.first()
+  menu_images = []
+  image_dict = {}
+  if spi_dir:
+    for pair in spi_dir.get_fields():
+      if 'image' in pair[0]:
+        image_dict = {
+          'text': pair[0].replace('_', ' ').replace(' image', ''),
+        }
+        if pair[1]:
+          image_dict['image_link'] = S3_PREFIX + pair[1].__str__()
+        else:
+          image_dict['image_link'] = False
+        menu_images.append(image_dict)
+  return render(request, 'spiritual-direction.html', { 'spi_dir': spi_dir, 'menu_images': menu_images })
+
+class SpiritualDirectionUpdate(PermissionRequiredMixin, UpdateView):
+  permission_required = 'sacred_journey.update_spiritual_directions'
+  model = SpiritualDirection
+  fields = '__all__'
+  success_url = '/spiritual-direction/'
 
 #### Home #####
 def home(request):
@@ -215,12 +238,7 @@ class PostList(generic.ListView):
   template_name = 'blog/index.html'
 
 def posts_index(request):
-  # print('printing request info')
-  # print(request.user.get_all_permissions())
   posts = Post.objects.filter(status=1).order_by('-created_on')
-  for post in posts:
-    if post.image:
-      print(post.image)
   return render(request, 'blog/index.html', {'posts': posts})
 
 class PostDetail(generic.DetailView):
@@ -229,9 +247,8 @@ class PostDetail(generic.DetailView):
 
 class PostCreate(PermissionRequiredMixin, CreateView):
   permission_required = 'post.add_posts'
-
   model = Post
-  fields = ['title', 'author', 'content', 'status', 'image_source', 'image']
+  fields = ['title', 'author', 'content', 'status', 'image']
 
   # def test_func(self):
   #   print(self.request.user)
@@ -240,7 +257,7 @@ class PostCreate(PermissionRequiredMixin, CreateView):
 class PostUpdate(PermissionRequiredMixin, UpdateView):
   permission_required = 'post.update_posts'
   model = Post
-  fields = ['title', 'content', 'status', 'image_source', 'image']
+  fields = ['title', 'content', 'status', 'image']
 
 class PostDelete(PermissionRequiredMixin, DeleteView):
   permission_required = 'post.delete_posts'

@@ -26,7 +26,6 @@ class Post(models.Model):
   content = models.TextField()
   created_on = models.DateTimeField(auto_now_add=True)
   status = models.IntegerField(choices=STATUS, default=0)
-  image_source = models.URLField(blank=True, null=True)
   image = models.FileField(upload_to='media/', blank=True, null=True)
 
   class Meta:
@@ -40,16 +39,8 @@ class Post(models.Model):
       self.slug = slugify(self.title)
     super(Post, self).save(*args, **kwargs)
 
-  def get_image_source_id(self):
-    image_source_id = re.search('/d/(.+?)/view', self.image_source).group(1)
-    return image_source_id
-
   def get_absolute_url(self):
     return reverse('post_detail', kwargs={'slug': self.slug})
-
-  @property
-  def photo_link(self):
-    return PHOTO_PREFIX + self.get_image_source_id()
   
   @property
   def image_link(self):
@@ -79,51 +70,13 @@ class MinistryPage(models.Model):
   def __str__(self):
     return self.heading
 
-class MinisterialRecordImage(models.Model):
-  PREACHING_WORSHIP = 'PW'
-  PASTORAL_CARE = 'PC'
-  SPIRITUAL_LIFE = 'SL'
-  COMMUNITY_CONNECTION = 'CC'
-  RELIGIOUS_EDUCATION = 'RE'
-  ADMINISTRATION = 'AD'
-  CATEGORY_CHOICES = [
-    (PREACHING_WORSHIP, 'PW'),
-    (PASTORAL_CARE, 'PC'),
-    (SPIRITUAL_LIFE, 'SL'),
-    (COMMUNITY_CONNECTION, 'CC'),
-    (RELIGIOUS_EDUCATION, 'RE'),
-    (ADMINISTRATION, 'AD')
-  ]
-
-  name_of_file = models.CharField(max_length=200, unique=True)
-  category = models.CharField(max_length=2, choices=CATEGORY_CHOICES)
-  source = models.URLField()
-  updated_on = models.DateTimeField(auto_now=True)
-  created_on = models.DateTimeField(auto_now=True)
-  position = models.PositiveIntegerField(
-    unique=True,
-    blank=True,
-    null=True,
-    validators=[
-      MaxValueValidator(6),
-      MinValueValidator(1)
-    ])
-
-  class Meta:
-    ordering = ['-created_on']
-
-  def __str__(self):
-    return self.name_of_file
-
-  def get_source_id(self):
-    source_id = re.search('/d/(.+?)/view', self.source).group(1)
-    return source_id
-
-  @property
-  def photo_link(self):
-    return PHOTO_PREFIX + self.get_source_id()
-
 class MinisterialRecord(models.Model):
+  preaching_worship_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
+  pastoral_care_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
+  spiritual_life_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
+  community_connection_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
+  religious_education_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
+  administration_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
   first_name = models.CharField(max_length=20, blank=True, null=True)
   middle_initial = models.CharField(max_length=1, blank=True, null=True)
   last_name = models.CharField(max_length=20, blank=True, null=True)
@@ -160,39 +113,12 @@ class MinisterialRecord(models.Model):
   community_connection = models.TextField(blank=True, null=True)
   religious_education = models.TextField(blank=True, null=True)
   administration = models.TextField(blank=True, null=True)
-  preaching_worship_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
-  pastoral_care_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
-  spiritual_life_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
-  community_connection_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
-  religious_education_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
-  administration_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
 
   def __str__(self):
     return self.first_name
 
-  @property
-  def pw_image_link(self):
-    return MEDIA_PREFIX + self.preaching_worship_image.__str__()
-
-  @property
-  def pc_image_link(self):
-    return MEDIA_PREFIX + self.pastoral_care_image.__str__()
-  
-  @property
-  def sl_image_link(self):
-    return MEDIA_PREFIX + self.spiritual_life_image.__str__()
-
-  @property
-  def cc_image_link(self):
-    return MEDIA_PREFIX + self.community_connection_image.__str__()
-
-  @property
-  def re_image_link(self):
-    return MEDIA_PREFIX + self.religious_education_image.__str__()
-
-  @property
-  def a_image_link(self):
-    return MEDIA_PREFIX + self.administration_image.__str__()
+  def get_fields(self):
+    return [(field.name, getattr(self, field.name)) for field in MinisterialRecord._meta.fields]
 
 class Meditation(models.Model):
   title = models.CharField(max_length=200, unique=True)
@@ -302,6 +228,7 @@ class SacredJourney(models.Model):
   created_on = models.DateTimeField(auto_now=True)
   status = models.IntegerField(choices=STATUS, default=0)
   slug = models.SlugField(max_length=200, unique=True)
+  image = models.FileField(upload_to='media/', blank=True, null=True)
 
   class Meta:
     ordering = ['-created_on']
@@ -311,3 +238,24 @@ class SacredJourney(models.Model):
 
   def get_absolute_url(self):
     return reverse('sacred_journey_detail', kwargs={'slug': self.slug})
+
+  @property
+  def image_link(self):
+    return MEDIA_PREFIX + self.image.__str__()
+
+class SpiritualDirection(models.Model):
+  title = models.CharField(max_length=20, blank=True, null=True, default='Spiritual Direction')
+  what_is_spiritual_direction_image = models.FileField(upload_to='media/spiritual-direction-images/', blank=True, null=True)
+  what_do_spiritual_directors_do_image = models.FileField(upload_to='media/spiritual-direction-images/', blank=True, null=True)
+  one_on_one_sessions_image = models.FileField(upload_to='media/spiritual-direction-images/', blank=True, null=True)
+  contact_wayne_for_a_session_image = models.FileField(upload_to='media/spiritual-direction-images/', blank=True, null=True)
+  what_is_spiritual_direction = models.TextField(blank=True, null=True)
+  what_do_spiritual_directors_do = models.TextField(blank=True, null=True)
+  one_on_one_sessions = models.TextField(blank=True, null=True)
+  contact_wayne_for_a_session = models.TextField(blank=True, null=True)
+
+  def __str__(self):
+    return self.title
+
+  def get_fields(self):
+    return [(field.name, getattr(self, field.name)) for field in SpiritualDirection._meta.fields]

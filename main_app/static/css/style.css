@@ -94,9 +94,17 @@ body {
 .img-main-page {
   /* height: 380px;
   width: 570px; */
-  height: auto;
+  /* height: auto; */
   width: 100%;
+  aspect-ratio: 3 / 2;
+  
   object-fit: cover;
+}
+
+.substitute {
+  width: 100%;
+  background-color: white;
+  aspect-ratio: 3 / 2;
 }
 
 .post-grid {
@@ -105,6 +113,7 @@ body {
 }
 
 .post-link {
+  height: 200px;
   /* display: block; */
 }
 
@@ -158,7 +167,7 @@ body {
 
 .post-preview {
   display: flex;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .post-preview-image-container {
@@ -548,6 +557,10 @@ h2 {
     font-size: 48px;
   }
 
+  .slide-image {
+    width: auto;
+    height: 600px;
+  }
   /* #cdsldrcntnr {
     display: none;
   } */

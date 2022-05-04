@@ -16,6 +16,7 @@ urlpatterns = [
   path('sacred-journeys/<slug:slug>/delete/', views.SacredJourneyDelete.as_view(), name='sacred_journey_delete'),
   path('sacred-journeys/<slug:slug>/', views.SacredJourneyDetail.as_view(), name='sacred_journey_detail'),
   path('spiritual-direction/', views.spiritual_direction, name='spiritual_direction'),
+  path('spiritual-direction/<int:pk>/edit/', views.SpiritualDirectionUpdate.as_view(), name='spiritual_direction_update'),
   path('blog/', views.posts_index, name='blog'),
   path('blog/create/', views.PostCreate.as_view(), name='post_create'),
   path('blog/<slug:slug>/edit/', views.PostUpdate.as_view(), name='post_update'),

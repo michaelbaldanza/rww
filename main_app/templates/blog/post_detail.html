@@ -4,9 +4,6 @@
 {% load markdown_extras %}
 <div id="blog-container">
   <div class="post">
-    {% if post.photo_link != Null%}
-      <img class="post-image" src="{{ post.photo_link }}" height=300 width=auto>
-    {% endif %}
     {% if post.image %}
       <img class="post-image" src="{{ post.image_link }}" height=300 width=auto>
     {% endif %}

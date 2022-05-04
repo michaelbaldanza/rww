@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MainPageFragment, MinistryPage, Photo, Post, Meditation, MainPagePhoto, SacredJourney, MinisterialRecord, MinisterialRecordImage
+from .models import MainPageFragment, MinistryPage, Photo, Post, Meditation, MainPagePhoto, SacredJourney, SpiritualDirection, MinisterialRecord
 
 class MainPageFragmentAdmin(admin.ModelAdmin):
     list_display = ('role', 'content', 'created_on')
@@ -16,10 +16,6 @@ class MinistryPageAdmin(admin.ModelAdmin):
 class MinisterialRecordAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name')
     search_fields = ['firs_name', 'last_name']
-
-class MinisterialRecordImageAdmin(admin.ModelAdmin):
-    list_display = ('name_of_file', 'category', 'position', 'updated_on', 'created_on')
-    search_fields = ['category']
 
 class MeditationAdmin(admin.ModelAdmin):
     list_display = ('title', 'source', 'created_on', 'status')
@@ -44,6 +40,15 @@ class SacredJourneyAdmin(admin.ModelAdmin):
     search_fields = ['name', 'destination']
     prepopulated_fields = {'slug': ('name',)}
 
+class SpiritualDirectionAdmin(admin.ModelAdmin):
+    list_display = (
+        'title', 'what_is_spiritual_direction',
+        )
+    search_fields = [
+        'title', 'what_is_spiritual_direction', 'what_do_spiritual_directors_do',
+    ]
+
+admin.site.register(SpiritualDirection, SpiritualDirectionAdmin)
 admin.site.register(SacredJourney, SacredJourneyAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Photo, PhotoAdmin)
@@ -52,4 +57,3 @@ admin.site.register(MainPageFragment, MainPageFragmentAdmin)
 admin.site.register(MainPagePhoto, MainPagePhotoAdmin)
 admin.site.register(MinistryPage, MinistryPageAdmin)
 admin.site.register(MinisterialRecord, MinisterialRecordAdmin)
-admin.site.register(MinisterialRecordImage, MinisterialRecordImageAdmin)

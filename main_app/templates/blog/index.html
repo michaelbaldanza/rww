@@ -25,7 +25,7 @@
           {{ post.title }}
         </h2>
         <p class="post-preview-text">
-          {{ post.content|truncatewords:15|markdown|safe }}
+          {{ post.content|truncatewords:15|markdown|safe|striptags }}
         </p> 
         <p>
           {{ post.author }} | {{ post.created_on|date:'M j' }}
