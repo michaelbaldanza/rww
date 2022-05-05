@@ -4,8 +4,8 @@
 {% load markdown_extras %}
 <div id="blog-container">
   <div class="post">
-    {% if sacredjourney.banner_picture %}
-      <img class="post-image" src="{{ sacredjourney.image }}">
+    {% if sacredjourney.image %}
+      <img class="post-image" src="{{ sacredjourney.image_link }}">
     {% endif %}
     <div>
     <a href="{{ sacredjourney.worldwidequest_link }}"><h2>{{ sacredjourney.name }}</h2></a>

@@ -195,9 +195,8 @@ body {
   font-size: 200%;
 }
 
-
-.img-heading > span {
-  
+.img-heading-spi-dir {
+  font-size: 160%;
 }
 
 #word-grid {
@@ -497,6 +496,10 @@ h2 {
     font-size: 300%;
   }
 
+  .img-heading-spi-dir {
+    font-size: 240%;
+  }
+
   nav {
     display: none;
   }
@@ -540,6 +543,10 @@ h2 {
 
   .img-heading {
     font-size: 400%;
+  }
+
+  .img-heading-spi-dir {
+    font-size: 320%;
   }
 
   nav {

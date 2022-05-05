@@ -106,7 +106,7 @@ def ministerial_record(request):
         else:
           image_dict['image_link'] = False
         menu_images.append(image_dict)
-      elif 'id' is not pair[0] and pair[1]:
+      elif 'id' != pair[0] and pair[1]:
         paragraphs.append(pair)
   return render(request, 'ministerial-record.html', {'min_rec': min_rec, 'menu_images': menu_images, 'paragraphs': paragraphs})
 
@@ -126,7 +126,8 @@ def sacred_journeys_index(request):
   upcoming_journeys = []
   previous_journeys = []
   for journey in journeys:
-    print(journey.banner_picture)
+    print('here be thhe journey')
+    print(journey)
     print(today)
     if journey.start_date > today:
       upcoming_journeys.append(journey)

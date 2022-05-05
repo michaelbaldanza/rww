@@ -12,7 +12,7 @@
         <a class="post-link" href="{% url 'sacred_journey_detail' journey.slug %}">
           <div class="post-preview">
             <div class="post-preview-image-container">
-              {% if journey.image_link %}
+              {% if journey.image %}
               <img
                 class="post-preview-image"
                 src="{{ journey.image_link }}"

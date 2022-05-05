@@ -5,7 +5,9 @@
 {% load app_extras %}
 
 <h1>{{ spi_dir.title }}</h1>
-{% if perms.main_app.change_ministerial_record %}
+{% if spi_dir %}
+  {% if perms.main_app.change_ministerial_record %}
+{% endif %}
 <a href="{% url 'spiritual_direction_update' spi_dir.id %}">Edit</a>
 {% endif %}
 <div class="img-grid"> 
@@ -21,7 +23,7 @@
         {% else %}
         <div class="substitute"></div>
         {% endif %}
-        <h2 class="img-heading">
+        <h2 class="img-heading img-heading-spi-dir">
           {% if 'what' in menu_image.text %}
             {{ menu_image.text|title|questify }}
           {% else %}
