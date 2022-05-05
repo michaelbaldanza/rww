@@ -10,10 +10,6 @@ body {
   margin: 0;
 }
 
-#logo {
-  font-size: 96px;
-}
-
 #title-container {
   text-align: center;
   margin: auto;
@@ -37,21 +33,6 @@ body {
   font-size: 16px;
   /* border-bottom: 2px solid rgba(250,177,98,.7); */
 }
-
-#logo {
-  font-size: 96px;
-  color: #9ECE9A;
-}
-
-/*
-
-
-@media screen and (min-width: 320px) {
-  #page-wrap {
-    width: 300px;
-    margin: 0 auto;
-  }
-} */
 
 #txt > h2 {
   margin-top: 0;
@@ -114,7 +95,6 @@ body {
 
 .post-link {
   height: 200px;
-  /* display: block; */
 }
 
 .no-picture {
@@ -138,26 +118,12 @@ body {
   object-fit: cover;
 }
 
-
-
 .overlay {
   position: absolute;
   height: 565px;
   width: 420px;
   background-color: rgba(250,177,98);
 }
-
-/* .overlay {
-  height: 565px;
-  width: 420px;
-  background-color: rgba(250,177,98,.7);
-} */
-
-/* #img-blog {
-  background: url('/static/images/lily-2020.jpeg');
-  background-size: contain;
-  backdrop-filter: grayscale(100%);
-} */
 
 .blog-img {
   width: 300px;
@@ -270,10 +236,11 @@ a:hover {
 
 header {
   border-bottom: 1px solid rgba(250,177,98,.7);
-  padding: 1em 0;
+  padding: 1em 0 1.5em 0;
   display: flex;
   justify-content: space-between;
   position: relative;
+  margin-bottom: 1em;
 }
 
 #socmedia-container {
@@ -335,7 +302,6 @@ nav {
   display: flex;
   justify-content: space-between;
   font-size: 36px;
-  /* padding: 18px 9px; */
   border-bottom: 1px solid rgba(250,177,98,.7);
   margin-bottom: 1em;
 }
@@ -358,12 +324,9 @@ nav {
   justify-content: space-between;
   position: relative;
   margin-right: 50px;
-  /* grid-template-rows: 1fr 1fr 1fr; */
-  /* padding-right: 226.81px; */
 }
 
 section {
-  /* min-width: 750px; */
   margin: 0 auto;
 }
 
@@ -383,10 +346,8 @@ section {
 
 .txt-overlay {
   position: absolute;
-  /* position: relative; */
   max-width: 256px;
   bottom: 140px;
-  /* top: 200px; */
   left: 25%;
 }
 
@@ -406,26 +367,9 @@ section {
 }
 
 footer {
-  /* position: fixed; */
   bottom: 0;
   font-size: 12px;
 }
-
-/* .link-pair:hover .img, .link-pair:hover p {
-  color: rgba(115, 115, 115, 0.8);
-  filter: grayscale(100%);
-} */
-
-/* .link-pair {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  pointer-events: none;
-}
-
-.link-pair img, .link-pair p {
-  pointer-events: all;
-} */
 
 #all-but-footer {
   min-height: 100vh;
@@ -434,13 +378,6 @@ footer {
 #txt > p {
   margin: 0;
 }
-
-/* .post {
-  padding: 0 1em;
-  border: 0.5px solid rgba(250,177,98,.7);
-  margin-bottom: 1em;
-} */
-
 
 #meditation-container {
   display: flex;
@@ -491,19 +428,16 @@ footer {
 }
 
 #page-wrap {
-  /* width: 3600px; */
   margin: 0 auto;
 }
+
 nav {
   display: none;
 }
 
-header {
-  margin-bottom: 1em;
-}
-
 #logo {
   font-size: 36px;
+  color: #9ECE9A;
 }
 
 h2 {
@@ -511,19 +445,10 @@ h2 {
 }
 
 #by-rev-wayne {
-  /* width: auto;
-  margin: auto; */
   position: absolute;
-  /* top: 75px;
-  right: 100px; */
-  top: 64%;
+  top: 75%;
   right: 10%;
 }
-
-/* #txt {
-  height: 600px;
-  width: 300px;
-} */
 
 .slide-image {
   width: auto;
@@ -547,10 +472,6 @@ h2 {
   }
   nav {
     display: none;
-  }
-
-  header {
-    margin-bottom: 1em;
   }
 
   #logo {
@@ -623,10 +544,6 @@ h2 {
 
   nav {
     display: block;
-  }
-
-  header {
-    margin: 0;
   }
 
   #logo {
