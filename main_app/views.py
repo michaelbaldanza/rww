@@ -8,6 +8,21 @@ S3_PREFIX = 'https://revwaynew.s3.amazonaws.com/'
 
 # Helper functions
 
+def make_menu_strings(record):
+  if record:
+    image_title_pairs = []
+    for pair in record.get_fields():
+      if 'image' in pair[0]:
+        image_dict = {
+          'text': pair[0].replace('_', ' ').replace(' image', ''),
+        }
+        if pair[1]:
+          image_dict['image_link'] = S3_PREFIX + pair[1].__str__()
+        else:
+          image_dict['image_link'] = False
+        image_title_pairs.append(image_dict)
+    return image_title_pairs
+
 def getsizes(uri):
     warnings.filterwarnings("ignore", "(Possibly )?corrupt EXIF data", UserWarning)
     # get file size *and* image size (None if not known)
@@ -35,55 +50,45 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
-from .models import MainPageFragment, Meditation, Photo, Post, MainPagePhoto, SacredJourney, SpiritualDirection, MinisterialRecord, MinistryPage
+from .models import Photo, Post, SacredJourney, SpiritualDirection, MinisterialRecord, MinistryPage, MainPage, GuidedMeditation, GalleryImage, SlideImage
+from .forms import SlideImageForm
 
 def art_and_music(request):
-  pair_list = []
-  for cat in Photo.CATEGORY_CHOICES:
-    photo_dict = {}
-    cat_photos = first = Photo.objects.filter(category=cat[0])
-    if cat_photos:
-      first = Photo.objects.filter(category=cat[0]).order_by('-created_on').first()
-      photo = Photo.objects.filter(category=cat[0]).order_by('-created_on').first()
-      photo_dict['url'] = photo.photo_link
-      second = photo.get_category_display()
-      photo_dict['group_name'] = photo.get_category_display()
-      third = second.lower().replace(' ', '-')
-      photo_dict['group_path'] = photo.get_category_display().lower().replace(' ', '-')
-      print(photo_dict)
-      if photo:
-        print('**********PRINTING PHOTO_DICT **********')
-        size = getsizes(photo_dict['url'])
-        photo_dict['width'] = size[1][0]
-        photo_dict['height'] = size[1][1]
-        photo_dict['aspect_ratio'] = photo_dict['width'] / photo_dict['height']
-        print(photo_dict['group_name'])
-        print(photo_dict['width'])
-        print(photo_dict['height'])
-        print(photo_dict['aspect_ratio'])
-      pair = [first, second, third]
-      pair_list.append(pair)  
-    else:
-      pair = None
-      pair_list.append(pair)
-  display = pair_list
+  image_dict = {}
+  for cat in GalleryImage.CATEGORY_CHOICES:
+    image_dict[cat[1]] = {
+      'image': GalleryImage.objects.filter(category=cat[0]).order_by('-created_on').first(),
+      'heading': cat[1]
+    }
   return render(
-    request, 'art-and-music.html', {
-      'display': display,
+    request, 'art-and-music/index.html', {
+      'image_dict': image_dict,
       }
     )
 
+class GalleryImageCreate(PermissionRequiredMixin, CreateView):
+  permission_required = 'main_app.add_galleryimage'
+  model = GalleryImage
+  fields = '__all__'
+  success_url = '/art-and-music/'
+
+class GalleryImageDelete(PermissionRequiredMixin, DeleteView):
+  permission_required = 'main_app.delete_galleryimage'
+  model = GalleryImage
+  fields = '__all__'
+  success_url = '/art-and-music/'
+
 def photos_category(request, url_cat):
-  for cat in Photo.CATEGORY_CHOICES:
+  for cat in GalleryImage.CATEGORY_CHOICES:
     if cat[1].lower().replace(' ', '-') == url_cat:
-      display = Photo.objects.filter(category=cat[0]).order_by('-created_on')
+      display = GalleryImage.objects.filter(category=cat[0]).order_by('-created_on')
       print('PRINTING ITEM')
       print(display)
       for dis in display:
         print('PRINTING ITEM')
         print(dis)
       title = cat[1]
-  return render(request, 'photo-cat.html', { 'display': display, 'title': title })
+  return render(request, 'art-and-music/photo-cat.html', { 'display': display, 'title': title })
 
 def ministry(request):
   ministry_page = MinistryPage.objects.first()
@@ -93,22 +98,8 @@ def ministry(request):
 @login_required
 def ministerial_record(request):
   min_rec = MinisterialRecord.objects.first()
-  menu_images = []
-  paragraphs = []
-  if min_rec:
-    for pair in min_rec.get_fields():
-      if 'image' in pair[0]:
-        image_dict = {
-          'text': pair[0].replace('_', ' ').replace(' image', ''),
-        }
-        if pair[1]:
-          image_dict['image_link'] = S3_PREFIX + pair[1].__str__()
-        else:
-          image_dict['image_link'] = False
-        menu_images.append(image_dict)
-      elif 'id' != pair[0] and pair[1]:
-        paragraphs.append(pair)
-  return render(request, 'ministerial-record.html', {'min_rec': min_rec, 'menu_images': menu_images, 'paragraphs': paragraphs})
+  menu_images = make_menu_strings(min_rec)
+  return render(request, 'ministerial-record.html', {'min_rec': min_rec, 'menu_images': menu_images,})
 
 class MinisterialRecordUpdate(PermissionRequiredMixin, UpdateView):
   permission_required = 'ministerial_record.update_ministerial_records'
@@ -179,19 +170,7 @@ def signup(request):
 
 def spiritual_direction(request):
   spi_dir = SpiritualDirection.objects.first()
-  menu_images = []
-  image_dict = {}
-  if spi_dir:
-    for pair in spi_dir.get_fields():
-      if 'image' in pair[0]:
-        image_dict = {
-          'text': pair[0].replace('_', ' ').replace(' image', ''),
-        }
-        if pair[1]:
-          image_dict['image_link'] = S3_PREFIX + pair[1].__str__()
-        else:
-          image_dict['image_link'] = False
-        menu_images.append(image_dict)
+  menu_images = make_menu_strings(spi_dir)
   return render(request, 'spiritual-direction.html', { 'spi_dir': spi_dir, 'menu_images': menu_images })
 
 class SpiritualDirectionUpdate(PermissionRequiredMixin, UpdateView):
@@ -202,41 +181,38 @@ class SpiritualDirectionUpdate(PermissionRequiredMixin, UpdateView):
 
 #### Home #####
 def home(request):
-  #### governs text fragments on home page ####
-  frag_a = MainPageFragment.objects.filter(role='tagline').get()
-  frag_b = MainPageFragment.objects.filter(role='introduction').get()
-
-  #### governs photos on home page ####
-  SLIDESHOW = MainPagePhoto.ROLE_CHOICES[0][0]
-  MENU = MainPagePhoto.ROLE_CHOICES[1][0]
-  slideshow_images = MainPagePhoto.objects.filter(status=1, role=SLIDESHOW).order_by('order')
-  menu_images = MainPagePhoto.objects.filter(status=1, role=MENU).order_by('order')
-  pair_list = []
-  for menu_image in menu_images:
-    image = menu_image
-    print('DEFAULT HYPERLINK DISPLAY')
-    print(menu_image.get_hyperlink_display())
-    hyperlink_display = menu_image.get_hyperlink_display().lower().replace('_', '-')
-    text_display = menu_image.get_hyperlink_display().replace('_', ' ').title()
-    print(text_display)
-    pair = [image, hyperlink_display, text_display]
-    pair_list.append(pair)
-  for p in pair_list:
-    print(p)
-
+  main_page = MainPage.objects.first()
+  slide_image_form = SlideImageForm
+  menu_images = make_menu_strings(main_page)
   num_visits = request.session.get('num_visits', 0)
   request.session['num_visits'] = num_visits + 1
-  print(request.user)
-  print('# of visits:')
-  print(num_visits)
-
+  slide_images = main_page.slideimage_set.order_by('order')
+  print(slide_images)
   return render(request, 'index.html', {
-    'frag_a': frag_a,
-    'frag_b': frag_b,
-    'slideshow_images': slideshow_images,
-    'menu_images': pair_list,
-    # 'menu_images': menu_images,
+    'menu_images': menu_images,
+    'main_page': main_page,
+    'slide_image_form': slide_image_form,
+    'slide_images': slide_images,
     })
+
+class MainPageUpdate(PermissionRequiredMixin, UpdateView):
+  permission_required = 'main_app.change_mainpage'
+  model = MainPage
+  fields = '__all__'
+  success_url = '/'
+
+def add_slide_image(request, main_page_id):
+  form = SlideImageForm(request.POST, request.FILES)
+  if form.is_valid() and request.FILES['image']:
+    new_slide_image = form.save(commit=False)
+    new_slide_image.main_page_id = main_page_id
+    new_slide_image.save()
+  return redirect('home')
+
+class SlideImageDelete(PermissionRequiredMixin, DeleteView):
+  permission_required = 'main_app.delete_slideimage'
+  model = SlideImage
+  success_url = '/'
 
 #### Blog #####
 class PostList(generic.ListView):
@@ -252,9 +228,9 @@ class PostDetail(generic.DetailView):
   template_name = 'blog/post_detail.html'
 
 class PostCreate(PermissionRequiredMixin, CreateView):
-  permission_required = 'post.add_posts'
+  permission_required = 'main_app.add_post'
   model = Post
-  fields = ['title', 'author', 'content', 'status', 'image']
+  fields = ['title', 'content', 'status', 'image']
 
   # def test_func(self):
   #   print(self.request.user)
@@ -271,8 +247,24 @@ class PostDelete(PermissionRequiredMixin, DeleteView):
   success_url = '/blog/'
 
 #### Guided Meditations ####
-def meditations_index(request):
-  meditations = Meditation.objects.all()
-  return render(
-    request, 'guided-meditations.html', {'meditations': meditations}
-    )
+class GuidedMeditationList(generic.ListView):
+  model = GuidedMeditation
+  # queryset = GuidedMeditation.objects.order_by('-created_on')
+  template_name = 'guided-meditations.html'
+
+class GuidedMeditationCreate(PermissionRequiredMixin, CreateView):
+  permission_required = 'main_app.add_guidedmeditation'
+  model = GuidedMeditation
+  fields = '__all__'
+  success_url = '/guided-meditations/'
+
+class GuidedMeditationUpdate(PermissionRequiredMixin, UpdateView):
+  permission_required = 'main_app.change_guidedmeditation'
+  model = GuidedMeditation
+  fields = '__all__'
+  success_url = '/guided-meditations/'
+
+class GuidedMeditationDelete(PermissionRequiredMixin, DeleteView):
+  permission_required = 'main_app.delete_guidedmeditation'
+  model = GuidedMeditation
+  success_url = '/guided-meditations/'

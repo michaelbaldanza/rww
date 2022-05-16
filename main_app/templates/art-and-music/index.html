@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<h2>Photography</h2>
+<h3>
+  <a href="{% url 'add_photo' %}">Add photo</a>
+</h3>
+<div class="img-grid"> 
+  {% for key, values in image_dict.items %}
+  <div class="img-grid-item">
+    <a href="{% url 'gallery_category' values.heading|slugify %}" class="menu-img" id="menu-img-{{ forloop.counter }}">
+      <div class="img-frame">
+        {% if values.image.image_link %}
+        <img
+          class="img-link img-main-page"
+          src="{{ values.image.image_link }}"
+        >
+        {% else %}
+        <div class="substitute"></div>
+        {% endif %}
+        <h2 class="img-heading">
+            {{ values.heading|title }}
+        </h2>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+
+<h2>Music</h2>
+
+{% endblock %}

@@ -46,17 +46,6 @@ class Post(models.Model):
   def image_link(self):
     return MEDIA_PREFIX + self.image.__str__()
 
-class MainPageFragment(models.Model):
-  role = models.CharField(max_length=20, unique=True)
-  content = models.TextField()
-  created_on = models.DateTimeField(auto_now=True)
-
-  class Meta: 
-    ordering = ['created_on']
-
-  def __str__(self):
-    return self.role
-
 class MinistryPage(models.Model):
   heading = models.CharField(max_length=20, default='Ministry')
   video_link = models.URLField(blank=True, null=True)
@@ -71,6 +60,7 @@ class MinistryPage(models.Model):
     return self.heading
 
 class MinisterialRecord(models.Model):
+  record_pdf = models.FileField(upload_to='pdfs/', blank=True, null=True)
   preaching_worship_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
   pastoral_care_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
   spiritual_life_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
@@ -119,14 +109,35 @@ class MinisterialRecord(models.Model):
 
   def get_fields(self):
     return [(field.name, getattr(self, field.name)) for field in MinisterialRecord._meta.fields]
+  
+  @property
+  def pdf_link(self):
+    return MEDIA_PREFIX + self.record_pdf.__str__()
+
+class GuidedMeditation(models.Model):
+  title = models.CharField(max_length=200, unique=True)
+  audio_file = models.FileField(upload_to='media/meditations/')
+  description = models.CharField(max_length=255, blank=True, null=True)
+  updated_on = models.DateTimeField(auto_now=True)
+  created_on = models.DateTimeField(auto_now=True)
+
+  class Meta:
+    ordering = ['-created_on']
+
+  def __str__(self):
+    return self.title
+
+  @property
+  def audio_link(self):
+    return MEDIA_PREFIX + self.audio_file.__str__()
 
 class Meditation(models.Model):
+  audio_file = models.FileField(upload_to='media/meditations/', blank=True, null=True)
   title = models.CharField(max_length=200, unique=True)
   source = models.URLField(blank=True, null=True)
   description = models.CharField(max_length=250, blank=True, null=True)
   updated_on = models.DateTimeField(auto_now=True)
   created_on = models.DateTimeField(auto_now=True)
-  status = models.IntegerField(choices=STATUS, default=0)
 
   class Meta:
     ordering = ['-created_on']
@@ -145,6 +156,31 @@ class Meditation(models.Model):
   @property
   def download_link(self):
     return PREFIX + self.get_source_id() + SUFFIX
+
+class GalleryImage(models.Model):
+  PEOPLE = 'PE'
+  PLACES = 'PL'
+  MYSTICAL_MOMENTS = 'MM'
+  NATURE = 'NA'
+  CATEGORY_CHOICES = [
+    (PEOPLE, 'People'),
+    (PLACES, 'Places'),
+    (MYSTICAL_MOMENTS, 'Mystical Moments'),
+    (NATURE, 'Nature'),
+  ]
+
+  category = models.CharField(max_length=2, choices=CATEGORY_CHOICES)
+  caption = models.CharField(max_length=250, blank=True, null=True)
+  image = models.FileField(upload_to='media/gallery-images/', blank=True, null=True)
+  updated_on = models.DateTimeField(auto_now=True)
+  created_on = models.DateTimeField(auto_now=True)
+  
+  def __str__(self):
+    return str(self.id)
+
+  @property
+  def image_link(self):
+    return MEDIA_PREFIX + self.image.__str__()
 
 class Photo(models.Model):
   PEOPLE = 'PE'
@@ -179,37 +215,33 @@ class Photo(models.Model):
   def photo_link(self):
     return PHOTO_PREFIX + self.get_source_id()
 
-class MainPagePhoto(models.Model):
-  SLIDESHOW_IMAGE = 'SI'
-  MENU_IMAGE = 'MI'
-  ROLE_CHOICES = [
-    (SLIDESHOW_IMAGE, 'Slideshow'),
-    (MENU_IMAGE, 'Menu')
-  ]
-
-  SPIRITUAL_DIRECTION = 'SD'
-  BLOG = 'BL'
-  GUIDED_MEDITATIONS = 'GM'
-  SACRED_JOURNEYS = 'SJ'
-  MINISTRY = 'MY'
-  ART_AND_MUSIC = 'AM'
-  HYPERLINK_CHOICES = [
-    (SPIRITUAL_DIRECTION, 'spiritual_direction'),
-    (BLOG, 'blog'),
-    (GUIDED_MEDITATIONS, 'guided_meditations'),
-    (MINISTRY, 'ministry'),
-    (SACRED_JOURNEYS, 'sacred_journeys'),
-    (ART_AND_MUSIC, 'art_and_music'),
-  ]
-
-  role = models.CharField(max_length=2, choices=ROLE_CHOICES)
-  status = models.IntegerField(choices=STATUS, default=0)
-  order = models.PositiveIntegerField()
-  photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
-  hyperlink = models.CharField(max_length=2, choices=HYPERLINK_CHOICES, blank=True, null=True)
+class MainPage(models.Model):
+  tagline = models.CharField(blank=True, null=True, max_length=60)
+  main_text = models.TextField(blank=True, null=True)
+  blog_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
+  spiritual_direction_image = models.FileField(upload_to='media/main-menu-images/', blank=True, null=True)
+  guided_meditations_image = models.FileField(upload_to='media/main-menu-images/', blank=True, null=True)
+  sacred_journeys_image = models.FileField(upload_to='media/main-menu-images/', blank=True, null=True)
+  ministry_image = models.FileField(upload_to='media/main-menu-images/', blank=True, null=True)
+  art_and_music_image = models.FileField(upload_to='media/main-menu-images/', blank=True, null=True)
 
   def __str__(self):
-    return self.photo.name_of_file
+    return str(self.id)
+  
+  def get_fields(self):
+    return [(field.name, getattr(self, field.name)) for field in MainPage._meta.fields]
+
+class SlideImage(models.Model):
+  order = models.PositiveIntegerField(blank=True, null=True)
+  image = models.FileField(upload_to='media/slideshow/')
+  main_page = models.ForeignKey(MainPage, on_delete=models.CASCADE)
+
+  def __str__(self):
+    return 'Slide Image #' + str(self.id)
+
+  @property
+  def image_link(self):
+    return MEDIA_PREFIX + self.image.__str__()
   
 class SacredJourney(models.Model):
   name = models.CharField(max_length=200, unique=True)

@@ -8,6 +8,11 @@
   {% if perms.main_app.change_ministerial_record %}
     <a href="{% url 'ministerial_record_update' min_rec.id %}">Edit</a>
   {% endif %}
+  <div>
+    <a href="{{ min_rec.pdf_link }}">
+      View my ministerial record.
+    </a>
+  </div>
   <div class="img-grid"> 
     {% for menu_image in menu_images %}
     <div class="img-grid-item">
@@ -47,11 +52,6 @@
   {{ min_rec.approach_religious_education|markdown|safe }}
   <h1 id="administration">Administration</h1>
   {{ min_rec.administration|markdown|safe }}
-  <h1>Other Stuff</h1>
-  {% for paragraph in paragraphs %}
-  <h3>{{ paragraph.0|insert_space:'_'|title }}</h3>
-  <div>{{ paragraph.1 }}</div>
-  {% endfor %}
 </div>
 
 {% endblock %}

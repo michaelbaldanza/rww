@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Delete Gallery Image</h1>
+
+<img width=300 height=auto src="{{ object.image_link }}">
+
+<h4>Are you sure you want to to delete this image?</h4>
+
+<form action="" method="post">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete image" class="btn">
+  <a href="{% url 'art_and_music' %}">Cancel</a>
+</form>
+
+{% endblock %}

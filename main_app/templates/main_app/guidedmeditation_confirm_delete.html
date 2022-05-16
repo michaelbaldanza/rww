@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Delete Guided Meditation</h1>
+
+<h4>Are you sure you want to delete {{ object.title }}?</h4>
+
+<form action="" method="post">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete guided meditation" class="btn">
+  <a href="{% url 'guided_meditations' %}">Cancel</a>
+</form>
+
+{% endblock %}

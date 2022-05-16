@@ -1,13 +1,5 @@
 from django.contrib import admin
-from .models import MainPageFragment, MinistryPage, Photo, Post, Meditation, MainPagePhoto, SacredJourney, SpiritualDirection, MinisterialRecord
-
-class MainPageFragmentAdmin(admin.ModelAdmin):
-    list_display = ('role', 'content', 'created_on')
-    search_fields = ['role', 'content']
-
-class MainPagePhotoAdmin(admin.ModelAdmin):
-    list_display = ('photo', 'status', 'role', 'order', 'hyperlink')
-    search_fields = ['role', 'status', 'photo', 'order', 'hyperlink']
+from .models import MinistryPage, Photo, GalleryImage, Post, GuidedMeditation, SacredJourney, SpiritualDirection, MinisterialRecord, MainPage, SlideImage
 
 class MinistryPageAdmin(admin.ModelAdmin):
     list_display = ('heading', 'video_caption', 'created_on')
@@ -17,14 +9,16 @@ class MinisterialRecordAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name')
     search_fields = ['firs_name', 'last_name']
 
-class MeditationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'source', 'created_on', 'status')
-    list_filter = ('status',)
-    search_fields = ['title',]
+class GuidedMeditationAdmin(admin.ModelAdmin):
+    list_display = ('title', 'audio_file', 'created_on')
+    search_fields = ['title']
 
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ('name_of_file', 'category', 'created_on',)
     search_fields = ['name_of_file',]
+
+class GalleryImageAdmin(admin.ModelAdmin):
+    list_display = ('image', 'caption', 'updated_on', 'created_on')
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'status','created_on')
@@ -48,12 +42,13 @@ class SpiritualDirectionAdmin(admin.ModelAdmin):
         'title', 'what_is_spiritual_direction', 'what_do_spiritual_directors_do',
     ]
 
+admin.site.register(GalleryImage, GalleryImageAdmin)
+admin.site.register(SlideImage)
+admin.site.register(MainPage)
 admin.site.register(SpiritualDirection, SpiritualDirectionAdmin)
 admin.site.register(SacredJourney, SacredJourneyAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Photo, PhotoAdmin)
-admin.site.register(Meditation, MeditationAdmin)
-admin.site.register(MainPageFragment, MainPageFragmentAdmin)
-admin.site.register(MainPagePhoto, MainPagePhotoAdmin)
+admin.site.register(GuidedMeditation, GuidedMeditationAdmin)
 admin.site.register(MinistryPage, MinistryPageAdmin)
 admin.site.register(MinisterialRecord, MinisterialRecordAdmin)

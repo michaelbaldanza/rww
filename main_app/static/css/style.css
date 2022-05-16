@@ -39,13 +39,6 @@ body {
   margin-bottom: 11px;
 }
 
-/* .row {
-  display: flex;
-  justify-content: space-between;
-  margin: 30px 0;
-  flex-wrap: wrap;
-} */
-
 .img-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -56,8 +49,6 @@ body {
 }
 
 .menu-img {
-  /* height: 380px;
-  width: 570px; */
   width: 95%;
   display: inline-block;
 }
@@ -72,13 +63,15 @@ body {
   padding: none;
 }
 
+.thumbnail {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
 .img-main-page {
-  /* height: 380px;
-  width: 570px; */
-  /* height: auto; */
   width: 100%;
   aspect-ratio: 3 / 2;
-  
   object-fit: cover;
 }
 
@@ -177,10 +170,8 @@ body {
 }
 
 .img-text {
-  /* position: absolute; */
   top: 50px;
-  right: 50px;
-  
+  right: 50px; 
 }
 
 .img-heading {
@@ -211,8 +202,6 @@ body {
 }
 
 #txt {
-  /* height: 565px; */
-  /* width: 80%; */
   font-size: 18px;
   display: flex;
   flex-direction: column;
@@ -270,7 +259,6 @@ header {
 .nav-horizontal-menu {
   display: flex;
   flex-direction: row;
-  /* text-align: center; */
   justify-content: space-around;
   font-size: 16px;
   width: 100%;
@@ -378,22 +366,21 @@ footer {
   margin: 0;
 }
 
-#meditation-container {
+#meditations-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .meditation {
   padding: 0 1em 1em 1em;
   margin: 1em 0;
-  width: 340px;
-  height: 340px;
+  width: 250px;
   border: 0.5px solid rgba(250,177,98,.7);
 }
 
 .meditation > audio {
-  width: 250px;
+  width: 200px;
 }
 
 .caption {
@@ -464,6 +451,15 @@ h2 {
   right: 0;
 }
 
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.gallery-image {  
+}
+
 @media screen and (min-width: 480px) {
   #page-wrap {
     width: 460px;
@@ -480,10 +476,8 @@ h2 {
   .slide-image {
     width: auto;
     height: 600px;
+
   }
-  /* #cdsldrcntnr {
-    display: none;
-  } */
 }
 
 @media screen and (min-width: 768px) {
@@ -511,12 +505,6 @@ h2 {
   h2 {
     font-size: 1.2em;
   }
-
-  /* #cdsldrcntnr {
-    display: block;
-    position: relative;
-    right: 0;
-  } */
 
   #part-one {
     height: 600px;
@@ -559,6 +547,10 @@ h2 {
 
   h2 {
     font-size: 1.5em;
+  }
+
+  #meditations-container {
+    justify-content: space-between;
   }
 }
 

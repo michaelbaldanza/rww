@@ -3,27 +3,48 @@
 {% load static %}
 {% load markdown_extras %}
 
-
+{% if perms.main_app.change_mainpage %}
+  <section>
+    <a href="{% url 'main_page_update' main_page.id %}">Edit Main Page</a>
+    <form action="{% url 'add_slide_image' main_page.id %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <table>
+      {{ slide_image_form.as_p }}
+      </table>
+      <input type="submit" value="Add Image">
+    </form>
+    <table>
+    {% for slide_image in slide_images %}
+      <td>
+        <tr>
+          <img class="thumbnail" src="{{ slide_image.image_link }}">
+        </tr>
+        <tr>
+          <a href="{% url 'delete_slide_image' slide_image.id %}">Delete</a>
+        </tr>
+      </td>
+    {% endfor %}
+    </table>
+  </section>
+{% endif %}
   <section id="part-one">
     <div id="txt">
-      <h2>{{ frag_a.content }}</h2>
-      {{frag_b.content| markdown | safe}}
+      <h2>{% if main_page.tagline %}{{ main_page.tagline }}{% endif %}</h2>
+      {{ main_page.main_text|markdown|safe}}
     </div>
     <div id="cdsldrcntnr">
       <div class="coda-slider"  id="slider-id">
-        {% for slide_image in slideshow_images %}
-          {% if slide_image %}
-            <div>
-              <div class="backdrop-container">
-                <img
-                  class="slide-image"
-                  src="{{ slide_image.photo.photo_link }}"
-                >
-              </div>
-            </div>
-          {% endif %}
+        {% for slide_image in slide_images %}
+        <div>
+          <div class="backdrop-container">
+            <img
+              class="slide-image"
+              src="{{ slide_image.image_link }}"
+            >
+            <h1 class="img-heading">Test</h1>
+          </div>
+        </div>
         {% endfor %}
-        
       </div>
     </div>
   </section>
@@ -31,14 +52,18 @@
     <div class="img-grid">
       {% for menu_image in menu_images %}
       <div class="img-grid-item">
-        <a href="{{ menu_image.1 }} " class="menu-img" id="menu-img-{{ forloop.counter }}">
+        <a href="#{{ menu_image.text|slugify }}" class="menu-img" id="menu-img-{{ forloop.counter }}">
           <div class="img-frame">
+            {% if menu_image.image_link %}
             <img
               class="img-link img-main-page"
-              src="{{ menu_image.0.photo.photo_link }}"
+              src="{{ menu_image.image_link }}"
             >
+            {% else %}
+            <div class="substitute"></div>
+            {% endif %}
             <h2 class="img-heading">
-              {{ menu_image.2 }}
+                {{ menu_image.text|title }}
             </h2>
           </div>
         </a>
@@ -46,5 +71,4 @@
       {% endfor %}
     </div>
   </section>
-
 {% endblock %}

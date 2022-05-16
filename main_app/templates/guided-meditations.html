@@ -4,14 +4,22 @@
 {% load markdown_extras %}
 
 <h1>Guided Meditations</h1>
-<div id="meditation-container">
-  {% for meditation in meditations %}
+{% if perms.add_guidedmeditation %}
+  <h2><a href="{% url 'guided_meditation_create' %}">Add Guided Meditation</a></h2>
+{% endif %}
+<div id="meditations-container">
+  {% for meditation in guidedmeditation_list %}
   <div class="meditation">
-    <a href="{{ meditation.download_link }}"><h2>{{ meditation.title }}</h2></a>
+    <h2>{{ meditation.title }}</h2>
     <audio controls>
       <source src="{{ meditation.audio_link }}" type="audio/mp4">
     </audio>
     {{ meditation.description | markdown | safe }}
+    {% if perms.add_guidedmeditation %}
+    <a href="{% url 'guided_meditation_update' meditation.id %}">Edit</a>
+    |
+    <a href="{% url 'guided_meditation_delete' meditation.id %}">Delete</a>
+    {% endif %}
   </div>
   {% endfor %}
 </div>
