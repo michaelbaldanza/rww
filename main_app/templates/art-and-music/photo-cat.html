@@ -3,38 +3,31 @@
 {% load static %}
 
 <h1>{{ title }}</h1>
-{% if perms.main_app.change_mainpage %}
-  <section>
-    <table>
-    {% for dis in display %}
-      <td>
-        <tr>
-          <img class="thumbnail" src="{{ dis.image_link }}">
-        </tr>
-        <tr>
-          <a href="{% url 'delete_photo' dis.id %}">Delete</a>
-        </tr>
-      </td>
-    {% endfor %}
-    </table>
-  </section>
-{% endif %}
 <div class="gallery">
 
   {% for dis in display %}
-  <a href="{{ dis.image_link }}">
-    <div class="img-frame gallery-image">
-      <img
+    <div class="gallery-image-{% cycle 'odd' 'even' %}">
+      <div class="image-wall">
+        <img
+        class="gallery-image"
         src="{{ dis.image_link }}"
-        width=auto
-        height=340
       >
-      {% if dis.description %}
-      <div class="caption">{{ dis.description }}</div>
-      {% else %}
-      {% endif %}
+      </div>
+      <div class="text-wall">
+        <div class="floating-caption">
+          {% if dis.caption %}
+            {{ dis.caption }}
+          {% endif %}
+          {% if perms.main_app.change_mainpage %}
+            <div>
+              <a href="{% url 'delete_photo' dis.id %}">Delete</a>
+              |
+              <a href="{% url 'edit_caption' dis.id %}">Edit Caption</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
     </div>
-  </a>
   {% endfor %}
 
 </div>

@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+{% load markdown_extras %}
 
 <h2>Photography</h2>
 <h3>
-  <a href="{% url 'add_photo' %}">Add photo</a>
+  <a class="edit-link" href="{% url 'add_photo' %}">Add photo</a>
 </h3>
 <div class="img-grid"> 
   {% for key, values in image_dict.items %}
@@ -29,5 +30,23 @@
 </div>
 
 <h2>Music</h2>
-
+{% if perms.add_music %}
+  <h3><a class="edit-link" href="{% url 'music_create' %}">Add a song</a></h3>
+{% endif %}
+<div id="meditations-container">
+  {% for meditation in songs %}
+  <div class="meditation">
+    <h2>{{ meditation.title }}</h2>
+    <audio controls>
+      <source src="{{ meditation.audio_link }}" type="audio/mp4">
+    </audio>
+    {{ meditation.description | markdown | safe }}
+    {% if perms.add_guidedmeditation %}
+    <a href="{% url 'music_update' meditation.id %}">Edit</a>
+    |
+    <a href="{% url 'music_delete' meditation.id %}">Delete</a>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

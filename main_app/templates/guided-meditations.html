@@ -5,7 +5,7 @@
 
 <h1>Guided Meditations</h1>
 {% if perms.add_guidedmeditation %}
-  <h2><a href="{% url 'guided_meditation_create' %}">Add Guided Meditation</a></h2>
+  <h3><a class="edit-link" href="{% url 'guided_meditation_create' %}">Add a Guided Meditation</a></h3>
 {% endif %}
 <div id="meditations-container">
   {% for meditation in guidedmeditation_list %}

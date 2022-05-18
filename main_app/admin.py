@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MinistryPage, Photo, GalleryImage, Post, GuidedMeditation, SacredJourney, SpiritualDirection, MinisterialRecord, MainPage, SlideImage
+from .models import MinistryPage, GalleryImage, Post, GuidedMeditation, SacredJourney, SpiritualDirection, MinisterialRecord, MainPage, SlideImage, Music
 
 class MinistryPageAdmin(admin.ModelAdmin):
     list_display = ('heading', 'video_caption', 'created_on')
@@ -13,12 +13,8 @@ class GuidedMeditationAdmin(admin.ModelAdmin):
     list_display = ('title', 'audio_file', 'created_on')
     search_fields = ['title']
 
-class PhotoAdmin(admin.ModelAdmin):
-    list_display = ('name_of_file', 'category', 'created_on',)
-    search_fields = ['name_of_file',]
-
 class GalleryImageAdmin(admin.ModelAdmin):
-    list_display = ('image', 'caption', 'updated_on', 'created_on')
+    list_display = ('id', 'image', 'caption', 'updated_on', 'created_on')
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'status','created_on')
@@ -43,12 +39,13 @@ class SpiritualDirectionAdmin(admin.ModelAdmin):
     ]
 
 admin.site.register(GalleryImage, GalleryImageAdmin)
+
 admin.site.register(SlideImage)
 admin.site.register(MainPage)
+admin.site.register(Music)
 admin.site.register(SpiritualDirection, SpiritualDirectionAdmin)
 admin.site.register(SacredJourney, SacredJourneyAdmin)
 admin.site.register(Post, PostAdmin)
-admin.site.register(Photo, PhotoAdmin)
 admin.site.register(GuidedMeditation, GuidedMeditationAdmin)
 admin.site.register(MinistryPage, MinistryPageAdmin)
 admin.site.register(MinisterialRecord, MinisterialRecordAdmin)

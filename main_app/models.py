@@ -3,13 +3,8 @@ import re
 
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator
 from django.template.defaultfilters import slugify
 from django.urls import reverse
-
-PREFIX = 'https://docs.google.com/uc?export=download&id='
-SUFFIX = '&export=download'
-PHOTO_PREFIX = 'https://docs.google.com/uc?export=view&id='
 
 MEDIA_PREFIX = 'https://revwaynew.s3.amazonaws.com/'
 
@@ -46,6 +41,23 @@ class Post(models.Model):
   def image_link(self):
     return MEDIA_PREFIX + self.image.__str__()
 
+class Music(models.Model):
+  title = models.CharField(max_length=200, unique=True)
+  audio_file = models.FileField(upload_to='media/meditations/')
+  description = models.CharField(max_length=255, blank=True, null=True)
+  updated_on = models.DateTimeField(auto_now=True)
+  created_on = models.DateTimeField(auto_now=True)
+
+  class Meta:
+    ordering = ['-created_on']
+
+  def __str__(self):
+    return self.title
+
+  @property
+  def audio_link(self):
+    return MEDIA_PREFIX + self.audio_file.__str__()
+    
 class MinistryPage(models.Model):
   heading = models.CharField(max_length=20, default='Ministry')
   video_link = models.URLField(blank=True, null=True)
@@ -131,32 +143,6 @@ class GuidedMeditation(models.Model):
   def audio_link(self):
     return MEDIA_PREFIX + self.audio_file.__str__()
 
-class Meditation(models.Model):
-  audio_file = models.FileField(upload_to='media/meditations/', blank=True, null=True)
-  title = models.CharField(max_length=200, unique=True)
-  source = models.URLField(blank=True, null=True)
-  description = models.CharField(max_length=250, blank=True, null=True)
-  updated_on = models.DateTimeField(auto_now=True)
-  created_on = models.DateTimeField(auto_now=True)
-
-  class Meta:
-    ordering = ['-created_on']
-
-  def __str__(self):
-    return self.title
-
-  def get_source_id(self):
-    source_id = re.search('/d/(.+?)/view', self.source).group(1)
-    return source_id
-
-  @property
-  def audio_link(self):
-    return PREFIX + self.get_source_id()
-
-  @property
-  def download_link(self):
-    return PREFIX + self.get_source_id() + SUFFIX
-
 class GalleryImage(models.Model):
   PEOPLE = 'PE'
   PLACES = 'PL'
@@ -181,39 +167,6 @@ class GalleryImage(models.Model):
   @property
   def image_link(self):
     return MEDIA_PREFIX + self.image.__str__()
-
-class Photo(models.Model):
-  PEOPLE = 'PE'
-  PLACES = 'PL'
-  MYSTICAL_MOMENTS = 'MM'
-  NATURE = 'NA'
-  CATEGORY_CHOICES = [
-    (PEOPLE, 'People'),
-    (PLACES, 'Places'),
-    (MYSTICAL_MOMENTS, 'Mystical Moments'),
-    (NATURE, 'Nature'),
-  ]
-
-  name_of_file = models.CharField(max_length=200, unique=True)
-  category = models.CharField(max_length=2, choices=CATEGORY_CHOICES, blank=True, null=True)
-  source = models.URLField(blank=True, null=True)
-  description = models.CharField(max_length=250, blank=True, null=True)
-  updated_on = models.DateTimeField(auto_now=True)
-  created_on = models.DateTimeField(auto_now=True)
-
-  class Meta:
-    ordering = ['-created_on']
-
-  def __str__(self):
-    return self.name_of_file
-
-  def get_source_id(self):
-    source_id = re.search('/d/(.+?)/view', self.source).group(1)
-    return source_id
-
-  @property
-  def photo_link(self):
-    return PHOTO_PREFIX + self.get_source_id()
 
 class MainPage(models.Model):
   tagline = models.CharField(blank=True, null=True, max_length=60)
@@ -244,11 +197,11 @@ class SlideImage(models.Model):
     return MEDIA_PREFIX + self.image.__str__()
   
 class SacredJourney(models.Model):
+  image = models.FileField(upload_to='media/', blank=True, null=True)
   name = models.CharField(max_length=200, unique=True)
   start_date = models.DateField()
   end_date = models.DateField()
   destination = models.CharField(max_length=50)
-  banner_picture = models.URLField(blank=True, null=True)
   worldwidequest_link = models.URLField(blank=True, null=True)
   description = models.TextField()
   itinerary = models.TextField(blank=True, null=True)
@@ -260,7 +213,6 @@ class SacredJourney(models.Model):
   created_on = models.DateTimeField(auto_now=True)
   status = models.IntegerField(choices=STATUS, default=0)
   slug = models.SlugField(max_length=200, unique=True)
-  image = models.FileField(upload_to='media/', blank=True, null=True)
 
   class Meta:
     ordering = ['-created_on']

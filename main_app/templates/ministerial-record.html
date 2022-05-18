@@ -6,7 +6,7 @@
 <div>
   <h1>Ministerial Record</h1>
   {% if perms.main_app.change_ministerial_record %}
-    <a href="{% url 'ministerial_record_update' min_rec.id %}">Edit</a>
+    <h3><a class="edit-link" href="{% url 'ministerial_record_update' min_rec.id %}">Edit</a></h3>
   {% endif %}
   <div>
     <a href="{{ min_rec.pdf_link }}">

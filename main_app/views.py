@@ -50,21 +50,43 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
-from .models import Photo, Post, SacredJourney, SpiritualDirection, MinisterialRecord, MinistryPage, MainPage, GuidedMeditation, GalleryImage, SlideImage
-from .forms import SlideImageForm
+from .models import Post, SacredJourney, SpiritualDirection, MinisterialRecord, MinistryPage, MainPage, GuidedMeditation, GalleryImage, SlideImage, Music
+from .forms import SacredJourneyForm, SlideImageForm, GalleryImageUpdateForm
 
 def art_and_music(request):
+  songs = Music.objects.order_by('-created_on')
+  print(songs)
   image_dict = {}
   for cat in GalleryImage.CATEGORY_CHOICES:
     image_dict[cat[1]] = {
       'image': GalleryImage.objects.filter(category=cat[0]).order_by('-created_on').first(),
-      'heading': cat[1]
+      'heading': cat[1],
     }
   return render(
     request, 'art-and-music/index.html', {
       'image_dict': image_dict,
+      'songs': songs
       }
     )
+
+class MusicCreate(PermissionRequiredMixin, CreateView):
+  permission_required = 'main_app.add_music'
+  model = Music
+  fields = '__all__'
+  success_url = '/art-and-music/'
+
+class MusicDelete(PermissionRequiredMixin, DeleteView):
+  permission_required = 'main_app.delete_music'
+  model = Music
+  fields = '__all__'
+  success_url = '/art-and-music/'
+
+class MusicUpdate(PermissionRequiredMixin, UpdateView):
+  permission_required = 'main_app.change_music'
+  model = Music
+  fields = ['title', 'description']
+  template_name = 'main_app/music_form.html'
+  success_url = '/art-and-music/'
 
 class GalleryImageCreate(PermissionRequiredMixin, CreateView):
   permission_required = 'main_app.add_galleryimage'
@@ -82,13 +104,15 @@ def photos_category(request, url_cat):
   for cat in GalleryImage.CATEGORY_CHOICES:
     if cat[1].lower().replace(' ', '-') == url_cat:
       display = GalleryImage.objects.filter(category=cat[0]).order_by('-created_on')
-      print('PRINTING ITEM')
-      print(display)
-      for dis in display:
-        print('PRINTING ITEM')
-        print(dis)
       title = cat[1]
   return render(request, 'art-and-music/photo-cat.html', { 'display': display, 'title': title })
+
+class GalleryImageUpdate(PermissionRequiredMixin, UpdateView):
+  permission_required = 'main_app.change_galleryimage'
+  model = GalleryImage
+  form_class = GalleryImageUpdateForm
+  template_name = 'main_app/galleryimageupdate_form.html'
+  success_url = '/art-and-music/'
 
 def ministry(request):
   ministry_page = MinistryPage.objects.first()
@@ -142,12 +166,12 @@ class SacredJourneyDetail(generic.DetailView):
 class SacredJourneyCreate(PermissionRequiredMixin, CreateView):
   permission_required = 'sacred_journey.add_sacred_journeys'
   model = SacredJourney
-  fields = '__all__'
+  form_class = SacredJourneyForm
 
 class SacredJourneyUpdate(PermissionRequiredMixin, UpdateView):
   permission_required = 'sacred_journey.update_sacred_journeys'
   model = SacredJourney
-  fields = '__all__'
+  form_class = SacredJourneyForm
 
 class SacredJourneyDelete(PermissionRequiredMixin, DeleteView):
   permission_required = 'sacred_journey.delete_sacred_journey'
@@ -200,6 +224,16 @@ class MainPageUpdate(PermissionRequiredMixin, UpdateView):
   model = MainPage
   fields = '__all__'
   success_url = '/'
+
+def edit_slides(request, main_page_id):
+  main_page = MainPage.objects.get(id=main_page_id)
+  slide_image_form = SlideImageForm
+  slide_images = main_page.slideimage_set.order_by('order')
+  return render(request, 'main_app/slideimage_forms.html', {
+    'main_page': main_page,
+    'slide_image_form': slide_image_form,
+    'slide_images': slide_images,
+  })
 
 def add_slide_image(request, main_page_id):
   form = SlideImageForm(request.POST, request.FILES)

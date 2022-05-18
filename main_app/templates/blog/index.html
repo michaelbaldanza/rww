@@ -4,7 +4,7 @@
 {% load markdown_extras %}
 
 {% if perms.main_app.add_post %}
-  <h2><a href="{% url 'post_create' %}">Add a Post</a></h2>
+  <h3><a class="edit-link" href="{% url 'post_create' %}">Add a Post</a></h3>
 {% endif %}
 <div class="">
   {% for post in posts %}
