@@ -1,13 +1,10 @@
 # Python Imports
 import re, warnings
-from urllib import request as ulreq
-from PIL import ImageFile
 from datetime import date
 
 S3_PREFIX = 'https://revwaynew.s3.amazonaws.com/'
 
-# Helper functions
-
+# Helper function
 def make_menu_strings(record):
   if record:
     image_title_pairs = []
@@ -23,25 +20,6 @@ def make_menu_strings(record):
         image_title_pairs.append(image_dict)
     return image_title_pairs
 
-def getsizes(uri):
-    warnings.filterwarnings("ignore", "(Possibly )?corrupt EXIF data", UserWarning)
-    # get file size *and* image size (None if not known)
-    file = ulreq.urlopen(uri)
-    size = file.headers.get("content-length")
-    if size: 
-        size = int(size)
-    p = ImageFile.Parser()
-    while True:
-        data = file.read(1024)
-        if not data:
-            break
-        p.feed(data)
-        if p.image:
-            return size, p.image.size
-            break
-    file.close()
-    return(size, None)
-
 # Django Imports
 from django.shortcuts import redirect, render
 from django.views import generic
@@ -50,7 +28,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
-from .models import Post, SacredJourney, SpiritualDirection, MinisterialRecord, MinistryPage, MainPage, GuidedMeditation, GalleryImage, SlideImage, Music
+from .models import Post, SacredJourney, SpiritualDirection, MinisterialRecord, MinistryPage, MainPage, GuidedMeditation, GuidedMeditationPage, GalleryImage, SlideImage, Music
 from .forms import SacredJourneyForm, SlideImageForm, GalleryImageUpdateForm
 
 def art_and_music(request):
@@ -141,15 +119,10 @@ def sacred_journeys_index(request):
   upcoming_journeys = []
   previous_journeys = []
   for journey in journeys:
-    print('here be thhe journey')
-    print(journey)
-    print(today)
     if journey.start_date > today:
       upcoming_journeys.append(journey)
     else:
       previous_journeys.append(journey)
-  print(upcoming_journeys)
-  print(previous_journeys)
   return render(
     request,
     'sacred-journeys/index.html',
@@ -286,6 +259,13 @@ class GuidedMeditationList(generic.ListView):
   # queryset = GuidedMeditation.objects.order_by('-created_on')
   template_name = 'guided-meditations.html'
 
+  def get_context_data(self, **kwargs):
+    # Call the base implementation first to get a context
+    context = super().get_context_data(**kwargs)
+    # Add in a QuerySet of all the books
+    context['page_info'] = GuidedMeditationPage.objects.first()
+    return context
+
 class GuidedMeditationCreate(PermissionRequiredMixin, CreateView):
   permission_required = 'main_app.add_guidedmeditation'
   model = GuidedMeditation
@@ -301,4 +281,10 @@ class GuidedMeditationUpdate(PermissionRequiredMixin, UpdateView):
 class GuidedMeditationDelete(PermissionRequiredMixin, DeleteView):
   permission_required = 'main_app.delete_guidedmeditation'
   model = GuidedMeditation
+  success_url = '/guided-meditations/'
+
+class GuidedMeditationPageUpdate(PermissionRequiredMixin, UpdateView):
+  permission_required = 'main_app.change_guidedmeditationpage'
+  model = GuidedMeditationPage
+  fields = '__all__'
   success_url = '/guided-meditations/'

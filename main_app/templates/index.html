@@ -12,7 +12,7 @@
 {% endif %}
   <section id="part-one">
     <div id="txt">
-      <h2>{% if main_page.tagline %}{{ main_page.tagline }}{% endif %}</h2>
+      <h2>{% if main_page.tagline %}{{ main_page.tagline|markdown|safe }}{% endif %}</h2>
       <div id="main-page-paragraphs">
       {{ main_page.main_text|markdown|safe}}
       </div>

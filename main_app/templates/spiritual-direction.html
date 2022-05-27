@@ -4,7 +4,7 @@
 {% load markdown_extras %}
 {% load app_extras %}
 
-<h1>{{ spi_dir.title }}</h1>
+<h1>{{ spi_dir.title|safe }}</h1>
 {% if spi_dir %}
   {% if perms.main_app.change_ministerial_record %}
   <h3><a class="edit-link" href="{% url 'spiritual_direction_update' spi_dir.id %}">Edit</a></h3>

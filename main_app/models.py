@@ -1,6 +1,6 @@
 # Python Imports
-import re
-
+from urllib import request as ulreq
+from PIL import Image, ImageOps
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
@@ -12,6 +12,15 @@ STATUS = (
   (0, "Draft"),
   (1, "Publish")
 )
+
+# helper function
+def get_sizes(uri):
+  file = ulreq.urlopen(uri)
+  im = Image.open(file)
+  transposed_im = ImageOps.exif_transpose(im)
+  file.close()
+  if transposed_im.size:
+    return transposed_im.size
 
 class Post(models.Model):
   title = models.CharField(max_length=200, unique=True)
@@ -126,6 +135,18 @@ class MinisterialRecord(models.Model):
   def pdf_link(self):
     return MEDIA_PREFIX + self.record_pdf.__str__()
 
+class GuidedMeditationPage(models.Model):
+  title = models.CharField(max_length=200, unique=True)
+  main_text = models.TextField(blank=True, null=True)
+  main_image = models.FileField(upload_to='media/meditations/', blank=True, null=True)
+  
+  def __str__(self):
+    return str(self.id)
+
+  @property
+  def image_link(self):
+    return MEDIA_PREFIX + self.main_image.__str__()
+
 class GuidedMeditation(models.Model):
   title = models.CharField(max_length=200, unique=True)
   audio_file = models.FileField(upload_to='media/meditations/')
@@ -168,8 +189,16 @@ class GalleryImage(models.Model):
   def image_link(self):
     return MEDIA_PREFIX + self.image.__str__()
 
+  @property
+  def image_type(self):
+    width, height = get_sizes(self.image_link)
+    if width > height:
+      return 'landscape'
+    else:
+      return 'portrait'
+
 class MainPage(models.Model):
-  tagline = models.CharField(blank=True, null=True, max_length=60)
+  tagline = models.TextField(blank=True, null=True)
   main_text = models.TextField(blank=True, null=True)
   blog_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
   spiritual_direction_image = models.FileField(upload_to='media/main-menu-images/', blank=True, null=True)
@@ -225,7 +254,7 @@ class SacredJourney(models.Model):
 
   def save(self, *args, **kwargs):
     if not self.id:
-      self.slug = slugify(self.title)
+      self.slug = slugify(self.name)
     super(SacredJourney, self).save(*args, **kwargs)
 
   @property
@@ -233,7 +262,7 @@ class SacredJourney(models.Model):
     return MEDIA_PREFIX + self.image.__str__()
 
 class SpiritualDirection(models.Model):
-  title = models.CharField(max_length=20, blank=True, null=True, default='Spiritual Direction')
+  title = models.TextField(blank=True, null=True, default='Spiritual Direction')
   what_is_spiritual_direction_image = models.FileField(upload_to='media/spiritual-direction-images/', blank=True, null=True)
   what_do_spiritual_directors_do_image = models.FileField(upload_to='media/spiritual-direction-images/', blank=True, null=True)
   one_on_one_sessions_image = models.FileField(upload_to='media/spiritual-direction-images/', blank=True, null=True)

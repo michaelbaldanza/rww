@@ -3,7 +3,35 @@
 {% load static %}
 {% load markdown_extras %}
 
-<h1>Guided Meditations</h1>
+{% if perms.main_app.change_mainpage %}
+  <h3>
+    <a href="{% url 'guided_meditation_page_update' page_info.id %}">Change page title, text, and image</a>
+  </h3>
+{% endif %}
+
+<section id="part-one">
+  <div id="txt">
+    <h2>{% if page_info.title %}{{ page_info.title|markdown|safe }}{% endif %}</h2>
+    <div id="main-page-paragraphs">
+      {% if page_info.main_text %}
+        {{ page_info.main_text|markdown|safe}}
+      {% endif %}
+    </div>
+  </div>
+  <div id="">
+    <div class="backdrop-container">
+    {% if page_info.main_image %}
+      <img
+        class="meditation-image"
+        src="{{ page_info.image_link }}"
+      >
+    {% else %}
+      <div class="substitute"></div>
+    {% endif %}
+    </div>
+  </div>
+</section>
+<div id="guided-meditation-wrapper">
 {% if perms.add_guidedmeditation %}
   <h3><a class="edit-link" href="{% url 'guided_meditation_create' %}">Add a Guided Meditation</a></h3>
 {% endif %}
@@ -23,5 +51,5 @@
   </div>
   {% endfor %}
 </div>
-
+</div>
 {% endblock %}

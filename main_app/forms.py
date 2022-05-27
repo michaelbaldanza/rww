@@ -5,7 +5,7 @@ from .widgets import DatePickerInput
 class SacredJourneyForm(ModelForm):
   class Meta:
     model = SacredJourney
-    fields = '__all__'
+    exclude = ('slug',)
     widgets = {
       'start_date': DatePickerInput(),
       'end_date': DatePickerInput()

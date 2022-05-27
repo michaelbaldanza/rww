@@ -43,11 +43,13 @@ td.first{
   border-bottom: none;
 }
 
+.meditation-image {
+  max-height: 600px;
+}
+
 .journey-info {
   display: inline-block;
-  color: rgba(250,177,98,.7);
   font-size: 16px;
-  /* border-bottom: 2px solid rgba(250,177,98,.7); */
 }
 
 #txt > h2 {
@@ -175,6 +177,7 @@ td.first{
 .img-frame:hover > .img-heading {
   display: inline;
   color: rgba(250,177,98,.7);
+  /* color: inherit; */
 }
 
 .img-frame:hover > .img-link {
@@ -237,7 +240,7 @@ td.first{
 
 a {
   text-decoration: none;
-  color: rgba(250,177,98,.7);
+  color: inherit;
 }
 
 a:hover {
@@ -246,7 +249,7 @@ a:hover {
 
 header {
   border-bottom: 1px solid rgba(250,177,98,.7);
-  padding: 1em 0 1.5em 0;
+  padding: 1em 0 2.5em 0;
   display: flex;
   justify-content: space-between;
   position: relative;
@@ -398,7 +401,8 @@ footer {
   padding: 0 1em 1em 1em;
   margin: 1em 0;
   width: 250px;
-  border: 0.5px solid rgba(250,177,98,.7);
+  border: 0.5px solid;
+  border-color: inherit;
 }
 
 .meditation > audio {
@@ -454,7 +458,7 @@ h2 {
 
 #by-rev-wayne {
   position: absolute;
-  top: 75%;
+  top: 85%;
   right: 10%;
 }
 
@@ -488,9 +492,19 @@ h2 {
   height: 300px;
 }
 
-.floating-caption {
-  font-size: 0.8em;
+.landscape {
+  width: auto;
+  height: 300px;
 }
+
+.portrait {
+  width: 300px;
+  height: auto;
+}
+
+/* .floating-caption {
+  font-size: 0.8em;
+} */
 
 @media screen and (min-width: 480px) {
   #page-wrap {
@@ -613,6 +627,16 @@ h2 {
 
   #meditations-container {
     justify-content: space-between;
+  }
+
+  .landscape {
+    width: auto;
+    height: 600px;
+  }
+  
+  .portrait {
+    width: auto;
+    height: 600px;
   }
 }
 

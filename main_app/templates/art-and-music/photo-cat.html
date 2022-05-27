@@ -9,7 +9,7 @@
     <div class="gallery-image-{% cycle 'odd' 'even' %}">
       <div class="image-wall">
         <img
-        class="gallery-image"
+        class="{{ dis.image_type }}"
         src="{{ dis.image_link }}"
       >
       </div>
