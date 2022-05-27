@@ -264,6 +264,7 @@ class GuidedMeditationList(generic.ListView):
     context = super().get_context_data(**kwargs)
     # Add in a QuerySet of all the books
     context['page_info'] = GuidedMeditationPage.objects.first()
+    context['guidedmeditation_list'] = GuidedMeditation.objects.order_by('-created_on')
     return context
 
 class GuidedMeditationCreate(PermissionRequiredMixin, CreateView):
