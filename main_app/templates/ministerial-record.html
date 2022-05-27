@@ -16,9 +16,16 @@
   </div>
   {% else %}
   <div>
-    <a href="mailto:revwayne@live.ca">
-      Contact Wayne for the guest credentials to log in and view Wayne's ministerial record.
-    </a>
+    <h3>
+      <a href="mailto:revwayne@live.ca">
+        Contact Wayne for the guest credentials to log in and view Wayne's ministerial record.
+      </a>
+    </h3>
+    <h3>
+      If you do have received the guest credentials, you can 
+      <a class="in-text-link" href="{% url 'login' %}">login</a>
+      here.
+    </h1>
   </div>
   {% endif %}
   <div class="img-grid"> 
