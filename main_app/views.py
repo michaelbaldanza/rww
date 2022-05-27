@@ -97,7 +97,6 @@ def ministry(request):
   print(ministry_page)
   return render(request, 'ministry.html', {'ministry_page': ministry_page})
 
-@login_required
 def ministerial_record(request):
   min_rec = MinisterialRecord.objects.first()
   menu_images = make_menu_strings(min_rec)

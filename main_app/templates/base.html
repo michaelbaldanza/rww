@@ -67,9 +67,6 @@
           </li>
         {% else %}
           <li class="nav-link">
-            <a href="{% url 'signup' %}">Sign up</a>
-          </li>
-          <li class="nav-link">
             <a href="{% url 'login' %}">Log in</a>
           </li>
         {% endif %}
@@ -102,9 +99,6 @@
           <a href="{% url 'logout' %}">Log out</a>
         </li>
       {% else %}
-      <li class="nav-link">
-        <a href="{% url 'signup' %}">Sign up</a>
-      </li>
         <li class="nav-link">
           <a href="{% url 'login' %}">Log in</a>
         </li>
