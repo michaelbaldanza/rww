@@ -31,19 +31,7 @@
       {% endif %}
   </div>
   <div>
-    {% if user.is_authenticated %}
-      <a href="{% url 'ministerial_record' %}"><h1>View my ministerial record.</h1></a>
-    {% else %}
-      <h1>
-        If you don't have an account, <a class="in-text-link" href="{% url 'signup' %}">sign up</a> to request
-        permission to view Wayne's ministerial record.
-      </h1>
-      <h1>
-        If you do have an account and have permission to view Wayne's ministerial record,
-        <a class="in-text-link" href="{% url 'ministerial_record' %}">login</a>
-        here.
-      </h1>
-    {% endif %}
+    <a href="{% url 'ministerial_record' %}"><h1>View my ministerial record.</h1></a>
   </div>
 </div>
 
