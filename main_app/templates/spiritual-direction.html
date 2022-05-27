@@ -12,9 +12,9 @@
 {% endif %}
 {% if spi_dir.blurb %}
 <div id="blurb">
-  <h2>
-    {{ spi_dir.blurb }}
-  </h2>
+  <h3>
+    {{ spi_dir.blurb|markdown|safe }}
+  </h3>
 </div>
 {% endif %}
 <div class="img-grid"> 
