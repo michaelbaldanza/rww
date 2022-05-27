@@ -10,7 +10,12 @@
   </div>
   {% if object.caption %}
   <div class="text-wall">
-    <div class="floating-caption">
+    <div
+      class="floating-caption"
+      {% if object.font_size %}
+      style="font-size: {{ object.font_size }}"
+      {% endif %}
+    >
       {{ object.caption }}
     </div>
   </div>

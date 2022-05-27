@@ -167,6 +167,7 @@ def signup(request):
 
 def spiritual_direction(request):
   spi_dir = SpiritualDirection.objects.first()
+  print(spi_dir.blurb)
   menu_images = make_menu_strings(spi_dir)
   return render(request, 'spiritual-direction.html', { 'spi_dir': spi_dir, 'menu_images': menu_images })
 

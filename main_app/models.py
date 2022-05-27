@@ -185,6 +185,7 @@ class GalleryImage(models.Model):
 
   category = models.CharField(max_length=2, choices=CATEGORY_CHOICES)
   caption = models.CharField(max_length=250, blank=True, null=True)
+  font_size = models.CharField(max_length=200, null=True, blank=True)
   image = models.FileField(upload_to='media/gallery-images/', blank=True, null=True)
   updated_on = models.DateTimeField(auto_now=True)
   created_on = models.DateTimeField(auto_now=True)
@@ -270,6 +271,7 @@ class SacredJourney(models.Model):
 
 class SpiritualDirection(models.Model):
   title = models.TextField(blank=True, null=True, default='Spiritual Direction')
+  blurb = models.TextField(max_length=400, blank=True, null=True)
   what_is_spiritual_direction_image = models.FileField(upload_to='media/spiritual-direction-images/', blank=True, null=True)
   what_do_spiritual_directors_do_image = models.FileField(upload_to='media/spiritual-direction-images/', blank=True, null=True)
   one_on_one_sessions_image = models.FileField(upload_to='media/spiritual-direction-images/', blank=True, null=True)

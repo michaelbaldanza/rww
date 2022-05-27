@@ -10,6 +10,13 @@
   <h3><a class="edit-link" href="{% url 'spiritual_direction_update' spi_dir.id %}">Edit</a></h3>
   {% endif %}
 {% endif %}
+{% if spi_dir.blurb %}
+<div id="blurb">
+  <h2>
+    {{ spi_dir.blurb }}
+  </h2>
+</div>
+{% endif %}
 <div class="img-grid"> 
   {% for menu_image in menu_images %}
   <div class="img-grid-item">

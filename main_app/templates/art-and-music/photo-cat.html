@@ -14,7 +14,13 @@
       >
       </div>
       <div class="text-wall">
-        <div class="floating-caption">
+        <div
+          class="floating-caption"
+          {% if dis.font_size %}
+          style="font-size: {{ dis.font_size }}"
+          {% endif %}
+      
+        >
           {% if dis.caption %}
             {{ dis.caption }}
           {% endif %}

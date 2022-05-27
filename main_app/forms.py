@@ -19,4 +19,4 @@ class SlideImageForm(ModelForm):
 class GalleryImageUpdateForm(ModelForm):
   class Meta:
     model = GalleryImage
-    fields = ['caption']
+    fields = ['caption', 'font_size']
