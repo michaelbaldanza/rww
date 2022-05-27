@@ -28,7 +28,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
-from .models import Post, SacredJourney, SpiritualDirection, MinisterialRecord, MinistryPage, MainPage, GuidedMeditation, GuidedMeditationPage, GalleryImage, SlideImage, Music
+from .models import Post, SacredJourney, SpiritualDirection, MinisterialRecord, MinistryPage, MainPage, GuidedMeditation, GuidedMeditationPage, GalleryImage, SlideImage, Music, StyleControl
 from .forms import SacredJourneyForm, SlideImageForm, GalleryImageUpdateForm
 
 def art_and_music(request):
@@ -114,7 +114,7 @@ def music(request):
 
 ### Sacred Journeys ###
 def sacred_journeys_index(request):
-  journeys = SacredJourney.objects.filter(status=1).order_by('-created_on')
+  journeys = SacredJourney.objects.filter(status=1).order_by('-end_date')
   today = date.today()
   upcoming_journeys = []
   previous_journeys = []
@@ -179,6 +179,7 @@ class SpiritualDirectionUpdate(PermissionRequiredMixin, UpdateView):
 #### Home #####
 def home(request):
   main_page = MainPage.objects.first()
+  style_control = StyleControl.objects.first()
   slide_image_form = SlideImageForm
   menu_images = make_menu_strings(main_page)
   num_visits = request.session.get('num_visits', 0)
@@ -190,6 +191,7 @@ def home(request):
     'main_page': main_page,
     'slide_image_form': slide_image_form,
     'slide_images': slide_images,
+    'style_control': style_control,
     })
 
 class MainPageUpdate(PermissionRequiredMixin, UpdateView):

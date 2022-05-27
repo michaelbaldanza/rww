@@ -26,7 +26,7 @@
                 {{ journey.name }}
               </h2>
               <p>
-                {{ journey.start_date|date:"M j" }} - {{ journey.end_date|date:"M j"}}
+                {{ journey.start_date|date:"M j" }} - {{ journey.end_date|date:"j Y"}}
                 {% if perms.main_app.change_sacred_journey or perms.main_app.delete_sacred_journey %}
                   |
                 {% endif %}
@@ -72,7 +72,7 @@
                 {{ journey.name }}
               </h2>
               <p>
-                {{ journey.start_date|date:"M j" }} - {{ journey.end_date|date:"M j"}}
+                {{ journey.start_date|date:"M j" }} - {{ journey.end_date|date:"j Y"}}
                 {% if perms.main_app.change_sacred_journey or perms.main_app.delete_sacred_journey %}
                   |
                 {% endif %}
@@ -83,7 +83,7 @@
                   |
                 {% endif %}
                 {% if perms.main_app.delete_sacred_journey %}
-                  <a href="{% url 'sacred_journey_delete' journey.slug %}">Delete {{ journey.slug }}</a>
+                  <a href="{% url 'sacred_journey_delete' journey.slug %}">Delete</a>
                 {% endif %}
               </p>
               <p class="post-preview-text">

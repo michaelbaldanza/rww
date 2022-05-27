@@ -22,6 +22,13 @@ def get_sizes(uri):
   if transposed_im.size:
     return transposed_im.size
 
+class StyleControl(models.Model):
+  global_style = models.TextField(blank=True, null=True)
+  font_color = models.CharField(max_length=200, blank=True, null=True)
+  background_color = models.CharField(max_length=200, blank=True, null=True)
+  font_family = models.CharField(max_length=200, blank=True, null=True)
+  font_weight = models.CharField(max_length=200, blank=True, null=True)
+
 class Post(models.Model):
   title = models.CharField(max_length=200, unique=True)
   slug = models.SlugField(max_length=200, unique=True)

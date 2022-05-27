@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MinistryPage, GalleryImage, Post, GuidedMeditation, GuidedMeditationPage, SacredJourney, SpiritualDirection, MinisterialRecord, MainPage, SlideImage, Music
+from .models import MinistryPage, GalleryImage, Post, GuidedMeditation, GuidedMeditationPage, SacredJourney, SpiritualDirection, MinisterialRecord, MainPage, SlideImage, Music, StyleControl
 
 class MinistryPageAdmin(admin.ModelAdmin):
     list_display = ('heading', 'video_caption', 'created_on')
@@ -38,6 +38,7 @@ class SpiritualDirectionAdmin(admin.ModelAdmin):
         'title', 'what_is_spiritual_direction', 'what_do_spiritual_directors_do',
     ]
 
+admin.site.register(StyleControl)
 admin.site.register(GalleryImage, GalleryImageAdmin)
 admin.site.register(SlideImage)
 admin.site.register(MainPage)
