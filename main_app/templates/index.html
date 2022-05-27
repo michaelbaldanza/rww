@@ -37,7 +37,7 @@
     <div class="img-grid">
       {% for menu_image in menu_images %}
       <div class="img-grid-item">
-        <a href="#{{ menu_image.text|slugify }}" class="menu-img" id="menu-img-{{ forloop.counter }}">
+        <a href="{{ menu_image.text|slugify }}" class="menu-img" id="menu-img-{{ forloop.counter }}">
           <div class="img-frame">
             {% if menu_image.image_link %}
             <img
