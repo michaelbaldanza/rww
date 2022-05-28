@@ -291,3 +291,6 @@ class GuidedMeditationPageUpdate(PermissionRequiredMixin, UpdateView):
   model = GuidedMeditationPage
   fields = '__all__'
   success_url = '/guided-meditations/'
+
+def google_site_verification(request):
+  return render(request, 'google-site-verification.html')

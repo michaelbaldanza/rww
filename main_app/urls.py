@@ -37,4 +37,5 @@ urlpatterns = [
   path('<int:main_page_id>/edit-slides/', views.edit_slides, name='edit_slides'),
   path('<int:main_page_id>/edit-slides/add-slide/', views.add_slide_image, name='add_slide_image'),
   path('<int:pk>/edit/', views.MainPageUpdate.as_view(), name='main_page_update'),
+  path('google-site-verification.html/', views.google_site_verification, name='google'),
 ]
