@@ -293,4 +293,4 @@ class GuidedMeditationPageUpdate(PermissionRequiredMixin, UpdateView):
   success_url = '/guided-meditations/'
 
 def google_site_verification(request):
-  return render(request, 'google-site-verification.html')
+  return render(request, 'google2968686464ca0744.html')
