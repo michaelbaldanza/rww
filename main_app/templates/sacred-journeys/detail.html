@@ -20,9 +20,12 @@
       {% endif %}
     </div>
     <div class="journey-info">
-      <span>{{ sacredjourney.start_date }} - {{ sacredjourney.end_date }}</span>
+      <span>{{ sacredjourney.start_date|date:"M j" }} - {{ sacredjourney.end_date|date:"j Y" }}</span>
       |
       <span>{{ sacredjourney.destination }}</span>
+      {% if sacredjourney.worldwidequest_link %}
+      | <a href="{{ sacredjourney.worldwidequest_link }}">View on worldwidequest.com</a>
+      {% endif %}
     </div>
     <p>{{ sacredjourney.description | markdown | safe }}</p>
     <p>{{ sacredjourney.itinerary | markdown | safe}}</p>
