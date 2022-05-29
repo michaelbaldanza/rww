@@ -8,7 +8,7 @@
   {% if perms.main_app.change_ministerial_record %}
     <h3><a class="edit-link" href="{% url 'ministerial_record_update' min_rec.id %}">Edit</a></h3>
   {% endif %}
-  {% if perms.main_app.view_ministerial_record %}
+  {% if perms.main_app.view_ministerialrecord %}
   <div>
     <a href="{{ min_rec.pdf_link }}">
       View my ministerial record.
@@ -22,7 +22,7 @@
       </a>
     </h3>
     <h3>
-      If you do have received the guest credentials, you can 
+      If you have the guest credentials, you can 
       <a class="in-text-link" href="{% url 'login' %}?next=/ministry/ministerial-record/">login</a>
       here.
     </h1>
