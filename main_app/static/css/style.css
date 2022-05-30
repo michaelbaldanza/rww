@@ -32,10 +32,6 @@ td.first{
   position: relative;
 }
 
-#ministry-page-container {
-  display: flex;
-}
-
 .in-text-link {
   border-bottom:rgba(250,177,98,.7) 1.5px solid;
 }
@@ -506,6 +502,16 @@ h2 {
   font-size: 0.8em;
 } */
 
+.youtube-video {
+  width: 277.5px;
+  height: 156px;
+}
+
+.youtube-video-container {
+  display: flex;
+  justify-content: center;
+}
+
 @media screen and (min-width: 480px) {
   #page-wrap {
     width: 460px;
@@ -528,6 +534,11 @@ h2 {
   .image-wall {
     display: flex;
     justify-content: center;
+  }
+  
+  .youtube-video {
+    width: 370px;
+    height: 208px;
   }
 }
 
@@ -588,6 +599,14 @@ h2 {
     max-width: 280px;
     /* margin: 0 4em; */
   }
+
+  #ministry-page-container {
+    display: flex;
+  }
+
+  .youtube-video-container {
+    justify-content: left;
+  }
 }
 
 @media screen and (min-width: 1024px) {
@@ -637,6 +656,11 @@ h2 {
   .portrait {
     width: auto;
     height: 600px;
+  }
+
+  .youtube-video {
+    width: 560px;
+    height: 315px;
   }
 }
 

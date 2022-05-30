@@ -11,14 +11,17 @@
 </h1>
 <div id="ministry-page-container">
   <div>
-    <iframe width="560" height="315" src="
-    {% if ministry_page.video_link %}
-      {{ ministry_page.video_link }}
-    {% else %}
-      https://www.youtube.com/embed/r01EvyngNIk
-    {% endif %}
-    " title="YouTube video player
-    " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="youtube-video-container">
+      <iframe class="youtube-video" width="560" height="315" src="
+      {% if ministry_page.video_link %}
+        {{ ministry_page.video_link }}
+      {% else %}
+        https://www.youtube.com/embed/r01EvyngNIk
+      {% endif %}
+      " title="YouTube video player
+      " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+      </iframe>
+    </div>
       <p>
         {% if ministry_page.video_caption %}
           {{ ministry_page.video_caption }}
