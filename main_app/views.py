@@ -200,6 +200,12 @@ class MainPageUpdate(PermissionRequiredMixin, UpdateView):
   fields = '__all__'
   success_url = '/'
 
+class StyleControlUpdate(PermissionRequiredMixin, UpdateView):
+  permission_required = 'main_app.change_stylecontrol'
+  model = StyleControl
+  fields = '__all__'
+  success_url = '/'
+
 def edit_slides(request, main_page_id):
   main_page = MainPage.objects.get(id=main_page_id)
   slide_image_form = SlideImageForm

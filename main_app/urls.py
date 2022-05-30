@@ -37,5 +37,6 @@ urlpatterns = [
   path('<int:main_page_id>/edit-slides/', views.edit_slides, name='edit_slides'),
   path('<int:main_page_id>/edit-slides/add-slide/', views.add_slide_image, name='add_slide_image'),
   path('<int:pk>/edit/', views.MainPageUpdate.as_view(), name='main_page_update'),
+  path('<int:pk>/change-styles/', views.StyleControlUpdate.as_view(), name='style_control'),
   path('google2968686464ca0744.html/', views.google_site_verification, name='google'),
 ]
