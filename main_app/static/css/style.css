@@ -390,12 +390,11 @@ footer {
 #meditations-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
 }
 
 .meditation {
   padding: 0 1em 1em 1em;
-  margin: 1em 0;
+  margin: 1em 1em 1em 0;
   width: 250px;
   border: 0.5px solid;
   border-color: inherit;
@@ -642,10 +641,6 @@ h2 {
 
   h2 {
     font-size: 1.5em;
-  }
-
-  #meditations-container {
-    justify-content: space-between;
   }
 
   .landscape {

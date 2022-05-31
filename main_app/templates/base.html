@@ -11,7 +11,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  
   <link rel="icon" href="{% static 'images/sq.svg'  %}">
   <!-- Coda Slider -->
   <link rel="stylesheet" type="text/css" href="{% static 'css/codaslider.css' %}">
@@ -19,15 +21,14 @@
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
-<body>
+<body
+  {% if style_control.background_color %}style="background-color: {{ style_control.background_color }};"{% endif %}
+>
   <div
     id="page-wrap"
     style="
       {% if style_control.font_color %}
       color: {{ style_control.font_color}};
-      {% endif %}
-      {% if style_control.background_color %}
-      background-color: {{ style_control.background_color }};
       {% endif %}
       {% if style_control.font_weight %}
       font-weight: {{ style_control.font_weight }};
@@ -38,7 +39,7 @@
       "
   >
     <div id="all-but-footer">
-    <header>
+    <header {% if style_control.font_color %}style="border-bottom: 1px solid {{ style_control.font_color }}"{% endif %}>
       <div id="title-container">
         <a id="logo" href="{% url 'home' %}">
           Sitting Quietly...
@@ -53,7 +54,7 @@
         </svg>
       </div>
     </header>
-    <nav>
+    <nav {% if style_control.font_color %}style="border-bottom: 1px solid {{ style_control.font_color }}"{% endif %}>
       <ul class="nav-horizontal-menu">
         <li class="nav-link">
           <a href="{% url 'blog' %}">Blog</a>

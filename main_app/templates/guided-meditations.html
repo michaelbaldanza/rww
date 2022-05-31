@@ -34,11 +34,6 @@
 {% if perms.add_guidedmeditation %}
   <h3><a class="edit-link" href="{% url 'guided_meditation_create' %}">Add a Guided Meditation</a></h3>
 {% endif %}
-{% if guidedmeditation_list %}
-  Guided Meditation List
-{% else %}
-  No Guided Meditation List
-{% endif %}
 <div id="meditations-container">
   {% for meditation in guidedmeditation_list %}
   <div class="meditation">
