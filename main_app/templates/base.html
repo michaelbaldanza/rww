@@ -17,6 +17,14 @@
   <link rel="icon" href="{% static 'images/sq.svg'  %}">
   <!-- Coda Slider -->
   <link rel="stylesheet" type="text/css" href="{% static 'css/codaslider.css' %}">
+  <!-- User Submitted CSS -->
+  <style>
+    body {
+    {% if style_control.font_color %}color: {{style_control.font_color}};{% endif %}
+    {% if style_control.background_color %}background-color: {{style_control.background_color}};{% endif %}
+    {% if style_control.background_color %}font-family: {{style_control.font_family}};{% endif %}
+    }
+  </style>
   <script defer src="{% static 'js/main.js' %}"></script>
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -26,17 +34,6 @@
 >
   <div
     id="page-wrap"
-    style="
-      {% if style_control.font_color %}
-      color: {{ style_control.font_color}};
-      {% endif %}
-      {% if style_control.font_weight %}
-      font-weight: {{ style_control.font_weight }};
-      {% endif %}
-      {% if style_control.font_family %}
-      font-family: {{ style_control.font_family}};
-      {% endif %}
-      "
   >
     <div id="all-but-footer">
     <header {% if style_control.font_color %}style="border-bottom: 1px solid {{ style_control.font_color }}"{% endif %}>
