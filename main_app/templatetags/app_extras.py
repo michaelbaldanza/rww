@@ -26,3 +26,8 @@ def questify(value):
 def hyphenate_one(value):
   """Hyphenates the phrase 'one on one'"""
   return value.replace('one on one', 'one-on-one')
+
+@register.filter(name='make_string')
+@stringfilter
+def make_string(value):
+  return(str(value))

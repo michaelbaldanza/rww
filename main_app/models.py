@@ -1,4 +1,5 @@
 # Python Imports
+import inspect
 from urllib import request as ulreq
 from PIL import Image, ImageOps
 from django.db import models
@@ -22,19 +23,56 @@ def get_sizes(uri):
   if transposed_im.size:
     return transposed_im.size
 
+def make_choices(*args):
+  choices = []
+  for arg in args:
+    print(arg)
+    choice_longform = [k for k, v in locals().items() if v == arg][0]
+    print(choice_longform)
+    choice_tuple = (arg, choice_longform)
+    choices.append(choice_tuple)
+  return choices
+
+FUTURA = 'FU'
+GARAMOND = 'GA'
+HELVETICA = 'HE'
+PAPYRUS = 'PA'
+ROCKWELL = 'RO'
+SOURCE_SANS_PRO = 'SO'
+TIMES_NEW_ROMAN = 'TN'
+VERDANA = 'VE'
+FONT_FAMILY_CHOICES = [
+  (FUTURA, 'Futura'),
+  (GARAMOND, 'Garamond'),
+  (HELVETICA, 'Helvetica'),
+  (PAPYRUS, 'Papyrus'),
+  (ROCKWELL, 'Rockwell'),
+  (SOURCE_SANS_PRO, 'Source Sans Pro'),
+  (TIMES_NEW_ROMAN, 'Times New Roman'),
+  (VERDANA, 'Verdana'),
+]
+
+NORMAL = 'NO'
+BOLD = 'BO'
+LIGHTER = 'LI'
+BOLDER = 'BE'
+FONT_WEIGHT_CHOICES = [
+  (NORMAL, 'normal'),
+  (BOLD, 'bold'),
+  (LIGHTER, 'lighter'),
+  (BOLDER, 'bolder'),
+]
+
 class StyleControl(models.Model):
-  global_style = models.TextField(blank=True, null=True)
   font_color = models.CharField(max_length=200, blank=True, null=True)
-  font_size = models.CharField(max_length=200, blank=True, null=True)
+  font_size = models.DecimalField(max_digits=3, decimal_places=1, default=18, blank=True, null=True)
   background_color = models.CharField(max_length=200, blank=True, null=True)
-  font_family = models.CharField(max_length=200, blank=True, null=True)
-  font_weight = models.CharField(max_length=200, blank=True, null=True)
+  font_family = models.CharField(max_length=200, choices=FONT_FAMILY_CHOICES, default='SO', blank=True, null=True)
+  font_weight = models.CharField(max_length=200, choices=FONT_WEIGHT_CHOICES, blank=True, null=True)
   header_maintext_color = models.CharField(max_length=200, blank=True, null=True)
-  header_maintext_font_family = models.CharField(max_length=200, blank=True, null=True)
-  header_maintext_font_size = models.CharField(max_length=200, blank=True, null=True)
+  header_maintext_font_family = models.CharField(max_length=200, choices=FONT_FAMILY_CHOICES, blank=True, null=True)
   header_smalltext_color = models.CharField(max_length=200, blank=True, null=True)
-  header_smalltext_font_family = models.CharField(max_length=200, blank=True, null=True)
-  header_smalltext_font_size = models.CharField(max_length=200, blank=True, null=True)
+  header_smalltext_font_family = models.CharField(max_length=200, choices=FONT_FAMILY_CHOICES, blank=True, null=True)
 
 class Post(models.Model):
   title = models.CharField(max_length=200, unique=True)
@@ -192,13 +230,16 @@ class GalleryImage(models.Model):
 
   category = models.CharField(max_length=2, choices=CATEGORY_CHOICES)
   caption = models.CharField(max_length=250, blank=True, null=True)
-  font_size = models.CharField(max_length=200, null=True, blank=True)
+  font_size = models.DecimalField(max_digits=3, decimal_places=1, default=18, blank=True, null=True)
   image = models.FileField(upload_to='media/gallery-images/', blank=True, null=True)
   updated_on = models.DateTimeField(auto_now=True)
   created_on = models.DateTimeField(auto_now=True)
   
   def __str__(self):
     return str(self.id)
+  
+  def get_absolute_url(self):
+    return reverse('gallery_category', kwargs={'url_cat': slugify(self.get_category_display()) })
 
   @property
   def image_link(self):

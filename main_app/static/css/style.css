@@ -1,5 +1,6 @@
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+  /* font-family: 'Source Sans Pro', sans-serif; */
+  font-family: 'Source Sans Pro';
   /* font-family: Avenir,Helvetica,Arial,sans-serif; */
   /* font-family: Arial, Helvetica, sans-serif; */
   /* position: relative; */
@@ -32,10 +33,10 @@ td.first{
   position: relative;
 }
 
-.in-text-link {
-  border-bottom:rgba(250,177,98,.7) 1.5px solid;
+.link {
+  border-bottom:rgba(250,177,98,.7) 1px solid;
 }
-.in-text-link:hover {
+.link:hover {
   border-bottom: none;
 }
 
@@ -381,6 +382,14 @@ footer {
 
 #all-but-footer {
   min-height: 100vh;
+}
+
+.preceding-list {
+  margin-bottom: 0;
+}
+
+.following-list {
+  margin-top: 0;
 }
 
 #txt > p {

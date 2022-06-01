@@ -29,7 +29,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 from .models import Post, SacredJourney, SpiritualDirection, MinisterialRecord, MinistryPage, MainPage, GuidedMeditation, GuidedMeditationPage, GalleryImage, SlideImage, Music, StyleControl
-from .forms import SacredJourneyForm, SlideImageForm, GalleryImageUpdateForm
+
+from .forms import SacredJourneyForm, SlideImageForm, GalleryImageUpdateForm, StyleControlForm
 
 def art_and_music(request):
   style_control = StyleControl.objects.first()
@@ -110,6 +111,8 @@ def photos_category(request, url_cat):
     if cat[1].lower().replace(' ', '-') == url_cat:
       display = GalleryImage.objects.filter(category=cat[0]).order_by('-created_on')
       title = cat[1]
+      for dis in display:
+        print(dis.get_absolute_url())
   return render(request, 'art-and-music/photo-cat.html', {
     'display': display,
     'title': title,
@@ -121,7 +124,6 @@ class GalleryImageUpdate(PermissionRequiredMixin, UpdateView):
   model = GalleryImage
   form_class = GalleryImageUpdateForm
   template_name = 'main_app/galleryimageupdate_form.html'
-  success_url = '/art-and-music/'
 
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
@@ -256,6 +258,7 @@ class SpiritualDirectionUpdate(PermissionRequiredMixin, UpdateView):
 def home(request):
   main_page = MainPage.objects.first()
   style_control = StyleControl.objects.first()
+  print(style_control.get_font_family_display)
   slide_image_form = SlideImageForm
   menu_images = make_menu_strings(main_page)
   num_visits = request.session.get('num_visits', 0)
@@ -283,7 +286,8 @@ class MainPageUpdate(PermissionRequiredMixin, UpdateView):
 class StyleControlUpdate(PermissionRequiredMixin, UpdateView):
   permission_required = 'main_app.change_stylecontrol'
   model = StyleControl
-  fields = '__all__'
+  # fields = '__all__'
+  form_class = StyleControlForm
   success_url = '/'
 
   def get_context_data(self, **kwargs):
