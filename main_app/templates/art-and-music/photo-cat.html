@@ -4,7 +4,10 @@
 {% load markdown_extras %}
 {% load app_extras %}
 
-<h1>{{ title }}</h1>
+<h2>{{ title }}</h2>
+<h3>
+  <a class="edit-link" href="{% url 'add_photo' %}">Add photo</a>
+</h3>
 <div class="gallery">
 
   {% for dis in display %}
