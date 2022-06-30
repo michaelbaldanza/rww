@@ -173,7 +173,7 @@ td.first{
 
 .img-frame:hover > .img-heading {
   display: inline;
-  color: rgba(250,177,98,.7);
+  color: rgba(250,177,98);
   /* color: inherit; */
 }
 
@@ -469,6 +469,10 @@ h2 {
   margin-bottom: 2em;
 }
 
+#part-two {
+  clear: both;
+}
+
 #cdsldrcntnr {
   /* display: block;
   position: relative;
@@ -669,5 +673,9 @@ h2 {
   #page-wrap {
     width: 1200px;
     margin: 0 auto;
+  }
+
+  #img-grid-item {
+    width: 500px;
   }
 }
