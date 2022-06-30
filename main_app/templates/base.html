@@ -26,14 +26,22 @@
     {% if style_control.font_family %}font-family: {{style_control.get_font_family_display}};{% endif %}
     {% if style_control.font_size %}font-size: {{style_control.font_size|make_string}}px;{% endif %}
     }
+
+    #logo{
+      {% if style_control.header_maintext_color %}color: {{style_control.header_maintext_color}};{% endif %}
+      {% if style_control.header_maintext_font_family %}font-family: {{style_control.get_header_maintext_font_family_display}};{% endif %}
+    }
+
+    #by-rev-wayne {
+      {% if style_control.header_smalltext_color %}color: {{style_control.header_smalltext_color}};{% endif %}
+      {% if style_control.header_smalltext_font_family %}font-family: {{style_control.get_header_smalltext_font_family_display}};{% endif %}
+    }
   </style>
   <script defer src="{% static 'js/main.js' %}"></script>
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
-<body
-  {% if style_control.background_color %}style="background-color: {{ style_control.background_color }};"{% endif %}
->
+<body>
   <div
     id="page-wrap"
   >
