@@ -29,24 +29,24 @@
   </div>
 </section>
 <div id="guided-meditation-wrapper">
-{% if perms.add_guidedmeditation %}
-  <h3><a class="edit-link" href="{% url 'guided_meditation_create' %}">Add a Guided Meditation</a></h3>
-{% endif %}
-<div id="meditations-container">
-  {% for meditation in guidedmeditation_list %}
-  <div class="meditation">
-    <h2>{{ meditation.title }}</h2>
-    <audio controls>
-      <source src="{{ meditation.audio_link }}" type="audio/mp4">
-    </audio>
-    {{ meditation.description | markdown | safe }}
-    {% if perms.add_guidedmeditation %}
-    <a href="{% url 'guided_meditation_update' meditation.id %}">Edit</a>
-    |
-    <a href="{% url 'guided_meditation_delete' meditation.id %}">Delete</a>
-    {% endif %}
+  {% if perms.add_guidedmeditation %}
+    <h3><a class="edit-link" href="{% url 'guided_meditation_create' %}">Add a Guided Meditation</a></h3>
+  {% endif %}
+  <div id="meditations-container">
+    {% for meditation in guidedmeditation_list %}
+    <div class="meditation">
+      <h2>{{ meditation.title }}</h2>
+      <audio controls>
+        <source src="{{ meditation.audio_link }}" type="audio/mp4">
+      </audio>
+      {{ meditation.description | markdown | safe }}
+      {% if perms.add_guidedmeditation %}
+      <a href="{% url 'guided_meditation_update' meditation.id %}">Edit</a>
+      |
+      <a href="{% url 'guided_meditation_delete' meditation.id %}">Delete</a>
+      {% endif %}
+    </div>
+    {% endfor %}
   </div>
-  {% endfor %}
-</div>
 </div>
 {% endblock %}

@@ -477,6 +477,10 @@ h2 {
   clear: both;
 }
 
+#guided-meditation-wrapper {
+  clear: both;
+}
+
 #cdsldrcntnr {
   /* display: block;
   position: relative;
