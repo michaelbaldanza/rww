@@ -28,13 +28,14 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
-from .models import Post, SacredJourney, SpiritualDirection, MinisterialRecord, MinistryPage, MainPage, GuidedMeditation, GuidedMeditationPage, GalleryImage, SlideImage, Music, StyleControl
+from .models import Post, SacredJourney, SpiritualDirection, MinisterialRecord, MinistryPage, MainPage, GuidedMeditation, GuidedMeditationPage, GalleryImage, SlideImage, Music, StyleControl, ArtAndMusicPage
 
 from .forms import SacredJourneyForm, SlideImageForm, GalleryImageUpdateForm, StyleControlForm
 
 def art_and_music(request):
   style_control = StyleControl.objects.first()
   songs = Music.objects.order_by('-created_on')
+  art_and_music_headings = ArtAndMusicPage.objects.first()
   image_dict = {}
   for cat in GalleryImage.CATEGORY_CHOICES:
     image_dict[cat[1]] = {
@@ -46,8 +47,20 @@ def art_and_music(request):
       'image_dict': image_dict,
       'songs': songs,
       'style_control': style_control,
+      'am': art_and_music_headings,
       }
     )
+
+class ArtAndMusicPageUpdate(PermissionRequiredMixin, UpdateView):
+  permission_required = 'main_app.change_artandmusicpage'
+  model = ArtAndMusicPage
+  fields = '__all__'
+  success_url = '/art-and-music/'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['style_control'] = StyleControl.objects.first()
+    return context
 
 class MusicCreate(PermissionRequiredMixin, CreateView):
   permission_required = 'main_app.add_music'

@@ -118,7 +118,11 @@ class Music(models.Model):
   @property
   def audio_link(self):
     return MEDIA_PREFIX + self.audio_file.__str__()
-    
+
+class ArtAndMusicPage(models.Model):
+  art_heading = models.CharField(max_length=20, default='Photography')
+  music_heading = models.CharField(max_length=20, default='Music')
+
 class MinistryPage(models.Model):
   heading = models.CharField(max_length=20, default='Ministry')
   video_link = models.URLField(blank=True, null=True)

@@ -9,15 +9,7 @@
   </h3>
 {% endif %}
 <section id="part-one">
-  <div id="txt">
-    <h2>{% if page_info.title %}{{ page_info.title|markdown|safe }}{% endif %}</h2>
-    <div id="main-page-paragraphs">
-      {% if page_info.main_text %}
-        {{ page_info.main_text|markdown|safe}}
-      {% endif %}
-    </div>
-  </div>
-  <div id="">
+  <div id="gm-pic">
     <div class="backdrop-container">
     {% if page_info.main_image %}
       <img
@@ -28,6 +20,12 @@
       <div class="substitute"></div>
     {% endif %}
     </div>
+  </div>
+  <div id="txt">
+    <h2>{% if page_info.title %}{{ page_info.title|markdown|safe }}{% endif %}</h2>
+      {% if page_info.main_text %}
+        {{ page_info.main_text|markdown|safe}}
+      {% endif %}
   </div>
 </section>
 <div id="guided-meditation-wrapper">

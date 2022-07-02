@@ -11,6 +11,10 @@ body {
   margin: 0;
 }
 
+u {
+  text-decoration: underline;
+}
+
 /* table {
   width:100%;
   border-collapse: collapse;
@@ -482,6 +486,12 @@ h2 {
   margin-bottom: 10px;
 }
 
+
+#gm-pic {
+  float: right;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
 /* .gallery {
   display: flex;
   flex-wrap: wrap;

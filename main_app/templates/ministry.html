@@ -4,7 +4,7 @@
 
 <h1>
   {% if ministry_page.heading %}
-    {{ ministry_page.heading }}
+    {{ ministry_page.heading|safe }}
   {% else %}
     Ministry
   {% endif %}

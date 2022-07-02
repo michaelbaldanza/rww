@@ -2,6 +2,14 @@
 
 {% block content %}
 
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <input type="submit" value="Submit" class="btn">
+</form>
+
 <h1>Style Help</h1>
 <p>
   The default <a class="link" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family" style="font-weight: bold;">font-family</a>
@@ -41,14 +49,5 @@
   If you want to revert the default background color, you can copy and paste
 <span class="link">#19181A</span> into the font color field.
 </p>
-
-
-<form action="" method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  <table>
-    {{ form.as_table }}
-  </table>
-  <input type="submit" value="Submit" class="btn">
-</form>
 
 {% endblock %}

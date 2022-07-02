@@ -3,7 +3,16 @@
 {% load static %}
 {% load markdown_extras %}
 
+{% if am.art_heading %}
+<h2>{{ am.art_heading|safe }}</h2>
+{% else %}
 <h2>Photography</h2>
+{% endif %}
+{% if am %}
+  {% if perms.main_app.change_ministerial_record %}
+  <h3><a class="edit-link" href="{% url 'art_and_music_page_update' am.id %}">Edit page titles</a></h3>
+  {% endif %}
+{% endif %}
 <h3>
   <a class="edit-link" href="{% url 'add_photo' %}">Add photo</a>
 </h3>
@@ -29,7 +38,16 @@
   {% endfor %}
 </div>
 
+{% if am.music_heading %}
+<h2>{{ am.music_heading|safe }}</h2>
+{% else %}
 <h2>Music</h2>
+{% endif %}
+{% if am %}
+  {% if perms.main_app.change_ministerial_record %}
+  <h3><a class="edit-link" href="{% url 'art_and_music_page_update' am.id %}">Edit page titles</a></h3>
+  {% endif %}
+{% endif %}
 {% if perms.add_music %}
   <h3><a class="edit-link" href="{% url 'music_create' %}">Add a song</a></h3>
 {% endif %}

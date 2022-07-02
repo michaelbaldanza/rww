@@ -36,6 +36,10 @@
       {% if style_control.header_smalltext_color %}color: {{style_control.header_smalltext_color}};{% endif %}
       {% if style_control.header_smalltext_font_family %}font-family: {{style_control.get_header_smalltext_font_family_display}};{% endif %}
     }
+
+    #ham {
+      {% if style_control.font_color %}background-color: {{style_control.font_color}};{% endif %}
+    }
   </style>
   <script defer src="{% static 'js/main.js' %}"></script>
   <!-- jQuery -->
