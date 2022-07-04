@@ -8,14 +8,17 @@
 {% else %}
 <h2>Photography</h2>
 {% endif %}
-{% if am %}
-  {% if perms.main_app.change_ministerial_record %}
-  <h3><a class="edit-link" href="{% url 'art_and_music_page_update' am.id %}">Edit page titles</a></h3>
-  {% endif %}
+{% if perms.main_app.add_galleryimage %}
+  <h3>
+    {% if am %}
+      <a class="edit-link" href="{% url 'art_and_music_page_update' am.id %}">Edit page titles</a>
+      |
+    {% endif %}
+    <a class="edit-link" href="{% url 'add_photo' %}">Add a photo</a>
+    |
+    <a class="edit-link" href="{% url 'music_create' %}">Add a song</a>
+  </h3>
 {% endif %}
-<h3>
-  <a class="edit-link" href="{% url 'add_photo' %}">Add photo</a>
-</h3>
 <div class="img-grid"> 
   {% for key, values in image_dict.items %}
   <div class="img-grid-item">
@@ -42,14 +45,6 @@
 <h2>{{ am.music_heading|safe }}</h2>
 {% else %}
 <h2>Music</h2>
-{% endif %}
-{% if am %}
-  {% if perms.main_app.change_ministerial_record %}
-  <h3><a class="edit-link" href="{% url 'art_and_music_page_update' am.id %}">Edit page titles</a></h3>
-  {% endif %}
-{% endif %}
-{% if perms.add_music %}
-  <h3><a class="edit-link" href="{% url 'music_create' %}">Add a song</a></h3>
 {% endif %}
 <div id="meditations-container">
   {% for meditation in songs %}

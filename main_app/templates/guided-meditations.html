@@ -3,9 +3,11 @@
 {% load static %}
 {% load markdown_extras %}
 
-{% if perms.main_app.change_mainpage %}
+{% if perms.main_app.add_guidedmeditation %}
   <h3>
-    <a href="{% url 'guided_meditation_page_update' page_info.id %}">Change page title, text, and image</a>
+    <a href="{% url 'guided_meditation_page_update' page_info.id %}">Edit page title, text, and image</a>
+    |
+    <a class="edit-link" href="{% url 'guided_meditation_create' %}">Add a Guided Meditation</a>
   </h3>
 {% endif %}
 <section id="part-one">
@@ -29,9 +31,6 @@
   </div>
 </section>
 <div id="guided-meditation-wrapper">
-  {% if perms.add_guidedmeditation %}
-    <h3><a class="edit-link" href="{% url 'guided_meditation_create' %}">Add a Guided Meditation</a></h3>
-  {% endif %}
   <div id="meditations-container">
     {% for meditation in guidedmeditation_list %}
     <div class="meditation">

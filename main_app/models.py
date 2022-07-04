@@ -120,8 +120,12 @@ class Music(models.Model):
     return MEDIA_PREFIX + self.audio_file.__str__()
 
 class ArtAndMusicPage(models.Model):
-  art_heading = models.CharField(max_length=20, default='Photography')
-  music_heading = models.CharField(max_length=20, default='Music')
+  art_heading = models.CharField(max_length=255, default='Photography')
+  music_heading = models.CharField(max_length=255, default='Music')
+
+class SacredJourneyPage(models.Model):
+  upcoming_journeys_heading = models.CharField(max_length=20, default='Upcoming Journeys')
+  previous_journeys_heading = models.CharField(max_length=20, default='Previous Journeys')
 
 class MinistryPage(models.Model):
   heading = models.CharField(max_length=20, default='Ministry')

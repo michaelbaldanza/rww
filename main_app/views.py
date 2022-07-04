@@ -28,7 +28,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
-from .models import Post, SacredJourney, SpiritualDirection, MinisterialRecord, MinistryPage, MainPage, GuidedMeditation, GuidedMeditationPage, GalleryImage, SlideImage, Music, StyleControl, ArtAndMusicPage
+from .models import Post, SacredJourney, SpiritualDirection, MinisterialRecord, MinistryPage, MainPage, GuidedMeditation, GuidedMeditationPage, GalleryImage, SlideImage, Music, StyleControl, ArtAndMusicPage, SacredJourneyPage
 
 from .forms import SacredJourneyForm, SlideImageForm, GalleryImageUpdateForm, StyleControlForm
 
@@ -175,6 +175,7 @@ class MinisterialRecordUpdate(PermissionRequiredMixin, UpdateView):
 ### Sacred Journeys ###
 def sacred_journeys_index(request):
   style_control = StyleControl.objects.first()
+  page = SacredJourneyPage.objects.first()
   journeys = SacredJourney.objects.filter(status=1).order_by('-end_date')
   today = date.today()
   upcoming_journeys = []
@@ -190,8 +191,20 @@ def sacred_journeys_index(request):
       'upcoming_journeys': upcoming_journeys,
       'previous_journeys': previous_journeys,
       'style_control': style_control,
+      'page': page,
     },
     )
+
+class SacredJourneyPageUpdate(generic.UpdateView):
+  permission_required = 'main_app.change_sacredjourneypage'
+  model = SacredJourneyPage
+  fields = '__all__'
+  success_url = '/sacred-journeys/'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['style_control'] = StyleControl.objects.first()
+    return context  
 
 class SacredJourneyDetail(generic.DetailView):
   model = SacredJourney

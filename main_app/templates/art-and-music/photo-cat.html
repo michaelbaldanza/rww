@@ -5,9 +5,11 @@
 {% load app_extras %}
 
 <h2>{{ title }}</h2>
-<h3>
-  <a class="edit-link" href="{% url 'add_photo' %}">Add photo</a>
-</h3>
+{% if perms.main_app.add_galleryimage %}
+  <h3>
+    <a class="edit-link" href="{% url 'add_photo' %}">Add photo</a>
+  </h3>
+{% endif %}
 <div class="gallery">
 
   {% for dis in display %}

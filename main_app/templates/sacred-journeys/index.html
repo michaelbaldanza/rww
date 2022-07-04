@@ -3,10 +3,20 @@
 {% load static %}
 
 {% if perms.main_app.add_sacred_journey %}
-  <h3><a href="{% url 'sacred_journey_create' %}">Add a Sacred Journey</a></h3>
+  <h3>
+    <a href="{% url 'sacred_journey_create' %}">Add a Sacred Journey</a>
+    {% if page %}
+      |
+      <a href="{% url 'sacred_journey_page_update' page.id %}">Edit page titles</a>
+    {% endif %}
+  </h3>
 {% endif %}
 <div class="">
-  <h2>Upcoming Journeys</h2>
+  {% if page.upcoming_journeys_heading %}
+    <h2>{{ page.upcoming_journeys_heading }} </h2>
+  {% else %}
+    <h2>Upcoming Journeys</h2>
+  {% endif %}
   {% if upcoming_journeys %}
     {% for journey in upcoming_journeys %}
         <a class="post-link" href="{% url 'sacred_journey_detail' journey.slug %}">
@@ -51,7 +61,11 @@
   <p>There are no upcoming journeys.</p>
   {% endif %}
 
-  <h2>Previous Journeys</h2>
+  {% if page.previous_journeys_heading %}
+    <h2>{{ page.previous_journeys_heading }} </h2>
+  {% else %}
+    <h2>Previous Journeys</h2>
+  {% endif %}
 <div>
   {% if previous_journeys %}
     {% for journey in previous_journeys %}
