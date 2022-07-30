@@ -32,10 +32,10 @@
               {% endif %}
             </div>
             <div>
-              <h2 class="post-preview-heading">
+              <h2 class="post-preview-heading content-heading">
                 {{ journey.title }}
               </h2>
-              <p>
+              <p class="byline">
                 {{ journey.start_date|date:"M j" }} - {{ journey.end_date|date:"j Y"}}
                 {% if perms.main_app.change_sacred_journey or perms.main_app.delete_sacred_journey %}
                   |
@@ -82,10 +82,10 @@
               {% endif %}
             </div>
             <div>
-              <h2 class="post-preview-heading">
+              <h2 class="post-preview-heading content-heading">
                 {{ journey.title }}
               </h2>
-              <p>
+              <p class="byline">
                 {{ journey.start_date|date:"M j" }} - {{ journey.end_date|date:"j Y"}}
                 {% if perms.main_app.change_sacred_journey or perms.main_app.delete_sacred_journey %}
                   |
@@ -100,7 +100,7 @@
                   <a href="{% url 'sacred_journey_delete' journey.slug %}">Delete</a>
                 {% endif %}
               </p>
-              <p class="post-preview-text">
+              <p class="post-preview-text content-body">
                 {{ journey.description|truncatewords:15}}
               </p>
             </div>

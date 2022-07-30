@@ -67,7 +67,8 @@ from .forms import (SacredJourneyForm, SlideImageForm, GalleryImageUpdateForm,
   ArtAndMusicPageStyleSheetForm, SacredJourneyStyleSheetForm,
   GuidedMeditationPageForm, GuidedMeditationPageStyleSheetForm,
   GalleryImageStyleSheetForm, GalleryImageCreateForm, ContactPageForm,
-  ContactPageStyleSheetForm)
+  ContactPageStyleSheetForm, BlogIndexPageForm, BlogIndexPageStyleSheetForm,
+  SacredJourneyPageForm, SacredJourneyPageStyleSheetForm)
 
 def admin_check(user):
   print('hitting admin_check')
@@ -101,7 +102,6 @@ class ArtAndMusicPageUpdate(PermissionRequiredMixin, UpdateView):
   success_url = '/art-and-music/'
 
   def get_context_data(self, **kwargs):
-    # context = super(MainPageUpdate, self).get_context_data(**kwargs)
     context = super().get_context_data(**kwargs)
     page = self.object
     style = self.second_model.objects.get(id=page.style_sheet.id)
@@ -278,9 +278,12 @@ def sacred_journeys_index(request):
   upcoming_journeys = []
   previous_journeys = []
   for journey in journeys:
+    print('theres a journey')
     if journey.start_date > today:
+      print(journey)
       upcoming_journeys.append(journey)
     else:
+      print('previous journey')
       previous_journeys.append(journey)
   return render(
     request,
@@ -295,13 +298,32 @@ def sacred_journeys_index(request):
 class SacredJourneyPageUpdate(generic.UpdateView):
   permission_required = 'main_app.change_sacredjourneypage'
   model = SacredJourneyPage
-  fields = '__all__'
+  second_model = StyleSheet
+  form_class = SacredJourneyPageForm
+  second_form_class = SacredJourneyPageStyleSheetForm
   success_url = '/sacred-journeys/'
 
   def get_context_data(self, **kwargs):
+    # context = super(MainPageUpdate, self).get_context_data(**kwargs)
     context = super().get_context_data(**kwargs)
+    page = self.object
+    style = self.second_model.objects.get(id=page.style_sheet.id)
+    if 'form' not in context:
+      context['form'] = self.form_class(instance=page)
+    if 'form2' not in context:
+      context['form2'] = self.second_form_class(instance=style)
     context['style_control'] = StyleControl.objects.first()
-    return context  
+    return context
+
+  def post(self, request, *args, **kwargs):
+    page = self.model.objects.get(id=kwargs['pk'])
+    style = self.second_model.objects.get(id=page.style_sheet.id)
+    form = self.form_class(request.POST, request.FILES, instance=page)
+    form2 = self.second_form_class(request.POST, instance=style)
+    if form.is_valid() and form2.is_valid():
+      form.save()
+      form2.save()
+    return redirect('sacred_journeys')
 
 class SacredJourneyDetail(generic.DetailView):
   model = SacredJourney
@@ -468,7 +490,7 @@ class MainPageUpdate(PermissionRequiredMixin, UpdateView):
     if form.is_valid() and form2.is_valid():
       form.save()
       form2.save()
-    return redirect('home')
+    return redirect('blog')
 
 class StyleControlUpdate(PermissionRequiredMixin, UpdateView):
   permission_required = 'main_app.change_stylecontrol'
@@ -541,13 +563,32 @@ def posts_index(request):
 class BlogIndexPageUpdate(PermissionRequiredMixin, UpdateView):
   permission_required = 'main_app.change_mainpage'
   model = BlogIndexPage
-  fields = '__all__'
+  second_model = StyleSheet
+  form_class = BlogIndexPageForm
+  second_form_class = BlogIndexPageStyleSheetForm
   success_url = '/blog/'
 
   def get_context_data(self, **kwargs):
+    # context = super(MainPageUpdate, self).get_context_data(**kwargs)
     context = super().get_context_data(**kwargs)
+    page = self.object
+    style = self.second_model.objects.get(id=page.style_sheet.id)
+    if 'form' not in context:
+      context['form'] = self.form_class(instance=page)
+    if 'form2' not in context:
+      context['form2'] = self.second_form_class(instance=style)
     context['style_control'] = StyleControl.objects.first()
     return context
+
+  def post(self, request, *args, **kwargs):
+    page = self.model.objects.get(id=kwargs['pk'])
+    style = self.second_model.objects.get(id=page.style_sheet.id)
+    form = self.form_class(request.POST, request.FILES, instance=page)
+    form2 = self.second_form_class(request.POST, instance=style)
+    if form.is_valid() and form2.is_valid():
+      form.save()
+      form2.save()
+    return redirect('home')
 
 class PostDetail(generic.DetailView):
   model = Post
@@ -690,7 +731,6 @@ class GuidedMeditationPageUpdate(PermissionRequiredMixin, UpdateView):
   success_url = '/guided-meditations/'
 
   def get_context_data(self, **kwargs):
-    # context = super(MainPageUpdate, self).get_context_data(**kwargs)
     context = super().get_context_data(**kwargs)
     page = self.object
     style = self.second_model.objects.get(id=page.style_sheet.id)
@@ -728,7 +768,6 @@ class ContactPageUpdate(PermissionRequiredMixin, UpdateView):
   success_url = '/contact/'
 
   def get_context_data(self, **kwargs):
-    # context = super(MainPageUpdate, self).get_context_data(**kwargs)
     context = super().get_context_data(**kwargs)
     page = self.object
     style = self.second_model.objects.get(id=page.style_sheet.id)

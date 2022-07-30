@@ -3,7 +3,7 @@ from django.forms import ModelForm, TextInput
 from .models import (Post, SacredJourney, SlideImage, GalleryImage,
   StyleControl, MainPage, BlogIndexPage, GlobalPostStyle, StyleSheet,
   SpiritualDirection, MinisterialRecord, ArtAndMusicPage, GuidedMeditation,
-  GuidedMeditationPage, ContactPage)
+  GuidedMeditationPage, ContactPage, SacredJourneyPage)
 from .widgets import DatePickerInput
 
 widget_settings = {
@@ -216,12 +216,40 @@ class MainPageForm(ModelForm):
 class BlogIndexPageForm(ModelForm):
   class Meta:
     model = BlogIndexPage
-    fields = '__all__'
-    widgets = {
-      'content_heading_font_color': ColorWidget,
-      'content_body_font_color': ColorWidget,
-      'byline_font_color': ColorWidget,
+    exclude = ('style_sheet',)
+    widgets = widget_settings
+
+class BlogIndexPageStyleSheetForm(ModelForm):
+  class Meta:
+    model = StyleSheet
+    fields = select_fields(model, 'content_heading', 'content_body',
+      'byline')
+    custom = {
+      'content_heading': 'post preview heading',
+      'content_body': 'post preview text',
+      'byline': 'post info'
     }
+    labels = make_labels(fields, **custom)
+
+class SacredJourneyPageForm(ModelForm):
+  class Meta:
+    model = SacredJourneyPage
+    exclude = ('style_sheet',)
+    widgets = widget_settings
+
+class SacredJourneyPageStyleSheetForm(ModelForm):
+  class Meta:
+    model = StyleSheet
+    fields = select_fields(model, 'primary_heading', 'content_heading',
+      'content_body', 'byline')
+    custom = {
+      'primary_heading': 'upcoming/previous',
+      'content_heading': 'journey preview heading',
+      'content_body': 'journey preview text',
+      'byline': 'journey info'
+    }
+    labels = make_labels(fields, **custom)
+    widgets = widget_settings
 
 class StyleControlForm(ModelForm):
   class Meta:

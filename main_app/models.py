@@ -135,18 +135,15 @@ class StyleControl(models.Model):
   image_heading_font_family = models.CharField(max_length=200, choices=FONT_FAMILY_CHOICES, blank=True, null=True)
 
 class BlogIndexPage(models.Model):
-  content_heading_font_color = ColorField(verbose_name='heading color', blank=True, null=True)
-  content_heading_opacity = models.PositiveIntegerField(verbose_name='heading opacity (%)', blank=True, null=True, validators=[MaxValueValidator(100),])
-  content_heading_font_size = models.IntegerField(verbose_name='heading size (px)', choices=FONT_SIZE_CHOICES, blank=True, null=True)
-  content_heading_font_family = models.CharField(verbose_name='heading font', max_length=200, choices=FONT_FAMILY_CHOICES, blank=True, null=True)
-  content_body_font_color = ColorField(verbose_name='body color', blank=True, null=True)
-  content_body_opacity = models.PositiveIntegerField(verbose_name='body opacity (%)', blank=True, null=True, validators=[MaxValueValidator(100),])
-  content_body_font_size = models.IntegerField(verbose_name='body size (px)', choices=FONT_SIZE_CHOICES, blank=True, null=True)
-  content_body_font_family = models.CharField(verbose_name='body font', max_length=200, choices=FONT_FAMILY_CHOICES, blank=True, null=True)
-  byline_font_color = ColorField(verbose_name='byline color', blank=True, null=True)
-  byline_opacity = models.PositiveIntegerField(verbose_name='byline opacity (%)', blank=True, null=True, validators=[MaxValueValidator(100),])
-  byline_font_size = models.IntegerField(verbose_name='byline size (px)', choices=FONT_SIZE_CHOICES, blank=True, null=True)
-  byline_font_family = models.CharField(verbose_name='byline font', max_length=200, choices=FONT_FAMILY_CHOICES, blank=True, null=True)
+  title = models.CharField(max_length=200, default='Blog Index')
+  style_sheet = models.OneToOneField(
+    StyleSheet,
+    on_delete=models.CASCADE,
+    null=True,
+    )
+
+  def __str__(self):
+    return self.title
 
 class GlobalPostStyle(models.Model):
   primary_heading_font_color = ColorField(verbose_name='heading color', blank=True, null=True)
@@ -196,8 +193,17 @@ class ArtAndMusicPage(models.Model):
     return self.title
 
 class SacredJourneyPage(models.Model):
+  title = models.CharField(max_length=200, default='Sacred Journey Index')
   upcoming_journeys_heading = models.CharField(max_length=20, default='Upcoming Journeys')
   previous_journeys_heading = models.CharField(max_length=20, default='Previous Journeys')
+  style_sheet = models.OneToOneField(
+    StyleSheet,
+    on_delete=models.CASCADE,
+    null=True,
+    )
+
+  def __str__(self):
+    return self.title
 
 class MinistryPage(models.Model):
   heading = models.CharField(max_length=20, default='Ministry')
@@ -377,7 +383,7 @@ class Post(models.Model):
   updated_on = models.DateTimeField(auto_now=True)
   content = models.TextField()
   created_on = models.DateTimeField(auto_now_add=True)
-  status = models.IntegerField(choices=STATUS, default=0)
+  status = models.IntegerField(choices=STATUS, default=1)
   image = models.FileField(upload_to='media/', blank=True, null=True)
   style_sheet = models.OneToOneField(
     StyleSheet,
@@ -433,7 +439,7 @@ class SacredJourney(models.Model):
   included_features = models.TextField(blank=True, null=True)
   updated_on = models.DateTimeField(auto_now=True)
   created_on = models.DateTimeField(auto_now=True)
-  status = models.IntegerField(choices=STATUS, default=0)
+  status = models.IntegerField(choices=STATUS, default=1)
   slug = models.SlugField(max_length=200, unique=True)
   style_sheet = models.OneToOneField(
     StyleSheet,
