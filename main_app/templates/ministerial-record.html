@@ -4,20 +4,20 @@
 {% load markdown_extras %}
 {% load app_extras %}
 <div>
-  <h1>Ministerial Record</h1>
+  <h1 class="primary-heading">Ministerial Record</h1>
   {% if perms.main_app.change_ministerial_record %}
-    <h3><a class="edit-link" href="{% url 'ministerial_record_update' min_rec.id %}">Edit</a></h3>
+    <h3  class="main-text"><a class="edit-link" href="{% url 'ministerial_record_update' page.id %}">Edit</a></h3>
   {% endif %}
   {% if perms.main_app.view_ministerialrecord %}
   <div>
-    <a href="{{ min_rec.pdf_link }}">
+    <a href="{{ page.pdf_link }}" class="secondary-heading">
       View my ministerial record.
     </a>
   </div>
   {% else %}
   <div>
     <h3>
-      <a href="mailto:revwayne@live.ca">
+      <a href="mailto:revwayne@live.ca" class="secondary-heading">
         Contact Wayne for the guest credentials to log in and view Wayne's ministerial record.
       </a>
     </h3>
@@ -41,9 +41,11 @@
           {% else %}
           <div class="substitute"></div>
           {% endif %}
-          <h2 class="img-heading">
+          <h2 
+            class="img-heading"
+          >
             {% if 'preaching' in menu_image.text %}
-              {{ menu_image.text|title|insert_slash:' ' }}
+              {{ menu_image.text|title|insert_comma:' ' }}
             {% else %}
               {{ menu_image.text|title }}
             {% endif %}
@@ -53,20 +55,32 @@
     </div>
     {% endfor %}
   </div>
-  <h1 id="preaching-worship">Preaching/Worship</h1>
-  {{ min_rec.preaching_worship|markdown|safe }}
-  <h1 id="pastoral-care">Pastoral Care</h1>
-  {{ min_rec.pastoral_care|markdown|safe }}
-  <h1 id="spiritual-life">Spiritual Life</h1>
-  {{ min_rec.spiritual_life|markdown|safe }}
-  {{ min_rec.background_and_development|markdown|safe }}
-  {{ min_rec.theological_orientation }}
-  <h1 id="community-connection">Community Connection</h1>
-  {{ min_rec.community_connection|markdown|safe }}
-  <h1 id="religious-education">Religious Education</h1>
-  {{ min_rec.approach_religious_education|markdown|safe }}
-  <h1 id="administration">Administration</h1>
-  {{ min_rec.administration|markdown|safe }}
+  <h1 id="preaching-worship" class="tertiary-heading">Preaching/Worship</h1>
+  <div class="main-text">
+    {{ page.preaching_worship|markdown|safe }}
+  </div>
+  <h1 id="pastoral-care" class="tertiary-heading">Pastoral Care</h1>
+  <div class="main-text">
+    {{ page.pastoral_care|markdown|safe }}
+  </div>
+  <h1 id="spiritual-life" class="tertiary-heading">Spiritual Life</h1>
+  <div class="main-text">
+    {{ page.spiritual_life|markdown|safe }}
+    {{ page.background_and_development|markdown|safe }}
+    {{ page.theological_orientation }}
+  </div>
+  <h1 id="community-connection" class="tertiary-heading">Community Connection</h1>
+  <div class="main-text">
+    {{ page.community_connection|markdown|safe }}
+  </div>
+  <h1 id="religious-education" class="tertiary-heading">Religious Education</h1>
+  <div class="main-text">
+    {{ page.approach_religious_education|markdown|safe }}
+  </div>
+  <h1 id="administration" class="tertiary-heading">Administration</h1>
+  <div class="main-text">
+    {{ page.administration|markdown|safe }}
+  </div>
 </div>
 
 {% endblock %}

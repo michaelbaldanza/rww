@@ -4,19 +4,19 @@
 {% load markdown_extras %}
 
 {% if perms.main_app.add_guidedmeditation %}
-  <h3>
-    <a href="{% url 'guided_meditation_page_update' page_info.id %}">Edit page title, text, and image</a>
+  <h3 class="main-text">
+    <a href="{% url 'guided_meditation_page_update' page.id %}">Edit page title, text, and image</a>
     |
     <a class="edit-link" href="{% url 'guided_meditation_create' %}">Add a Guided Meditation</a>
   </h3>
 {% endif %}
 <section id="part-one">
-  <div id="gm-pic">
+  <div class="floated-right">
     <div class="backdrop-container">
-    {% if page_info.main_image %}
+    {% if page.main_image %}
       <img
         class="meditation-image"
-        src="{{ page_info.image_link }}"
+        src="{{ page.image_link }}"
       >
     {% else %}
       <div class="substitute"></div>
@@ -24,21 +24,25 @@
     </div>
   </div>
   <div id="txt">
-    <h2>{% if page_info.title %}{{ page_info.title|markdown|safe }}{% endif %}</h2>
-      {% if page_info.main_text %}
-        {{ page_info.main_text|markdown|safe}}
+    <h2 class="primary-heading">{% if page.title %}{{ page.title|markdown|safe }}{% endif %}</h2>
+      {% if page.main_text %}
+        <div class="main-text">
+          {{ page.main_text|markdown|safe}}
+        </div>
       {% endif %}
   </div>
 </section>
-<div id="guided-meditation-wrapper">
+<div class="content-body" id="guided-meditation-wrapper">
   <div id="meditations-container">
     {% for meditation in guidedmeditation_list %}
     <div class="meditation">
-      <h2>{{ meditation.title }}</h2>
+      <h2 class="content-heading">{{ meditation.title }}</h2>
       <audio controls>
         <source src="{{ meditation.audio_link }}" type="audio/mp4">
       </audio>
-      {{ meditation.description | markdown | safe }}
+      <div class="content-body">
+        {{ meditation.description | markdown | safe }}
+      </div>
       {% if perms.add_guidedmeditation %}
       <a href="{% url 'guided_meditation_update' meditation.id %}">Edit</a>
       |

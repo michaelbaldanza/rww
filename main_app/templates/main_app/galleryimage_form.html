@@ -1,13 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+{{ form2.media }}
 <form action="" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <table>
+    {% if object %}
+      <h2>Update {{ object.title }}</h2>
+    {% else %}
+      <h2>Add a new gallery image</h2>
+    {% endif %}
     {{ form.as_table }}
+    {{ form2.as_table }}
   </table>
-  <input type="submit" value="Add photo" class="btn">
+  <input type="submit" value="{% if object %}Update{% else %}Add photo{% endif %}" class="btn">
 </form>
 
 {% endblock %}

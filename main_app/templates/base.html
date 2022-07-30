@@ -27,6 +27,10 @@
     {% if style_control.font_size %}font-size: {{style_control.font_size|make_string}}px;{% endif %}
     }
 
+    .coda-slider-wrapper .coda-slider {
+      {% if style_control.font_color %}background-color: {{style_control.font_color}};{% endif %}  
+    }
+
     #logo{
       {% if style_control.header_maintext_color %}color: {{style_control.header_maintext_color}};{% endif %}
       {% if style_control.header_maintext_font_family %}font-family: {{style_control.get_header_maintext_font_family_display}};{% endif %}
@@ -40,6 +44,87 @@
     #ham {
       {% if style_control.font_color %}background-color: {{style_control.font_color}};{% endif %}
     }
+
+    .img-frame:hover > .img-heading {
+      color: {{ style_control.image_heading_color }};
+      opacity: {{ style_control.image_heading_opacity }}%;
+      {% if style_control.image_heading_font_family %}font-family: {{ style_control.get_image_heading_font_family_display }};{% endif %}
+    }
+
+    {% if page %}
+
+      .primary-heading {
+        color: {{ page.style_sheet.primary_heading_color }};
+        opacity: {{ page.style_sheet.primary_heading_opacity }}%;
+        {% if page.style_sheet.primary_heading_font_family %}font-family: {{ page.style_sheet.get_primary_heading_font_family_display }};{% endif %}
+      }
+
+      .secondary-heading {
+        color: {{ page.style_sheet.secondary_heading_color }};
+        opacity: {{ page.style_sheet.secondary_heading_opacity }}%;
+        {% if page.style_sheet.secondary_heading_font_family %}font-family: {{ page.style_sheet.get_secondary_heading_font_family_display }};{% endif %}
+      }
+
+      .tertiary-heading {
+        color: {{ page.style_sheet.tertiary_heading_color }};
+        opacity: {{ page.style_sheet.tertiary_heading_opacity }}%;
+        {% if page.style_sheet.tertiary_heading_font_family %}font-family: {{ page.style_sheet.get_tertiary_heading_font_family_display }};{% endif %}
+      }
+
+      .content-heading {
+        color: {{ page.style_sheet.content_heading_color }};
+        opacity: {{ page.style_sheet.content_heading_opacity }}%;
+        {% if page.style_sheet.content_heading_font_family %}font-family: {{ page.style_sheet.get_content_heading_font_family_display }};{% endif %}
+      }      
+
+      .main-text {
+        color: {{ page.style_sheet.body_color }};
+        opacity: {{ page.style_sheet.body_opacity }}%;
+        {% if page.style_sheet.body_font_family %}font-family: {{ page.style_sheet.get_body_font_family_display }};{% endif %}
+      }
+
+      .content-body {
+        color: {{ page.style_sheet.content_body_color }};
+        opacity: {{ page.style_sheet.content_body_opacity }}%;
+        {% if page.style_sheet.content_body_font_family %}font-family: {{ page.style_sheet.get_content_body_font_family_display }};{% endif %}
+      }
+
+      .byline {
+        color: {{ page.style_sheet.byline_color }};
+        opacity: {{ page.style_sheet.byline_opacity }}%;
+        {% if page.style_sheet.byline_font_family %}font-family: {{ page.style_sheet.get_byline_font_family_display }};{% endif %}
+      }
+
+
+      .img-frame:hover > .img-heading {
+        color: {{ page.style_sheet.image_heading_color }};
+        opacity: {{ page.style_sheet.image_heading_opacity }}%;
+        {% if page.style_sheet.image_heading_font_family %}font-family: {{ page.style_sheet.get_image_heading_font_family_display }};{% endif %}
+      }
+
+      @media screen and (min-width: 1024px) {
+        .primary-heading {
+          font-size: {{ page.style_sheet.primary_heading_font_size }}px;
+        }
+
+        .secondary-heading {
+          font-size: {{ page.style_sheet.secondary_heading_font_size }}px;
+        }        
+
+        .tertiary-heading {
+          font-size: {{ page.style_sheet.tertiary_heading_font_size }}px;
+        }
+
+        .main-text {
+          font-size: {{ page.main_text_font_size }}{{ page.style_sheet.body_font_size }}px;
+        }
+        
+        .img-heading {
+          font-size: {{ page.style_sheet.image_heading_font_size }}px;
+        }
+      }
+
+    {% endif %}
   </style>
   <script defer src="{% static 'js/main.js' %}"></script>
   <!-- jQuery -->
@@ -86,7 +171,7 @@
           <a href="{% url 'ministry' %}">Ministry</a>
         </li>
         <li class="nav-link">
-          <a href="mailto:revwayne@live.ca">Contact</a>
+          <a href="{% url 'contact' %}">Contact</a>
         </li>
         {% if user.is_authenticated %}
           <li class="nav-link">
@@ -119,7 +204,7 @@
         <a href="{% url 'art_and_music' %}">Art and Music</a>
       </li>
       <li class="nav-link">
-        <a href="mailto:revwayne@live.ca">Contact</a>
+        <a href="{% url 'contact' %}">Contact</a>
       </li>
       {% if user.is_authenticated %}
         <li class="nav-link">

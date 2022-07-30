@@ -7,21 +7,41 @@
   <form action="{% url 'add_slide_image' main_page.id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <table>
-    {{ slide_image_form.as_p }}
+    {{ slide_image_form.as_table }}
     </table>
     <input type="submit" value="Add Image">
   </form>
-  <table>
+
   <h2>Delete Slide Image</h2>
+  <table>
+    <colgroup>
+      <col span="2">
+      <col span="2">
+      <col span="2">
+    </colgroup>
+  <tr>
+    <th>
+      Thumbnail
+    </th>
+    <th>
+      Slide Order
+    </th>
+    <th>
+      
+    </th>
+  </tr>
   {% for slide_image in slide_images %}
-    <td>
-      <tr>
-        <img class="thumbnail" src="{{ slide_image.image_link }}">
-      </tr>
-      <tr>
-        <a href="{% url 'delete_slide_image' slide_image.id %}">Delete</a>
-      </tr>
-    </td>
+    <tr>
+      <td class="image-cell">
+        <img class="thumbnail cell-content" src="{{ slide_image.image_link }}">
+      </td>
+      <td>
+        <span class="cell content">{% if slide_image.order %}{{ slide_image.order }} {% else %}Unordered{% endif %}</span>
+      </td>
+      <td>
+        <a class="cell content" href="{% url 'delete_slide_image' slide_image.id %}">Delete</a>
+      </td>
+    </tr>
   {% endfor %}
   </table>
 </section>

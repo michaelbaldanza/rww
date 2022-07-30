@@ -8,18 +8,20 @@
       <img class="post-image" src="{{ sacredjourney.image_link }}">
     {% endif %}
     <div>
-    <a href="{{ sacredjourney.worldwidequest_link }}"><h2>{{ sacredjourney.name|safe }}</h2></a>
-      {% if perms.main_app.change_sacred_journey %}
-        <a href="{% url 'sacred_journey_update' sacredjourney.slug %}">Edit</a>
-      {% endif %}
-      {% if perms.main_app.change_sacred_journey and perms.main_app.delete_sacred_journey %}
-        |
-      {% endif %}
-      {% if perms.main_app.delete_sacred_journey %}
-        <a href="{% url 'sacred_journey_delete' sacredjourney.slug %}">Delete</a>
-      {% endif %}
+      <h2 class="primary-heading"><a href="{{ sacredjourney.worldwidequest_link }}">{{ sacredjourney.title|safe }}</a></h2>
+      <div class="main-text">
+        {% if perms.main_app.change_sacred_journey %}
+          <a href="{% url 'sacred_journey_update' sacredjourney.slug %}">Edit</a>
+        {% endif %}
+        {% if perms.main_app.change_sacred_journey and perms.main_app.delete_sacred_journey %}
+          |
+        {% endif %}
+        {% if perms.main_app.delete_sacred_journey %}
+          <a href="{% url 'sacred_journey_delete' sacredjourney.slug %}">Delete</a>
+        {% endif %}
+      </div>
     </div>
-    <div class="journey-info">
+    <div class="journey-info" class="byline">
       <span>{{ sacredjourney.start_date|date:"M j" }} - {{ sacredjourney.end_date|date:"j Y" }}</span>
       |
       <span>{{ sacredjourney.destination }}</span>
@@ -27,8 +29,10 @@
       | <a href="{{ sacredjourney.worldwidequest_link }}">View on worldwidequest.com</a>
       {% endif %}
     </div>
-    <p>{{ sacredjourney.description|markdown|safe }}</p>
-    <p>{{ sacredjourney.itinerary|markdown|safe}}</p>
+    <div class="main-text">
+      <p>{{ sacredjourney.description|markdown|safe }}</p>
+      <p>{{ sacredjourney.itinerary|markdown|safe}}</p>
+    </div>
   </div>
 </div>
 {% endblock %}

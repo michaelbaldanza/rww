@@ -7,8 +7,8 @@
     {% if post.image %}
       <img class="post-image" src="{{ post.image_link }}" height=300 width=auto>
     {% endif %}
-    <h2>{{ post.title }}</h2>
-    <p>
+    <h2 class="primary-heading">{{ post.title }}</h2>
+    <p class="byline">
       {{ post.author }} | {{ post.created_on|date:'M j' }}
       {% if perms.main_app.change_post or perms.main_app.delete_post %}
         |
@@ -23,7 +23,9 @@
         <a href="{% url 'post_delete' post.slug %}">Delete</a>
       {% endif %}
     </p>
-    {{ post.content | markdown | safe }}
+    <div class="main-text">
+      {{ post.content | markdown | safe }}
+    </div>
   </div>
 </div>
 

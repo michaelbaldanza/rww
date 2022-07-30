@@ -4,16 +4,14 @@
 {% load markdown_extras %}
 
 {% if am.art_heading %}
-<h2>{{ am.art_heading|safe }}</h2>
+  <h2 class="primary-heading">{{ am.art_heading|safe }}</h2>
 {% else %}
-<h2>Photography</h2>
+  <h2 class="primary-heading">Photography</h2>
 {% endif %}
 {% if perms.main_app.add_galleryimage %}
-  <h3>
-    {% if am %}
-      <a class="edit-link" href="{% url 'art_and_music_page_update' am.id %}">Edit page titles</a>
+  <h3 class="main-text">
+      <a class="edit-link" href="{% url 'art_and_music_page_update' page.id %}">Edit page titles</a>
       |
-    {% endif %}
     <a class="edit-link" href="{% url 'add_photo' %}">Add a photo</a>
     |
     <a class="edit-link" href="{% url 'music_create' %}">Add a song</a>
@@ -42,9 +40,9 @@
 </div>
 
 {% if am.music_heading %}
-<h2>{{ am.music_heading|safe }}</h2>
+  <h2 class="primary-heading">{{ am.music_heading|safe }}</h2>
 {% else %}
-<h2>Music</h2>
+  <h2 class="primary-heading">Music</h2>
 {% endif %}
 <div id="meditations-container">
   {% for meditation in songs %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load markdown_extras %}
+
+{% if perms.main_app.add_guidedmeditation %}
+  <h3 class="main-text">
+    <a href="{% url 'contact_page_update' page.id %}">Edit page title, text, and image</a>
+  </h3>
+{% endif %}
+<section id="part-one">
+  <div class="floated-right">
+    <div class="backdrop-container">
+    {% if page.image %}
+      <img
+        class="meditation-image"
+        src="{{ page.image_link }}"
+      >
+    {% else %}
+      <div class="substitute"></div>
+    {% endif %}
+    </div>
+  </div>
+  <div id="txt">
+    <h2 class="primary-heading">{% if page.title %}{{ page.title|markdown|safe }}{% endif %}</h2>
+      {% if page.blurb %}
+        <div class="main-text">
+          {{ page.blurb|markdown|safe}}
+        </div>
+      {% endif %}
+      <div class="secondary-heading">
+        {% if page.phone_number %}
+          <div>
+            Phone: <a href="tel:{{ page.phone_number }}">{{ page.phone_number }}</a>
+          </div>
+        {% endif %}
+        {% if page.email %}
+          <div>
+            E-mail: <a href="mailto:{{ page.email }}">{{ page.email }}</a>
+          </div>
+        {% endif %}
+      </div>
+      
+  </div>
+</section>
+{% endblock %}

@@ -2,9 +2,12 @@
 {% block content %}
 {% load static %}
 {% load markdown_extras %}
-
 {% if perms.main_app.add_post %}
-  <h3><a class="edit-link" href="{% url 'post_create' %}">Add a Post</a></h3>
+  <h3>
+    <a class="edit-link" href="{% url 'post_create' %}">Add a Post</a>
+    |
+    <a class="edit-link" href="{% url 'blog_index_page_update' page.id %}">Change page styles</a>
+  </h3>
 {% endif %}
 <div class="">
   {% for post in posts %}
@@ -13,21 +16,21 @@
       <div class="post-preview-image-container">
         {% if post.image %}
         <img
-        class="post-preview-image"
-        src="{{ post.image_link }}"
+          class="post-preview-image"
+          src="{{ post.image_link }}"
         >
         {% else %}
         <div class="post-no-image"></div>
         {% endif %}
       </div>
       <div>
-        <h2 class="post-preview-heading">
+        <h2 class="post-preview-heading content-heading">
           {{ post.title }}
         </h2>
-        <p class="post-preview-text">
+        <p class="post-preview-text content-body">
           {{ post.content|truncatewords:15|markdown|safe|striptags }}
         </p> 
-        <p>
+        <p class="byline">
           {{ post.author }} | {{ post.created_on|date:'M j' }}
           {% if perms.main_app.change_post or perms.main_app.delete_post %}
             |

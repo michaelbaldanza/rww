@@ -4,18 +4,16 @@
 {% load markdown_extras %}
 {% load app_extras %}
 
-<h1>{{ spi_dir.title|safe }}</h1>
-{% if spi_dir %}
+<h1 class="primary-heading">{{ page.title|safe }}</h1>
+{% if page %}
   {% if perms.main_app.change_ministerial_record %}
-  <h3><a class="edit-link" href="{% url 'spiritual_direction_update' spi_dir.id %}">Edit</a></h3>
+  <h3 class="main-text"><a class="edit-link" href="{% url 'spiritual_direction_update' page.id %}">Edit</a></h3>
   {% endif %}
 {% endif %}
-{% if spi_dir.blurb %}
-<div id="blurb">
-  <h3>
-    {{ spi_dir.blurb|markdown|safe }}
-  </h3>
-</div>
+{% if page.blurb %}
+  <h2 id="blurb" class="secondary-heading" >
+    {{ page.blurb|markdown|safe }}
+  </h2>
 {% endif %}
 <div class="img-grid"> 
   {% for menu_image in menu_images %}
@@ -42,20 +40,28 @@
   </div>
   {% endfor %}
 </div>
-<h2 id="what-is-spiritual-direction">
+<h2 id="what-is-spiritual-direction" class="tertiary-heading">
   What Is Spiritual Direction?
 </h2>
-{{ spi_dir.what_is_spiritual_direction|markdown|safe }}
-<h2 id="what-do-spiritual-directors-do">
+<div class="main-text">
+  {{ page.what_is_spiritual_direction|markdown|safe }}
+</div>
+<h2 id="what-do-spiritual-directors-do" class="tertiary-heading">
   What Do Spiritual Directors Do?
 </h2>
-{{ spi_dir.what_do_spiritual_directors_do|markdown|safe }}
-<h2 id="one-to-one-sessions">
+<div class="main-text">
+  {{ page.what_do_spiritual_directors_do|markdown|safe }}
+</div>
+<h2 id="one-to-one-sessions" class="tertiary-heading">
   One-To-One Sessions
 </h2>
-{{ spi_dir.one_on_one_sessions|markdown|safe }}
-<h2 id="contact-wayne-for-a-session">
+<div class="main-text">
+  {{ page.one_on_one_sessions|markdown|safe }}
+</div>
+<h2 id="contact-wayne-for-a-session" class="tertiary-heading">
   Contact Wayne For A Session
 </h2>
-{{ spi_dir.contact_wayne_for_a_session|markdown|safe }}
+<div class="main-text">
+  {{ page.contact_wayne_for_a_session|markdown|safe }}
+</div>
 {% endblock %}

@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{{ form2.media }}
+
 <form action="" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <table>
+    <h1> Update {{ object }}</h1>
     {{ form.as_table }}
+    {{ form2.as_table }}
   </table>
   <input type="submit" value="Make changes" class="btn">
 </form>

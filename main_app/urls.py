@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
   path('', views.home, name='home'),
   path('accounts/signup/', views.signup, name='signup'),
+  path('contact/', views.contact, name='contact'),
+  path('contact/<int:pk>/edit/', views.ContactPageUpdate.as_view(), name='contact_page_update'),
   path('art-and-music/', views.art_and_music, name='art_and_music'),
   path('art-and-music/<int:pk>/edit-info/', views.ArtAndMusicPageUpdate.as_view(), name='art_and_music_page_update'),
   path('art-and-music/add-music/', views.MusicCreate.as_view(), name='music_create'),
@@ -30,6 +32,7 @@ urlpatterns = [
   path('spiritual-direction/', views.spiritual_direction, name='spiritual_direction'),
   path('spiritual-direction/<int:pk>/edit/', views.SpiritualDirectionUpdate.as_view(), name='spiritual_direction_update'),
   path('blog/', views.posts_index, name='blog'),
+  path('blog/<int:pk>/edit-index-style/', views.BlogIndexPageUpdate.as_view(), name='blog_index_page_update'),
   path('blog/create/', views.PostCreate.as_view(), name='post_create'),
   path('blog/<slug:slug>/edit/', views.PostUpdate.as_view(), name='post_update'),
   path('blog/<slug:slug>/delete/', views.PostDelete.as_view(), name='post_delete'),

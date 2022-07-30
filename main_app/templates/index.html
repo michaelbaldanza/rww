@@ -2,12 +2,11 @@
 {% block content %}
 {% load static %}
 {% load markdown_extras %}
-
 {% if perms.main_app.change_mainpage %}
-  <h3>
-    <a href="{% url 'main_page_update' main_page.id %}">Edit Main Page</a>
+  <h3 class="main-text">
+    <a href="{% url 'main_page_update' page.id %}">Edit Main Page</a>
     |
-    <a href="{% url 'edit_slides' main_page.id %}">Edit Slides</a>
+    <a href="{% url 'edit_slides' page.id %}">Edit Slides</a>
     |
     <a href="{% url 'style_control' style_control.id %}">Change Website Styles</a>
   </h3>
@@ -29,8 +28,12 @@
       </div>
     </div>
     <div id="txt">
-      <h2>{% if main_page.tagline %}{{ main_page.tagline|markdown|safe }}{% endif %}</h2>
-      {{ main_page.main_text|markdown|safe}}
+      <h2 class="primary-heading">
+        {% if page.tagline %}{{ page.tagline|safe }}{% endif %}
+      </h2>
+      <div class="main-text">
+        {{ page.body|markdown|safe}}
+      </div>
     </div>
   </section>
   <section id="part-two">

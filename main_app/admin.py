@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MinistryPage, GalleryImage, Post, GuidedMeditation, GuidedMeditationPage, SacredJourney, SpiritualDirection, MinisterialRecord, MainPage, SlideImage, Music, StyleControl, ArtAndMusicPage, SacredJourneyPage
+from .models import MinistryPage, GalleryImage, Post, GuidedMeditation, GuidedMeditationPage, SacredJourney, SpiritualDirection, MinisterialRecord, MainPage, SlideImage, Music, StyleControl, ArtAndMusicPage, SacredJourneyPage, BlogIndexPage, GlobalPostStyle, StyleSheet, ContactPage
 
 class MinistryPageAdmin(admin.ModelAdmin):
     list_display = ('heading', 'video_caption', 'created_on')
@@ -24,11 +24,11 @@ class PostAdmin(admin.ModelAdmin):
 
 class SacredJourneyAdmin(admin.ModelAdmin):
     list_display = (
-        'name', 'destination', 'start_date', 'end_date', 'updated_on', 'status'
+        'title', 'destination', 'start_date', 'end_date', 'updated_on', 'status'
         )
     list_filter = ('status',)
-    search_fields = ['name', 'destination']
-    prepopulated_fields = {'slug': ('name',)}
+    search_fields = ['title', 'destination']
+    prepopulated_fields = {'slug': ('title',)}
 
 class SpiritualDirectionAdmin(admin.ModelAdmin):
     list_display = (
@@ -38,17 +38,29 @@ class SpiritualDirectionAdmin(admin.ModelAdmin):
         'title', 'what_is_spiritual_direction', 'what_do_spiritual_directors_do',
     ]
 
-admin.site.register(SacredJourneyPage)
-admin.site.register(ArtAndMusicPage)
-admin.site.register(StyleControl)
+class StyleSheetAdmin(admin.ModelAdmin):
+    list_display = ('parent', 'created_on', 'updated_on')
+
+# repeated content
 admin.site.register(GalleryImage, GalleryImageAdmin)
-admin.site.register(SlideImage)
-admin.site.register(MainPage)
-admin.site.register(Music)
-admin.site.register(SpiritualDirection, SpiritualDirectionAdmin)
-admin.site.register(SacredJourney, SacredJourneyAdmin)
-admin.site.register(Post, PostAdmin)
-admin.site.register(GuidedMeditationPage)
 admin.site.register(GuidedMeditation, GuidedMeditationAdmin)
-admin.site.register(MinistryPage, MinistryPageAdmin)
+admin.site.register(Post, PostAdmin)
+admin.site.register(SacredJourney, SacredJourneyAdmin)
+admin.site.register(SlideImage)
+
+# individual pages
+admin.site.register(ArtAndMusicPage)
+admin.site.register(BlogIndexPage)
+admin.site.register(ContactPage)
+admin.site.register(GuidedMeditationPage)
+admin.site.register(MainPage)
 admin.site.register(MinisterialRecord, MinisterialRecordAdmin)
+admin.site.register(MinistryPage, MinistryPageAdmin)
+admin.site.register(Music)
+admin.site.register(SacredJourneyPage)
+admin.site.register(SpiritualDirection, SpiritualDirectionAdmin)
+
+# cross-content styling
+admin.site.register(GlobalPostStyle)
+admin.site.register(StyleControl)
+admin.site.register(StyleSheet, StyleSheetAdmin)

@@ -9,6 +9,12 @@ def insert_slash(value, arg):
   """Replaces all spaces with a forward slash"""
   return value.replace(arg, '/')
 
+@register.filter(name='insert_comma')
+@stringfilter
+def insert_comma(value, arg):
+  """Replaces a substring a comma"""
+  return value.replace(arg, ', ')
+
 @register.filter(name='insert_space')
 @stringfilter
 def insert_space(value, arg):
