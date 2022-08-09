@@ -490,7 +490,7 @@ class MainPageUpdate(PermissionRequiredMixin, UpdateView):
     if form.is_valid() and form2.is_valid():
       form.save()
       form2.save()
-    return redirect('blog')
+    return redirect('home')
 
 class StyleControlUpdate(PermissionRequiredMixin, UpdateView):
   permission_required = 'main_app.change_stylecontrol'
