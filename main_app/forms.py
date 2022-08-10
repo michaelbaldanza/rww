@@ -6,6 +6,8 @@ from .models import (Post, SacredJourney, SlideImage, GalleryImage,
   GuidedMeditationPage, ContactPage, SacredJourneyPage)
 from .widgets import DatePickerInput
 
+######## Defaults ########
+
 widget_settings = {
   'primary_heading_color': ColorWidget,
   'background_color': ColorWidget,
@@ -16,6 +18,8 @@ widget_settings = {
   'tagline_color': ColorWidget,
   'image_heading_color': ColorWidget,
 }
+
+exclusions = ('title', 'style_sheet')
 
 ######## Helper functions ########
 
@@ -40,10 +44,45 @@ def make_labels(field_list, **custom_labels):
 
 ######## Forms ########
 
+class ArtAndMusicPageForm(ModelForm):
+  class Meta:
+    model = ArtAndMusicPage
+    exclude = exclusions
+
+class ArtAndMusicPageStyleSheetForm(ModelForm):
+  class Meta:
+    model = StyleSheet
+    fields = select_fields(model, 'primary_heading', 'secondary_heading',
+      'image_heading')
+    custom = {
+      'primary_heading': 'photogtaphy heading',
+      'secondary_heading': 'music heading',
+    }
+    labels = make_labels(fields, **custom)
+    widgets = widget_settings
+
+class BlogIndexPageForm(ModelForm):
+  class Meta:
+    model = BlogIndexPage
+    exclude = exclusions
+    widgets = widget_settings
+
+class BlogIndexPageStyleSheetForm(ModelForm):
+  class Meta:
+    model = StyleSheet
+    fields = select_fields(model, 'content_heading', 'content_body',
+      'byline')
+    custom = {
+      'content_heading': 'post preview heading',
+      'content_body': 'post preview text',
+      'byline': 'post info'
+    }
+    labels = make_labels(fields, **custom)
+
 class ContactPageForm(ModelForm):
   class Meta:
     model = ContactPage
-    exclude = ('style_sheet',)
+    exclude = exclusions
 
 class ContactPageStyleSheetForm(ModelForm):
   class Meta:
@@ -57,10 +96,36 @@ class ContactPageStyleSheetForm(ModelForm):
     }
     labels = make_labels(fields, **custom)
 
+class GalleryImageCreateForm(ModelForm):
+  class Meta:
+    model = GalleryImage
+    exclude = ('style_sheet',)
+
+class GalleryImageUpdateForm(ModelForm):
+  class Meta:
+    model = GalleryImage
+    fields = ['caption',]
+
+class GalleryImageStyleSheetForm(ModelForm):
+  class Meta:
+    model = StyleSheet
+    fields = select_fields(model, 'body')
+    custom = {'body': 'caption'}
+    labels = make_labels(fields, **custom)
+
+class GlobalPostStyleForm(ModelForm):
+  class GlobalPostStyle:
+    model = Post
+    widgets = {
+      'primary_heading_font_color': ColorWidget,
+      'body_font_color': ColorWidget,
+      'byline_font_color': ColorWidget,
+    }
+
 class GuidedMeditationPageForm(ModelForm):
   class Meta:
     model = GuidedMeditationPage
-    exclude = ('style_sheet',)
+    exclude = exclusions
 
 class GuidedMeditationPageStyleSheetForm(ModelForm):
   class Meta:
@@ -76,20 +141,18 @@ class GuidedMeditationPageStyleSheetForm(ModelForm):
     labels = make_labels(fields, **custom)
     widgets = widget_settings
 
-class ArtAndMusicPageForm(ModelForm):
+class MainPageForm(ModelForm):
   class Meta:
-    model = ArtAndMusicPage
-    exclude = ('title', 'style_sheet')
-
-class ArtAndMusicPageStyleSheetForm(ModelForm):
+    model = MainPage
+    exclude = exclusions
+    widgets = widget_settings
+    
+class MainPageStyleSheetForm(ModelForm):
   class Meta:
     model = StyleSheet
-    fields = select_fields(model, 'primary_heading', 'secondary_heading',
-      'image_heading')
-    custom = {
-      'primary_heading': 'photogtaphy heading',
-      'secondary_heading': 'music heading',
-    }
+    custom = {'primary_heading': 'tagline'}
+    fields = select_fields(model, 'primary_heading_', 'image_heading_',
+      'body_')
     labels = make_labels(fields, **custom)
     widgets = widget_settings
 
@@ -111,6 +174,11 @@ class MinisterialRecordStyleSheetForm(ModelForm):
     labels = make_labels(fields, **custom)
     widgets = widget_settings
 
+class SpiritualDirectionForm(ModelForm):
+  class Meta:
+    model = SpiritualDirection
+    exclude = exclusions
+
 class SpiritualDirectionStyleSheetForm(ModelForm):
   class Meta:
     model = StyleSheet
@@ -125,20 +193,6 @@ class SpiritualDirectionStyleSheetForm(ModelForm):
     }
     labels = make_labels(fields, **custom)
     widgets = widget_settings
-
-class SpiritualDirectionForm(ModelForm):
-  class Meta:
-    model = SpiritualDirection
-    exclude = ('style_sheet',)
-
-class GlobalPostStyleForm(ModelForm):
-  class GlobalPostStyle:
-    model = Post
-    widgets = {
-      'primary_heading_font_color': ColorWidget,
-      'body_font_color': ColorWidget,
-      'byline_font_color': ColorWidget,
-    }
 
 class PostForm(ModelForm):
   class Meta:
@@ -170,71 +224,10 @@ class SacredJourneyStyleSheetForm(ModelForm):
     labels = make_labels(fields, **custom)
     widgets = widget_settings
 
-class SlideImageForm(ModelForm):
-  class Meta:
-    model = SlideImage
-    fields = ['image', 'order']
-
-class GalleryImageCreateForm(ModelForm):
-  class Meta:
-    model = GalleryImage
-    exclude = ('style_sheet',)
-
-class GalleryImageUpdateForm(ModelForm):
-  class Meta:
-    model = GalleryImage
-    fields = ['caption',]
-
-class GalleryImageStyleSheetForm(ModelForm):
-  class Meta:
-    model = StyleSheet
-    fields = select_fields(model, 'body')
-    custom = {'body': 'caption'}
-    labels = make_labels(fields, **custom)
-
-
-class StyleSheetForm(ModelForm):
-  class Meta:
-    model = StyleSheet
-    exclude = ('parent',)
-
-class MainPageStyleSheetForm(ModelForm):
-  class Meta:
-    model = StyleSheet
-    custom = {'primary_heading': 'tagline'}
-    fields = select_fields(model, 'primary_heading_', 'image_heading_',
-      'body_')
-    labels = make_labels(fields, **custom)
-    widgets = widget_settings
-
-class MainPageForm(ModelForm):
-  class Meta:
-    model = MainPage
-    exclude = ('style_sheet',)
-    widgets = widget_settings
-
-class BlogIndexPageForm(ModelForm):
-  class Meta:
-    model = BlogIndexPage
-    exclude = ('style_sheet',)
-    widgets = widget_settings
-
-class BlogIndexPageStyleSheetForm(ModelForm):
-  class Meta:
-    model = StyleSheet
-    fields = select_fields(model, 'content_heading', 'content_body',
-      'byline')
-    custom = {
-      'content_heading': 'post preview heading',
-      'content_body': 'post preview text',
-      'byline': 'post info'
-    }
-    labels = make_labels(fields, **custom)
-
 class SacredJourneyPageForm(ModelForm):
   class Meta:
     model = SacredJourneyPage
-    exclude = ('style_sheet',)
+    exclude = exclusions
     widgets = widget_settings
 
 class SacredJourneyPageStyleSheetForm(ModelForm):
@@ -250,6 +243,16 @@ class SacredJourneyPageStyleSheetForm(ModelForm):
     }
     labels = make_labels(fields, **custom)
     widgets = widget_settings
+
+class SlideImageForm(ModelForm):
+  class Meta:
+    model = SlideImage
+    fields = ['image', 'order']
+
+class StyleSheetForm(ModelForm):
+  class Meta:
+    model = StyleSheet
+    exclude = ('parent',)
 
 class StyleControlForm(ModelForm):
   class Meta:
