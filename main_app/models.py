@@ -220,6 +220,9 @@ class MinistryPage(models.Model):
 
 class MinisterialRecord(models.Model):
   title = models.CharField(max_length=255, default='Ministerial Record')
+  video_link = models.URLField(blank=True, null=True)
+  video_caption = models.TextField(blank=True, null=True)
+  blurb = models.TextField(blank=True, null=True)
   record_pdf = models.FileField(upload_to='pdfs/', blank=True, null=True)
   preaching_worship_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
   pastoral_care_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)

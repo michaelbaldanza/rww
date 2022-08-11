@@ -115,12 +115,24 @@
           font-size: {{ page.style_sheet.tertiary_heading_font_size }}px;
         }
 
+        .content-heading {
+          font-size: {{ page.style_sheet.tertiary_heading_font_size }}px;
+        }
+
         .main-text {
           font-size: {{ page.main_text_font_size }}{{ page.style_sheet.body_font_size }}px;
         }
         
         .img-heading {
           font-size: {{ page.style_sheet.image_heading_font_size }}px;
+        }
+
+        .content-heading {
+          font-size: {{ page.style_sheet.content_heading_font_size }}px;
+        }
+
+        .content-body {
+          font-size: {{ page.style_sheet.content_body_font_size }}px;
         }
       }
 
@@ -168,7 +180,7 @@
           <a href="{% url 'art_and_music' %}">Art and Music</a>
         </li>
         <li class="nav-link">
-          <a href="{% url 'ministry' %}">Ministry</a>
+          <a href="{% url 'ministerial_record' %}">Ministry</a>
         </li>
         <li class="nav-link">
           <a href="{% url 'contact' %}">Contact</a>
@@ -192,7 +204,7 @@
         <a href="{% url 'spiritual_direction' %}">Spiritual Direction</a>
       </li>
       <li class="nav-link">
-        <a href="{% url 'ministry' %}">Ministry</a>
+        <a href="{% url 'ministerial_record' %}">Ministry</a>
       </li>
       <li class="nav-link">
         <a href="{% url 'guided_meditations' %}">Guided Meditations</a>

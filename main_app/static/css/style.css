@@ -568,6 +568,11 @@ h2 {
   height: 156px;
 }
 
+.video-caption {
+  width: 277.5px;
+  text-align: center;
+}
+
 .youtube-video-container {
   display: flex;
   justify-content: center;
@@ -600,6 +605,11 @@ h2 {
   .youtube-video {
     width: 370px;
     height: 208px;
+  }
+
+  .video-caption {
+    width: 370px;
+    text-align: center;
   }
 }
 
@@ -668,6 +678,11 @@ h2 {
   .youtube-video-container {
     justify-content: left;
   }
+
+  .video-caption {
+    width: 370px;
+    text-align: left;
+  }
 }
 
 @media screen and (min-width: 1024px) {
@@ -718,6 +733,10 @@ h2 {
   .youtube-video {
     width: 560px;
     height: 315px;
+  }
+
+  .video-caption {
+    width: auto;
   }
 }
 

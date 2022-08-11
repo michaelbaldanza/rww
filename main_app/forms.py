@@ -159,17 +159,21 @@ class MainPageStyleSheetForm(ModelForm):
 class MinisterialRecordForm(ModelForm):
   class Meta:
     model = MinisterialRecord
-    exclude = ('style_sheet',)
+    exclude = exclusions
 
 class MinisterialRecordStyleSheetForm(ModelForm):
   class Meta:
     model = StyleSheet
     fields = select_fields(model, 'primary_heading', 'secondary_heading',
-      'image_heading', 'tertiary_heading', 'body')
+      'image_heading', 'tertiary_heading', 'body', 'content_heading',
+      'content_body')
     custom = {
       'primary_heading': 'title',
-      'tertiary_heading': 'subheading',
-      'body': 'subheading text'
+      'secondary_heading': 'caption',
+      'tertiary_heading': 'Ministerial record link/login prompt',
+      'body_': 'blurb ',
+      'content_heading': 'subheading',
+      'content_body': 'subheading text',
     }
     labels = make_labels(fields, **custom)
     widgets = widget_settings

@@ -3,31 +3,56 @@
 {% load static %}
 {% load markdown_extras %}
 {% load app_extras %}
-<div>
-  <h1 class="primary-heading">Ministerial Record</h1>
+
   {% if perms.main_app.change_ministerial_record %}
     <h3  class="main-text"><a class="edit-link" href="{% url 'ministerial_record_update' page.id %}">Edit</a></h3>
   {% endif %}
-  {% if perms.main_app.view_ministerialrecord %}
-  <div>
-    <a href="{{ page.pdf_link }}" class="secondary-heading">
-      View my ministerial record.
-    </a>
-  </div>
-  {% else %}
-  <div>
-    <h3>
-      <a href="mailto:revwayne@live.ca" class="secondary-heading">
-        Contact Wayne for the guest credentials to log in and view Wayne's ministerial record.
-      </a>
-    </h3>
-    <h3>
-      If you have the guest credentials, you can 
-      <a class="link" href="{% url 'login' %}?next=/ministry/ministerial-record/">login</a>
-      here.
-    </h1>
-  </div>
-  {% endif %}
+  <section id="part-one">
+    <div class="floated-right">
+      <div>
+        <div class="youtube-video-container">
+          <iframe class="youtube-video" width="560" height="315" src="
+          {% if ministry_page.video_link %}
+            {{ ministry_page.video_link }}
+          {% else %}
+            https://www.youtube.com/embed/r01EvyngNIk
+          {% endif %}
+          " title="YouTube video player
+          " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+          </iframe>
+        </div>
+        <div class="secondary-heading video-caption">
+          {% if page.video_caption %}
+            {{ page.video_caption }}
+          {% else %}
+            Wayne preaching before 500 colleagues in Asilomar, California.
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div id="txt">
+      <h1 class="primary-heading">
+        {% if page.title %}{{ page.title|markdown|safe }}{% else %}Ministerial Record{% endif %}
+      </h1>
+      {% if page.blurb %}
+        <div class="main-text">{{ page.blurb|markdown|safe }}</div>
+      {% endif %}
+        <h3 class="tertiary-heading">
+          {% if perms.main_app.view_ministerialrecord %}
+            <a href="{{ page.pdf_link }}">
+              View my ministerial record.
+            </a>
+            {% else %}
+            <a class="link" href="mailto:revwayne@live.ca">
+              Contact Wayne for the guest credentials to view Wayne's ministerial record.
+            </a>
+            If you have the guest credentials, you can 
+            <a class="link" href="{% url 'login' %}?next=/ministry/ministerial-record/">login</a>
+            here.
+          {% endif %}
+        </h3>
+    </div>
+  </section>
   <div class="img-grid"> 
     {% for menu_image in menu_images %}
     <div class="img-grid-item">
@@ -55,32 +80,31 @@
     </div>
     {% endfor %}
   </div>
-  <h1 id="preaching-worship" class="tertiary-heading">Preaching/Worship</h1>
-  <div class="main-text">
+  <h1 id="preaching-worship" class="content-heading">Preaching/Worship</h1>
+  <div class="content-body">
     {{ page.preaching_worship|markdown|safe }}
   </div>
-  <h1 id="pastoral-care" class="tertiary-heading">Pastoral Care</h1>
-  <div class="main-text">
+  <h1 id="pastoral-care" class="content-heading">Pastoral Care</h1>
+  <div class="content-body">
     {{ page.pastoral_care|markdown|safe }}
   </div>
-  <h1 id="spiritual-life" class="tertiary-heading">Spiritual Life</h1>
-  <div class="main-text">
+  <h1 id="spiritual-life" class="content-heading">Spiritual Life</h1>
+  <div class="content-body">
     {{ page.spiritual_life|markdown|safe }}
     {{ page.background_and_development|markdown|safe }}
     {{ page.theological_orientation }}
   </div>
-  <h1 id="community-connection" class="tertiary-heading">Community Connection</h1>
-  <div class="main-text">
+  <h1 id="community-connection" class="content-heading">Community Connection</h1>
+  <div class="content-body">
     {{ page.community_connection|markdown|safe }}
   </div>
-  <h1 id="religious-education" class="tertiary-heading">Religious Education</h1>
-  <div class="main-text">
+  <h1 id="religious-education" class="content-heading">Religious Education</h1>
+  <div class="content-bodytext">
     {{ page.approach_religious_education|markdown|safe }}
   </div>
-  <h1 id="administration" class="tertiary-heading">Administration</h1>
-  <div class="main-text">
+  <h1 id="administration" class="content-heading">Administration</h1>
+  <div class="content-body">
     {{ page.administration|markdown|safe }}
   </div>
-</div>
 
 {% endblock %}
