@@ -1,7 +1,7 @@
 from django.contrib.sitemaps import Sitemap
 from django.shortcuts import reverse
 
-from main_app.models import MainPage, MinistryPage, MinisterialRecord, Music, Post, SacredJourney
+from main_app.models import MainPage, MinisterialRecord, Music, Post, SacredJourney
 
 class PostSitemap(Sitemap):
   changefreq = 'weekly'
@@ -30,7 +30,6 @@ class StaticViewsSitemap(Sitemap):
     return [
       'art_and_music',
       'guided_meditations',
-      'ministry',
       'ministerial_record',
       'spiritual_direction',
     ]

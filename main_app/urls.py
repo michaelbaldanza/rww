@@ -20,7 +20,6 @@ urlpatterns = [
   path('guided-meditations/<int:pk>/edit/', views.GuidedMeditationUpdate.as_view(), name='guided_meditation_update'),
   path('guided-meditations/<int:pk>/delete/', views.GuidedMeditationDelete.as_view(), name='guided_meditation_delete'),
   path('guided-meditations/<int:pk>/edit-info/', views.GuidedMeditationPageUpdate.as_view(), name='guided_meditation_page_update'),
-  path('ministryplaceholder/', views.ministry, name="ministry"),
   path('ministry/', views.ministerial_record, name="ministerial_record"),
   path('ministry/<int:pk>/edit/', views.MinisterialRecordUpdate.as_view(), name='ministerial_record_update'),
   path('sacred-journeys/', views.sacred_journeys_index, name='sacred_journeys'),

@@ -54,7 +54,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import (LoginRequiredMixin,
   UserPassesTestMixin, PermissionRequiredMixin)
 from .models import (Post, SacredJourney, SpiritualDirection,
-  MinisterialRecord, MinistryPage, MainPage, GuidedMeditation,
+  MinisterialRecord, MainPage, GuidedMeditation,
   GuidedMeditationPage, GalleryImage, SlideImage, Music, StyleControl,
   ArtAndMusicPage, SacredJourneyPage, BlogIndexPage, GlobalPostStyle,
   StyleSheet, ContactPage)
@@ -221,14 +221,6 @@ class GalleryImageUpdate(PermissionRequiredMixin, UpdateView):
       form.save()
       form2.save()
     return redirect('art_and_music')
-
-def ministry(request):
-  ministry_page = MinistryPage.objects.first()
-  style_control = StyleControl.objects.first()
-  return render(request, 'ministry.html', {
-    'ministry_page': ministry_page,
-    'style_control': style_control
-    })
 
 def ministerial_record(request):
   page = MinisterialRecord.objects.first()
@@ -457,6 +449,7 @@ def home(request):
   return render(request, 'index.html', {
     'menu_images': menu_images,
     'page': page,
+    'ss': page.style_sheet,
     'slide_image_form': slide_image_form,
     'slide_images': slide_images,
     'style_control': style_control,

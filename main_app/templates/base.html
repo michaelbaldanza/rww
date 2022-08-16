@@ -20,9 +20,10 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/codaslider.css' %}">
   <!-- User Submitted CSS -->
   <style>
-    body {
-    {% if style_control.font_color %}color: {{style_control.font_color}};{% endif %}
+    .text-box {
+    {% if style_control.color %}color: {{style_control.color}};{% endif %}
     {% if style_control.background_color %}background-color: {{style_control.background_color}};{% endif %}
+    {% if style_control.opacity %} opacity: {{ style_control.opacity }}%; {% endif %}
     {% if style_control.font_family %}font-family: {{style_control.get_font_family_display}};{% endif %}
     {% if style_control.font_size %}font-size: {{style_control.font_size|make_string}}px;{% endif %}
     }
@@ -54,33 +55,33 @@
     {% if page %}
 
       .primary-heading {
-        color: {{ page.style_sheet.primary_heading_color }};
-        opacity: {{ page.style_sheet.primary_heading_opacity }}%;
-        {% if page.style_sheet.primary_heading_font_family %}font-family: {{ page.style_sheet.get_primary_heading_font_family_display }};{% endif %}
+        {% if ss.primary_heading_color %}color: {{ ss.primary_heading_color }}; {% endif %}
+        {% if ss.primary_heading_opacity %}opacity: {{ ss.primary_heading_opacity }}%;{% endif %}
+        {% if ss.primary_heading_font_family %}font-family: {{ ss.get_primary_heading_font_family_display }};{% endif %}
       }
 
       .secondary-heading {
-        color: {{ page.style_sheet.secondary_heading_color }};
-        opacity: {{ page.style_sheet.secondary_heading_opacity }}%;
-        {% if page.style_sheet.secondary_heading_font_family %}font-family: {{ page.style_sheet.get_secondary_heading_font_family_display }};{% endif %}
+        {% if ss.secondary_heading_color %}color: {{ ss.secondary_heading_color }};{% endif %}
+        {% if ss.secondary_heading_opacity %}opacity: {{ ss.secondary_heading_opacity }}%;{% endif %}
+        {% if ss.secondary_heading_font_family %}font-family: {{ ss.get_secondary_heading_font_family_display }};{% endif %}
       }
 
       .tertiary-heading {
-        color: {{ page.style_sheet.tertiary_heading_color }};
-        opacity: {{ page.style_sheet.tertiary_heading_opacity }}%;
-        {% if page.style_sheet.tertiary_heading_font_family %}font-family: {{ page.style_sheet.get_tertiary_heading_font_family_display }};{% endif %}
+        {% if ss.tertiary_heading_color %}color: {{ ss.tertiary_heading_color }};{% endif %}
+        {% if ss.tertiary_heading_opacity %}opacity: {{ ss.tertiary_heading_opacity }}%;{% endif %}
+        {% if ss.tertiary_heading_font_family %}font-family: {{ page.style_sheet.get_tertiary_heading_font_family_display }};{% endif %}
       }
 
       .content-heading {
-        color: {{ page.style_sheet.content_heading_color }};
-        opacity: {{ page.style_sheet.content_heading_opacity }}%;
-        {% if page.style_sheet.content_heading_font_family %}font-family: {{ page.style_sheet.get_content_heading_font_family_display }};{% endif %}
+        {% if ss.content_heading_color %}color: {{ ss.content_heading_color }};{% endif %}
+        {% if ss.content_heading_opacity %}opacity: {{ ss.content_heading_opacity }}%;{% endif %}
+        {% if ss.content_heading_font_family %}font-family: {{ ss.get_content_heading_font_family_display }};{% endif %}
       }      
 
       .main-text {
-        color: {{ page.style_sheet.body_color }};
-        opacity: {{ page.style_sheet.body_opacity }}%;
-        {% if page.style_sheet.body_font_family %}font-family: {{ page.style_sheet.get_body_font_family_display }};{% endif %}
+        {% if ss.body_color %}color: {{ ss.body_color }};{% endif %}
+        {% if ss.body_opacity %}opacity: {{ ss.style_sheet.body_opacity }}%;{% endif %}
+        {% if ss.body_font_family %}font-family: {{ ss.get_body_font_family_display }};{% endif %}
       }
 
       .content-body {

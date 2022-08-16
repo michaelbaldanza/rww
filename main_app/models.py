@@ -119,7 +119,7 @@ class StyleSheet(models.Model):
 
 class StyleControl(models.Model):
   background_color = ColorField(blank=True, null=True)
-  font_color = ColorField(blank=True, null=True)
+  color = ColorField(blank=True, null=True, verbose_name='Text color:')
   opacity = models.PositiveIntegerField(verbose_name='Opacity (%)', blank=True, null=True, validators=[MaxValueValidator(100),])
   font_size = models.IntegerField(choices=FONT_SIZE_CHOICES, blank=True, null=True)
   font_family = models.CharField(max_length=200, choices=FONT_FAMILY_CHOICES, blank=True, null=True)
@@ -128,7 +128,7 @@ class StyleControl(models.Model):
   header_maintext_opacity = models.PositiveIntegerField(verbose_name='\"Sitting Quietly\" opacity (%)', blank=True, null=True, validators=[MaxValueValidator(100),])
   header_maintext_font_family = models.CharField(verbose_name='\"Sitting Quietly\" font family', max_length=200, choices=FONT_FAMILY_CHOICES, blank=True, null=True)
   header_smalltext_color = ColorField(verbose_name='\"by Rev. Wayne Walder\" color', blank=True, null=True)
-  header_smalltext_opacity = models.PositiveIntegerField(verbose_name='\"by Rev. Wayne Walder opacity\" (%', blank=True, null=True, validators=[MaxValueValidator(100),])
+  header_smalltext_opacity = models.PositiveIntegerField(verbose_name='\"by Rev. Wayne Walder opacity\" (%)', blank=True, null=True, validators=[MaxValueValidator(100),])
   header_smalltext_font_family = models.CharField(verbose_name='\"by Rev. Wayne Walder\" font family', max_length=200, choices=FONT_FAMILY_CHOICES, blank=True, null=True)
   image_heading_color = ColorField(blank=True, null=True)
   image_heading_opacity = models.PositiveIntegerField(verbose_name='Image heading opacity (%)', blank=True, null=True, validators=[MaxValueValidator(100),])
@@ -204,19 +204,6 @@ class SacredJourneyPage(models.Model):
 
   def __str__(self):
     return self.title
-
-class MinistryPage(models.Model):
-  heading = models.CharField(max_length=20, default='Ministry')
-  video_link = models.URLField(blank=True, null=True)
-  video_caption = models.TextField(blank=True, null=True)
-  other_text = models.TextField(blank=True, null=True)
-  created_on = models.DateTimeField(auto_now=True)
-
-  class Meta:
-    ordering = ['created_on']
-
-  def __str__(self):
-    return self.heading
 
 class MinisterialRecord(models.Model):
   title = models.CharField(max_length=255, default='Ministerial Record')
@@ -360,8 +347,10 @@ class GalleryImage(models.Model):
 class MainPage(models.Model):
   title = models.CharField(max_length=200, default='Main Page')
   tagline = models.TextField(blank=True, null=True)
+  audio_file = models.FileField(blank=True, null=True, upload_to='media/')
+  audio_file_caption = models.TextField(blank=True, null=True)
   body = models.TextField(blank=True, null=True)
-  blog_image = models.FileField(upload_to='media/ministerial-record-images/', blank=True, null=True)
+  blog_image = models.FileField(upload_to='media/main-menu-images/', blank=True, null=True)
   spiritual_direction_image = models.FileField(upload_to='media/main-menu-images/', blank=True, null=True)
   guided_meditations_image = models.FileField(upload_to='media/main-menu-images/', blank=True, null=True)
   sacred_journeys_image = models.FileField(upload_to='media/main-menu-images/', blank=True, null=True)
@@ -375,9 +364,13 @@ class MainPage(models.Model):
 
   def __str__(self):
     return str(self.title)
-  
+
   def get_fields(self):
     return [(field.name, getattr(self, field.name)) for field in MainPage._meta.fields]
+
+  @property
+  def audio_link(self):
+    return MEDIA_PREFIX + self.audio_file.__str__()
 
 class Post(models.Model):
   title = models.CharField(max_length=200, unique=True)

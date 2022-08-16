@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import MinistryPage, GalleryImage, Post, GuidedMeditation, GuidedMeditationPage, SacredJourney, SpiritualDirection, MinisterialRecord, MainPage, SlideImage, Music, StyleControl, ArtAndMusicPage, SacredJourneyPage, BlogIndexPage, GlobalPostStyle, StyleSheet, ContactPage
-
-class MinistryPageAdmin(admin.ModelAdmin):
-    list_display = ('heading', 'video_caption', 'created_on')
-    search_fields = ['heading',]
+from .models import (GalleryImage, Post, GuidedMeditation,
+    GuidedMeditationPage, SacredJourney, SpiritualDirection,
+    MinisterialRecord, MainPage, SlideImage, Music, StyleControl,
+    ArtAndMusicPage, SacredJourneyPage, BlogIndexPage, GlobalPostStyle,
+    StyleSheet, ContactPage)
 
 class MinisterialRecordAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name')
@@ -55,7 +55,6 @@ admin.site.register(ContactPage)
 admin.site.register(GuidedMeditationPage)
 admin.site.register(MainPage)
 admin.site.register(MinisterialRecord, MinisterialRecordAdmin)
-admin.site.register(MinistryPage, MinistryPageAdmin)
 admin.site.register(Music)
 admin.site.register(SacredJourneyPage)
 admin.site.register(SpiritualDirection, SpiritualDirectionAdmin)
