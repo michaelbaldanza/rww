@@ -8,7 +8,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="cE8BJGRSQxRGPZK1BZ3YTfv1s-NcT7nGnxPTG-D2VnQ" />
-  <title>Wayne Walder</title>
+  <title>
+    {% if form2 %}
+      Update {{ object.title }} | Wayne Walder
+    {% elif page.title == 'Main Page' %}
+      Wayne Walder
+    {% else %}
+      {{ page.title }} | Wayne Walder
+    {% endif %}
+  </title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
@@ -20,9 +28,22 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/codaslider.css' %}">
   <!-- User Submitted CSS -->
   <style>
+    body {
+      {% if style_control.background_color %}background-color: #FAB139 {% endif %}
+      /* {% if style_control.color_rgba %}color: {{style_control.color_rbga}};{% endif %} */
+      color: {{style_control.color_rbga}};
+    }
+
+    .default-color {
+      color: {{ style_control.color_rgba }}
+    }
+
+    nav {
+      border-top: 1px solid {{ style_control.color_rgba }};
+      border-bottom: 1px solid {{ style_control.color_rgba }};
+    }
+
     .text-box {
-    {% if style_control.color %}color: {{style_control.color}};{% endif %}
-    {% if style_control.background_color %}background-color: {{style_control.background_color}};{% endif %}
     {% if style_control.opacity %} opacity: {{ style_control.opacity }}%; {% endif %}
     {% if style_control.font_family %}font-family: {{style_control.get_font_family_display}};{% endif %}
     {% if style_control.font_size %}font-size: {{style_control.font_size|make_string}}px;{% endif %}
@@ -30,6 +51,13 @@
 
     .coda-slider-wrapper .coda-slider {
       {% if style_control.font_color %}background-color: {{style_control.font_color}};{% endif %}  
+    }
+
+    .footer-text {
+      {% if style_control.footer_color %}color: {{style_control.footer_color}};{% endif %}
+      {% if style_control.footer_opacity %}opacity: {{style_control.footer_opacity}}%;{% endif %}
+      {% if style_control.footer_font_size %}font-size: {{style_control.footer_font_size}}px;{% endif %}
+      {% if style_control.footer_font_family %}font-family: {{style_control.get_footer_font_family_display}};{% endif %}      
     }
 
     #logo{
@@ -143,7 +171,7 @@
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
-<body>
+<body class="default-color">
   <div
     id="page-wrap"
   >
@@ -237,7 +265,7 @@
     </section>
     </div>
     <footer>
-      <p>
+      <p class="footer-text">
         © Walder, Writer. 2021. All rights reserved.
       </p>
       <div id="socmedia-container">

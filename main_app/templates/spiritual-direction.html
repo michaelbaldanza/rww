@@ -3,17 +3,16 @@
 {% load static %}
 {% load markdown_extras %}
 {% load app_extras %}
-
-<h1 class="primary-heading">{{ page.title|safe }}</h1>
 {% if page %}
   {% if perms.main_app.change_ministerial_record %}
-  <h3 class="main-text"><a class="edit-link" href="{% url 'spiritual_direction_update' page.id %}">Edit</a></h3>
+  <h3 ><a class="edit-link" href="{% url 'spiritual_direction_update' page.id %}">Edit</a></h3>
   {% endif %}
 {% endif %}
+<h2 class="primary-heading">{{ page.title|safe }}</h2>
 {% if page.blurb %}
-  <h2 id="blurb" class="secondary-heading" >
+  <div id="blurb" class="main-text" >
     {{ page.blurb|markdown|safe }}
-  </h2>
+  </div>
 {% endif %}
 <div class="img-grid"> 
   {% for menu_image in menu_images %}

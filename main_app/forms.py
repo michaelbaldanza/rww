@@ -17,6 +17,7 @@ widget_settings = {
   'byline_color': ColorWidget,
   'tagline_color': ColorWidget,
   'image_heading_color': ColorWidget,
+  'footer_color': ColorWidget,
 }
 
 exclusions = ('title', 'style_sheet')
@@ -169,7 +170,7 @@ class MinisterialRecordStyleSheetForm(ModelForm):
       'content_body')
     custom = {
       'primary_heading': 'title',
-      'secondary_heading': 'caption',
+      'secondary_heading': 'video caption',
       'tertiary_heading': 'Ministerial record link/login prompt',
       'body_': 'blurb ',
       'content_heading': 'subheading',

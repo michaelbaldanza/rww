@@ -28,6 +28,31 @@ def get_sizes(uri):
   if transposed_im.size:
     return transposed_im.size
 
+def make_rgb(hex):
+  if hex == None:
+    # set default rgb
+    rgb = '250,177,98,'
+  else:
+    # convert rgb
+    hex = hex.lstrip('#')
+    rgb_tuple = tuple((int(hex[i:i+2], 16) for i in (0, 2, 4)))
+    rgb = ''
+    for tu in rgb_tuple:
+      rgb_portion = str(tu)
+      rgb += rgb_portion + ','
+  return rgb
+
+def make_alpha(opacity):
+  if opacity != None:
+    if opacity == 100:
+      alpha = '1'
+    else:
+      alpha = '.' + str(opacity)
+  else:
+    # set default alpha
+    alpha = '.' + '70'
+  return alpha
+
 def make_choices(*args):
   choices = []
   for arg in args:
@@ -121,9 +146,10 @@ class StyleControl(models.Model):
   background_color = ColorField(blank=True, null=True)
   color = ColorField(blank=True, null=True, verbose_name='Text color:')
   opacity = models.PositiveIntegerField(verbose_name='Opacity (%)', blank=True, null=True, validators=[MaxValueValidator(100),])
+  heading_color = ColorField(blank=True, null=True, verbose_name='Heading color:')
+  heading_opacity = models.PositiveIntegerField(verbose_name='Heading opacity (%)', blank=True, null=True, validators=[MaxValueValidator(100),])
   font_size = models.IntegerField(choices=FONT_SIZE_CHOICES, blank=True, null=True)
   font_family = models.CharField(max_length=200, choices=FONT_FAMILY_CHOICES, blank=True, null=True)
-  font_weight = models.CharField(max_length=200, choices=FONT_WEIGHT_CHOICES, blank=True, null=True)
   header_maintext_color = ColorField(verbose_name='\"Sitting Quietly\" color', blank=True, null=True)
   header_maintext_opacity = models.PositiveIntegerField(verbose_name='\"Sitting Quietly\" opacity (%)', blank=True, null=True, validators=[MaxValueValidator(100),])
   header_maintext_font_family = models.CharField(verbose_name='\"Sitting Quietly\" font family', max_length=200, choices=FONT_FAMILY_CHOICES, blank=True, null=True)
@@ -133,6 +159,23 @@ class StyleControl(models.Model):
   image_heading_color = ColorField(blank=True, null=True)
   image_heading_opacity = models.PositiveIntegerField(verbose_name='Image heading opacity (%)', blank=True, null=True, validators=[MaxValueValidator(100),])
   image_heading_font_family = models.CharField(max_length=200, choices=FONT_FAMILY_CHOICES, blank=True, null=True)
+  footer_color = ColorField(blank=True, null=True)
+  footer_opacity = models.PositiveIntegerField(verbose_name='Footer opacity (%)', blank=True, null=True, validators=[MaxValueValidator(100),])
+  footer_font_size = models.IntegerField(choices=FONT_SIZE_CHOICES, blank=True, null=True)
+  footer_font_family = models.CharField(max_length=200, choices=FONT_FAMILY_CHOICES, blank=True, null=True)
+  
+  def get_fields(self):
+    return [(field.name, getattr(self, field.name)) for field in self._meta.fields]
+
+  @property
+  def color_rgba(self):
+    rgba = 'rgba(' + make_rgb(self.color) + make_alpha(self.opacity) + ')'
+    return rgba
+
+  @property
+  def color_rgba(self):
+    rgba = 'rgba(' + make_rgb(self.color) + make_alpha(self.opacity) + ')'
+    return rgba
 
 class BlogIndexPage(models.Model):
   title = models.CharField(max_length=200, default='Blog Index')

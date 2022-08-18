@@ -2,62 +2,72 @@
 {% block content %}
 {% load static %}
 {% load markdown_extras %}
-
-{% if am.art_heading %}
-  <h2 class="primary-heading">{{ am.art_heading|safe }}</h2>
-{% else %}
-  <h2 class="primary-heading">Photography</h2>
-{% endif %}
-{% if perms.main_app.add_galleryimage %}
-  <h3 class="main-text">
-      <a class="edit-link" href="{% url 'art_and_music_page_update' page.id %}">Edit page titles</a>
+<div class="edit-links">
+  {% if perms.main_app.add_galleryimage %}
+    <h3 class="main-text">
+        <a class="edit-link" href="{% url 'art_and_music_page_update' page.id %}">Edit page titles</a>
+        |
+      <a class="edit-link" href="{% url 'add_photo' %}">Add a photo</a>
       |
-    <a class="edit-link" href="{% url 'add_photo' %}">Add a photo</a>
-    |
-    <a class="edit-link" href="{% url 'music_create' %}">Add a song</a>
-  </h3>
-{% endif %}
-<div class="img-grid"> 
-  {% for key, values in image_dict.items %}
-  <div class="img-grid-item">
-    <a href="{% url 'gallery_category' values.heading|slugify %}" class="menu-img" id="menu-img-{{ forloop.counter }}">
-      <div class="img-frame">
-        {% if values.image.image_link %}
-        <img
-          class="img-link img-main-page"
-          src="{{ values.image.image_link }}"
-        >
-        {% else %}
-        <div class="substitute"></div>
-        {% endif %}
-        <h2 class="img-heading">
-            {{ values.heading|title }}
-        </h2>
-      </div>
-    </a>
-  </div>
-  {% endfor %}
+      <a class="edit-link" href="{% url 'music_create' %}">Add a song</a>
+    </h3>
+  {% endif %}
 </div>
-
-{% if am.music_heading %}
-  <h2 class="primary-heading">{{ am.music_heading|safe }}</h2>
-{% else %}
-  <h2 class="primary-heading">Music</h2>
-{% endif %}
-<div id="meditations-container">
-  {% for meditation in songs %}
-  <div class="meditation">
-    <h2>{{ meditation.title }}</h2>
-    <audio controls>
-      <source src="{{ meditation.audio_link }}" type="audio/mp4">
-    </audio>
-    {{ meditation.description | markdown | safe }}
-    {% if perms.add_guidedmeditation %}
-    <a href="{% url 'music_update' meditation.id %}">Edit</a>
-    |
-    <a href="{% url 'music_delete' meditation.id %}">Delete</a>
+<div id="art-container">
+  <h2 class="primary-heading">
+    {% if am.art_heading %}
+      {{ am.art_heading|safe }}
+    {% else %}
+      Photography
     {% endif %}
+  </h2>
+  <div class="img-grid"> 
+    {% for key, values in image_dict.items %}
+    <div class="img-grid-item">
+      <a href="{% url 'gallery_category' values.heading|slugify %}" class="menu-img" id="menu-img-{{ forloop.counter }}">
+        <div class="img-frame">
+          {% if values.image.image_link %}
+          <img
+            class="img-link img-main-page"
+            src="{{ values.image.image_link }}"
+          >
+          {% else %}
+          <div class="substitute"></div>
+          {% endif %}
+          <h2 class="img-heading">
+              {{ values.heading|title }}
+          </h2>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
   </div>
-  {% endfor %}
+</div>
+<div id="music-container">
+  <h2 class="primary-heading">
+    {% if am.music_heading %}
+      {{ am.music_heading|safe }}
+    {% else %}
+      Music
+    {% endif %}
+  </h2>
+  <div id="meditations-container">
+    {% for meditation in songs %}
+    <div class="meditation content-heading">
+      <h2>{{ meditation.title }}</h2>
+      <audio controls>
+        <source src="{{ meditation.audio_link }}" type="audio/mp4">
+      </audio>
+      <div class="content-body">
+        {{ meditation.description | markdown | safe }}
+      </div>
+      {% if perms.add_guidedmeditation %}
+      <a href="{% url 'music_update' meditation.id %}">Edit</a>
+      |
+      <a href="{% url 'music_delete' meditation.id %}">Delete</a>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

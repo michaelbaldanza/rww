@@ -11,6 +11,10 @@ body {
   margin: 0;
 }
 
+.primary-heading, .secondary-heading, .tertiary-heading {
+  color: #9ECE9A;
+}
+
 .style-help-header {
   text-align: center;
 }
@@ -99,7 +103,7 @@ td.first{
   max-height: 600px;
 }
 
-.journey-info {
+#journey-info {
   display: inline-block;
   font-size: 16px;
 }
@@ -290,7 +294,7 @@ a:hover {
 }
 
 header {
-  border-bottom: 1px solid rgba(250,177,98,.7);
+  /* border-bottom: 1px solid rgba(250,177,98,.7); */
   padding: 1em 0 2.5em 0;
   display: flex;
   justify-content: space-between;
@@ -353,10 +357,12 @@ header {
 }
 
 nav {
+  /* padding-top: 1em; */
   display: flex;
   justify-content: space-between;
   font-size: 36px;
-  border-bottom: 1px solid rgba(250,177,98,.7);
+  /* border-bottom: 1px solid rgba(250,177,98,.7);
+  border-top: 1px solid rgba(250,177,98,.7); */
   margin-bottom: 1em;
 }
 

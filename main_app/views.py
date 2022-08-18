@@ -90,6 +90,7 @@ def art_and_music(request):
       'songs': songs,
       'style_control': style_control,
       'page': page,
+      'ss': page.style_sheet,
       }
     )
 
@@ -184,9 +185,6 @@ def photos_category(request, url_cat):
     if cat[1].lower().replace(' ', '-') == url_cat:
       display = GalleryImage.objects.filter(category=cat[0]).order_by('-created_on')
       title = cat[1]
-      for dis in display:
-        print(dis.style_sheet)
-        print(dis.get_absolute_url())
   return render(request, 'art-and-music/photo-cat.html', {
     'display': display,
     'title': title,
@@ -229,7 +227,8 @@ def ministerial_record(request):
   return render(request, 'ministerial-record.html', {
     'page': page,
     'menu_images': menu_images,
-    'style_control': style_control
+    'style_control': style_control,
+    'ss': page.style_sheet,
     })
 
 class MinisterialRecordUpdate(PermissionRequiredMixin, UpdateView):
@@ -270,12 +269,9 @@ def sacred_journeys_index(request):
   upcoming_journeys = []
   previous_journeys = []
   for journey in journeys:
-    print('theres a journey')
     if journey.start_date > today:
-      print(journey)
       upcoming_journeys.append(journey)
     else:
-      print('previous journey')
       previous_journeys.append(journey)
   return render(
     request,
@@ -284,6 +280,7 @@ def sacred_journeys_index(request):
       'previous_journeys': previous_journeys,
       'style_control': style_control,
       'page': page,
+      'ss': page.style_sheet,
     },
     )
 
@@ -325,6 +322,7 @@ class SacredJourneyDetail(generic.DetailView):
     journey = super().get_object()
     context = super().get_context_data(**kwargs)
     context['page'] = journey
+    context['ss'] = journey.style_sheet
     context['style_control'] = StyleControl.objects.first()
     return context
 
@@ -397,7 +395,8 @@ def spiritual_direction(request):
   return render(request, 'spiritual-direction.html', {
     'page': page,
     'menu_images': menu_images,
-    'style_control': style_control
+    'style_control': style_control,
+    'ss': page.style_sheet,
     })
 
 class SpiritualDirectionUpdate(PermissionRequiredMixin, UpdateView):
@@ -433,14 +432,16 @@ class SpiritualDirectionUpdate(PermissionRequiredMixin, UpdateView):
       form2.save()
     return redirect('spiritual_direction')
 
+def get_rgba(hex, opacity):
+  pass
 
 
 #### Home #####
 def home(request):
   page = MainPage.objects.first()
   style_control = StyleControl.objects.first()
-  # print('this is the path')
-  # on_load(request.path_info)
+  print('Opacity: ', style_control.opacity)
+  print('RGBA: ', style_control.color_rgba)
   slide_image_form = SlideImageForm
   menu_images = make_menu_strings(page)
   num_visits = request.session.get('num_visits', 0)
@@ -551,6 +552,7 @@ def posts_index(request):
     'page': page,
     'posts': posts,
     'style_control': style_control,
+    'ss': page.style_sheet,
     })
 
 class BlogIndexPageUpdate(PermissionRequiredMixin, UpdateView):
@@ -589,30 +591,20 @@ class PostDetail(generic.DetailView):
 
   def get_context_data(self, **kwargs):
     post = super().get_object()
-    print('The post id follows:')
-    print(post.id)
     all_posts = GlobalPostStyle.objects.first()
     context = super().get_context_data(**kwargs)
     tuple_list = []
-    page = {}
     context['style_control'] = StyleControl.objects.first()
     context['page'] = post
+    context['ss'] = post.style_sheet
     print('trying with .self')
     for all_pair in all_posts.get_fields():
       for pair in post.get_fields():
         if all_pair[0] != 'id' and all_pair[0] == pair[0]:
           if pair[1] != None:
-            print('printing all_pair')
-            print(pair[0])
-            print(pair[1])
             tuple_list.append(pair)
-            # page.update({pair[0], pair[1]})
           elif all_pair[1] != None:
             tuple_list.append(all_pair)
-            print('printing all_pair')
-            print(all_pair[0])
-            print(all_pair[1])
-            # page.update({all_pair[0], all_pair[1]})
     print(tuple_list)
     return context
 
@@ -648,6 +640,8 @@ class PostUpdate(PermissionRequiredMixin, UpdateView):
     if 'form2' not in context:
       context['form2'] = self.second_form_class(instance=style)
     context['style_control'] = StyleControl.objects.first()
+    context['is_update'] = True
+    print(context)
     return context
 
   def post(self, request, *args, **kwargs):
@@ -679,7 +673,9 @@ class GuidedMeditationList(generic.ListView):
 
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
-    context['page'] = GuidedMeditationPage.objects.first()
+    page = GuidedMeditationPage.objects.first()
+    context['page'] = page
+    context['ss'] = page.style_sheet
     context['style_control'] = StyleControl.objects.first()
     return context
 

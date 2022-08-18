@@ -11,12 +11,14 @@
     {% endif %}
   </h3>
 {% endif %}
-<div class="">
-  {% if page.upcoming_journeys_heading %}
-    <h2>{{ page.upcoming_journeys_heading }} </h2>
-  {% else %}
-    <h2>Upcoming Journeys</h2>
-  {% endif %}
+<div id="upcoming-journeys">
+  <h2 class="primary-heading">
+    {% if page.upcoming_journeys_heading %}
+      {{ page.upcoming_journeys_heading }}
+    {% else %}
+      Upcoming Journeys
+    {% endif %}
+  </h2>
   {% if upcoming_journeys %}
     {% for journey in upcoming_journeys %}
         <a class="post-link" href="{% url 'sacred_journey_detail' journey.slug %}">
@@ -50,7 +52,7 @@
                   <a href="{% url 'sacred_journey_delete' journey.slug %}">Delete</a>
                 {% endif %}
               </p>
-              <p class="post-preview-text">
+              <p class="post-preview-text content-body">
                 {{ journey.description|truncatewords:15}}
               </p>
             </div>
@@ -60,13 +62,15 @@
   {% else %}
   <p>There are no upcoming journeys.</p>
   {% endif %}
-
-  {% if page.previous_journeys_heading %}
-    <h2>{{ page.previous_journeys_heading }} </h2>
-  {% else %}
-    <h2>Previous Journeys</h2>
-  {% endif %}
-<div>
+</div>
+<div id="previous-journeys">
+  <h2 class="primary-heading">
+    {% if page.previous_journeys_heading %}
+      {{ page.previous_journeys_heading }}
+    {% else %}
+      Previous Journeys
+    {% endif %}
+  </h2>
   {% if previous_journeys %}
     {% for journey in previous_journeys %}
         <a class="post-link" href="{% url 'sacred_journey_detail' journey.slug %}">
@@ -111,7 +115,6 @@
   {% else %}
     <p>There are no previous journeys.</p>
   {% endif %}
-  </div>
-
 </div>
+
 {% endblock %}

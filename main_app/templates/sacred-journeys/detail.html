@@ -21,7 +21,7 @@
         {% endif %}
       </div>
     </div>
-    <div class="journey-info" class="byline">
+    <div id="journey-info" class="byline">
       <span>{{ sacredjourney.start_date|date:"M j" }} - {{ sacredjourney.end_date|date:"j Y" }}</span>
       |
       <span>{{ sacredjourney.destination }}</span>
@@ -30,8 +30,8 @@
       {% endif %}
     </div>
     <div class="main-text">
-      <p>{{ sacredjourney.description|markdown|safe }}</p>
-      <p>{{ sacredjourney.itinerary|markdown|safe}}</p>
+      <div id="journey-description">{{ sacredjourney.description|markdown|safe }}</div>
+      <div id="journey-itinerary">{{ sacredjourney.itinerary|markdown|safe}}</div>
     </div>
   </div>
 </div>

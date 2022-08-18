@@ -31,13 +31,13 @@
       </div>
     </div>
     <div id="txt">
-      <h1 class="primary-heading">
+      <h2 class="primary-heading">
         {% if page.title %}{{ page.title|markdown|safe }}{% else %}Ministerial Record{% endif %}
-      </h1>
+      </h2>
       {% if page.blurb %}
         <div class="main-text">{{ page.blurb|markdown|safe }}</div>
       {% endif %}
-        <h3 class="tertiary-heading">
+        <div class="tertiary-heading">
           {% if perms.main_app.view_ministerialrecord %}
             <a href="{{ page.pdf_link }}">
               View my ministerial record.
@@ -50,7 +50,7 @@
             <a class="link" href="{% url 'login' %}?next=/ministry/ministerial-record/">login</a>
             here.
           {% endif %}
-        </h3>
+          </div>
     </div>
   </section>
   <div class="img-grid"> 
@@ -81,29 +81,29 @@
     {% endfor %}
   </div>
   <h1 id="preaching-worship" class="content-heading">Preaching/Worship</h1>
-  <div class="content-body">
+  <div class="main-text">
     {{ page.preaching_worship|markdown|safe }}
   </div>
   <h1 id="pastoral-care" class="content-heading">Pastoral Care</h1>
-  <div class="content-body">
+  <div class="main-text">
     {{ page.pastoral_care|markdown|safe }}
   </div>
   <h1 id="spiritual-life" class="content-heading">Spiritual Life</h1>
-  <div class="content-body">
+  <div class="main-text">
     {{ page.spiritual_life|markdown|safe }}
     {{ page.background_and_development|markdown|safe }}
     {{ page.theological_orientation }}
   </div>
   <h1 id="community-connection" class="content-heading">Community Connection</h1>
-  <div class="content-body">
+  <div class="main-text">
     {{ page.community_connection|markdown|safe }}
   </div>
   <h1 id="religious-education" class="content-heading">Religious Education</h1>
-  <div class="content-bodytext">
+  <div class="main-text">
     {{ page.approach_religious_education|markdown|safe }}
   </div>
   <h1 id="administration" class="content-heading">Administration</h1>
-  <div class="content-body">
+  <div class="main-text">
     {{ page.administration|markdown|safe }}
   </div>
 
