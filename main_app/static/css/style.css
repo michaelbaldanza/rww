@@ -4,14 +4,14 @@ body {
   /* font-family: Avenir,Helvetica,Arial,sans-serif; */
   /* font-family: Arial, Helvetica, sans-serif; */
   /* position: relative; */
-  background: #19181A;
+  background-color: #19181A;
   color: rgba(250,177,98,.7);
   /* color: #fab162; */
   font-size: 18px;
   margin: 0;
 }
 
-.primary-heading, .secondary-heading, .tertiary-heading {
+.primary-heading, .secondary-heading, .tertiary-heading, .content-heading {
   color: #9ECE9A;
 }
 
@@ -93,10 +93,12 @@ td.first{
 }
 
 .link {
-  border-bottom:rgba(250,177,98,.7) 1px solid;
+  text-decoration: underline;
+  /* border-bottom:rgba(250,177,98,.7) 1px solid; */
 }
 .link:hover {
-  border-bottom: none;
+  text-decoration: none;
+  /* border-bottom: none; */
 }
 
 .meditation-image {
@@ -344,6 +346,18 @@ header {
   top: 40%;
   right: 0;
 }
+
+/* #ham {
+  display: flex;
+  height: 40px;
+  flex-direction: column;
+} */
+
+/* .line {
+  width: 40px;
+  height: 5px;
+  margin-top: 5px;
+} */
 
 #ham {
   width: auto;

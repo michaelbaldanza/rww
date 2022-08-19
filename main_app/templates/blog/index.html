@@ -7,6 +7,12 @@
     <a class="edit-link" href="{% url 'post_create' %}">Add a Post</a>
     |
     <a class="edit-link" href="{% url 'blog_index_page_update' page.id %}">Change page styles</a>
+    |
+    <a
+    href="{% url 'style_control' style_control.id %}?next={{ request.path|urlencode }}"
+    >
+      Change Website Styles
+    </a>
   </h3>
 {% endif %}
 <div class="">

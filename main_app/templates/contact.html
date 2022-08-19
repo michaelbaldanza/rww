@@ -5,7 +5,13 @@
 
 {% if perms.main_app.add_guidedmeditation %}
   <h3 class="main-text">
-    <a href="{% url 'contact_page_update' page.id %}">Edit page title, text, and image</a>
+    <a href="{% url 'contact_page_update' page.id %}">Edit</a>
+    |
+    <a
+    href="{% url 'style_control' style_control.id %}?next={{ request.path|urlencode }}"
+    >
+      Change Website Styles
+    </a>
   </h3>
 {% endif %}
 <section id="part-one">

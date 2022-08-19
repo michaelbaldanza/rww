@@ -5,11 +5,17 @@
 <div class="edit-links">
   {% if perms.main_app.add_galleryimage %}
     <h3 class="main-text">
-        <a class="edit-link" href="{% url 'art_and_music_page_update' page.id %}">Edit page titles</a>
-        |
+      <a class="edit-link" href="{% url 'art_and_music_page_update' page.id %}?next={{ request.path|urlencode }}">Edit</a>
+      |
       <a class="edit-link" href="{% url 'add_photo' %}">Add a photo</a>
       |
-      <a class="edit-link" href="{% url 'music_create' %}">Add a song</a>
+      <a href="{% url 'music_create' %}">Add a song</a>
+      |
+      <a
+      href="{% url 'style_control' style_control.id %}"
+      >
+        Change Website Styles
+      </a>
     </h3>
   {% endif %}
 </div>

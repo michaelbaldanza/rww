@@ -5,7 +5,15 @@
 {% load app_extras %}
 {% if page %}
   {% if perms.main_app.change_ministerial_record %}
-  <h3 ><a class="edit-link" href="{% url 'spiritual_direction_update' page.id %}">Edit</a></h3>
+    <h3 >
+      <a class="edit-link" href="{% url 'spiritual_direction_update' page.id %}">Edit</a>
+      |
+      <a
+      href="{% url 'style_control' style_control.id %}?next={{ request.path|urlencode }}"
+      >
+        Change Website Styles
+      </a>
+    </h3>
   {% endif %}
 {% endif %}
 <h2 class="primary-heading">{{ page.title|safe }}</h2>

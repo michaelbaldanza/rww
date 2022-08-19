@@ -18,6 +18,17 @@ STATUS = (
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{8,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 
+color_defaults = {
+  'text': '250,177,98,',
+  'background': '25,24,26,',
+  'heading': '158,206,154,',
+}
+
+opacity_defaults = {
+  'text': '.70',
+  'background': '1',
+  'heading': '1',
+}
 
 # helper function
 def get_sizes(uri):
@@ -28,10 +39,10 @@ def get_sizes(uri):
   if transposed_im.size:
     return transposed_im.size
 
-def make_rgb(hex):
+def make_rgb(hex, default):
   if hex == None:
     # set default rgb
-    rgb = '250,177,98,'
+    rgb = default
   else:
     # convert rgb
     hex = hex.lstrip('#')
@@ -42,7 +53,7 @@ def make_rgb(hex):
       rgb += rgb_portion + ','
   return rgb
 
-def make_alpha(opacity):
+def make_alpha(opacity, default):
   if opacity != None:
     if opacity == 100:
       alpha = '1'
@@ -50,7 +61,7 @@ def make_alpha(opacity):
       alpha = '.' + str(opacity)
   else:
     # set default alpha
-    alpha = '.' + '70'
+    alpha = default
   return alpha
 
 def make_choices(*args):
@@ -144,6 +155,7 @@ class StyleSheet(models.Model):
 
 class StyleControl(models.Model):
   background_color = ColorField(blank=True, null=True)
+  background_opacity = models.PositiveIntegerField(verbose_name='Background opacity (%)', blank=True, null=True, validators=[MaxValueValidator(100),])
   color = ColorField(blank=True, null=True, verbose_name='Text color:')
   opacity = models.PositiveIntegerField(verbose_name='Opacity (%)', blank=True, null=True, validators=[MaxValueValidator(100),])
   heading_color = ColorField(blank=True, null=True, verbose_name='Heading color:')
@@ -169,12 +181,22 @@ class StyleControl(models.Model):
 
   @property
   def color_rgba(self):
-    rgba = 'rgba(' + make_rgb(self.color) + make_alpha(self.opacity) + ')'
+    print('Hex is set to', self.color)
+    rgba = ('rgba(' + make_rgb(self.color, color_defaults['text']) +
+      make_alpha(self.opacity, opacity_defaults['text']) + ')')
+    print('RGBA is ', rgba)
     return rgba
 
   @property
-  def color_rgba(self):
-    rgba = 'rgba(' + make_rgb(self.color) + make_alpha(self.opacity) + ')'
+  def background_rgba(self):
+    rgba = ('rgba(' + make_rgb(self.background_color, color_defaults['background']) +
+      make_alpha(self.background_opacity, opacity_defaults['background']) + ')')
+    return rgba
+
+  @property
+  def heading_rgba(self):
+    rgba = ('rgba(' + make_rgb(self.heading_color, color_defaults['heading']) +
+      make_alpha(self.heading_opacity, opacity_defaults['heading']) + ')')
     return rgba
 
 class BlogIndexPage(models.Model):

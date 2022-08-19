@@ -218,7 +218,8 @@ class GalleryImageUpdate(PermissionRequiredMixin, UpdateView):
     if form.is_valid() and form2.is_valid():
       form.save()
       form2.save()
-    return redirect('art_and_music')
+    # return redirect('art_and_music')
+    return redirect('gallery_category', url_cat=page.get_category_display().lower())
 
 def ministerial_record(request):
   page = MinisterialRecord.objects.first()
@@ -237,7 +238,7 @@ class MinisterialRecordUpdate(PermissionRequiredMixin, UpdateView):
   second_model = StyleSheet
   form_class = MinisterialRecordForm
   second_form_class = MinisterialRecordStyleSheetForm
-  success_url = '/ministry/ministerial-record/'
+  success_url = '/ministry/'
 
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
@@ -491,12 +492,20 @@ class StyleControlUpdate(PermissionRequiredMixin, UpdateView):
   model = StyleControl
   # fields = '__all__'
   form_class = StyleControlForm
-  success_url = '/'
+  # success_url = '/'
 
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
     context['style_control'] = StyleControl.objects.first()
     return context
+  
+  def post(self, request, *args, **kwargs):
+    style_control = self.model.objects.first()
+    form = self.form_class(request.POST, instance=style_control)
+    next = request.POST.get('next', '/')
+    if form.is_valid():
+      form.save()
+    return HttpResponseRedirect(next)
 
 @user_passes_test(admin_check)
 def edit_slides(request, main_page_id):

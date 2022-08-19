@@ -6,96 +6,157 @@
 
 <form action="" method="post" enctype="multipart/form-data">
   {% csrf_token %}
+  <h1>Style Control</h1>
   <table>
     {{ form.as_table }}
   </table>
+  <input type="hidden" name="next" value="{{ request.GET.next }}">
   <input type="submit" value="Submit" class="btn">
 </form>
 <div class="style-help">
-<h1>Style Help</h1>
-<h2 class="style-help-header">Defaults</h2>
-<table>
-  <tbody>
-    <tr>
-      <td>
-        Background color:
-      </td>
-      <td class="white-bg">
-        <span style="color: #19181A;">
-          #19181A
-        </span>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Font color:
-      </td>
-      <td class="white-bg">
-        <span style="color: #FAB139;">
-          #FAB139
-        </span>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Font opacity (%):
-      </td>
-      <td class="white-bg">
-        <span style="color: #FAB139; opacity: 70%;">
-          70
-        </span>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Font size:
-      </td>
-      <td class="white-bg">
-        <span style="color: black; font-size: 18px;">
-          18px
-        </span>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<p>
-  The default <a class="link" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family" style="font-weight: bold;">font-family</a>
-  is Source Sans Pro; the default <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size">font-size is</a>
-  18px. In the font family field below, you can choose a new font from the drop down list. You can also enter a number in the font size field to make the fonts smaller or larger.
-</p>
-<p class="preceding-list">
-  <a class="link" href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">Choosing a new color is more complex.</a>
-  For example, if you wanted to make your website's text <span style="color: purple;">purple</span>,
-  you could enter into the font color field any of the following:
-</p>
-  <ul class="following-list">
-    <li>
-      purple
-    </li>
-    <li>
-      #800080
-    </li>
-    <li>
-      rgba(128,0,128)
-    </li>
-  </ul>
-<p>
-  <a class="link" href="https://www.w3.org/wiki/CSS/Properties/color/keywords#Color_keywords">Many colors</a>
-  are available by name, as in the first option. The second option ("hexadecimal" notation) and the third option (called either "rgb()"
-  or "rgba()"   notation) allow for thousands of choices.
-  <a class="link" href="https://cssgradient.io/">This website</a> is a great and
-  simple tool for finding the specific shade you might want; <a href="https://coolors.co/">coolors.co</a>
-  is even more powerful, but a little harder to use. Both helpfully generate hex and rgba codes for you to use.
-</p>
-<p>
-  If you want to revert to the default font color, you can copy and paste
-  <span class="link">rgba(250,177,98,.7)</span> into the font color field.
-</p>
-<p>
-  The background color field works the same way as the font color field.
-  If you want to revert the default background color, you can copy and paste
-<span class="link">#19181A</span> into the font color field.
-</p>
+  <h2 class="style-help-header">Defaults</h2>
+  <table>
+    <tbody>
+      <tr>
+        <td>
+          Background color:
+        </td>
+        <td class="white-bg">
+          <span style="color: #19181A;">
+            #19181A
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Background opacity:
+        </td>
+        <td class="white-bg">
+          <span style="color: #19181A;">
+            100
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Text color:
+        </td>
+        <td class="white-bg">
+          <span style="color: #FAB139;">
+            #FAB139
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Text opacity:
+        </td>
+        <td class="white-bg">
+          <span style="opacity: 70%;">
+            #FAB139
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Heading color:
+        </td>
+        <td class="white-bg">
+          <span class="primary-heading" style="color: #9ECE9A;">
+            #9ECE9A
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Heading opacity (%):
+        </td>
+        <td class="white-bg">
+          <span class="primary-heading" style="opacity: 100%;">
+            100
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Font family:
+        </td>
+        <td class="white-bg">
+          <span style="color: black; opacity: 100%; font-family: Papyrus;">
+            Papyrus
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Font size:
+        </td>
+        <td class="white-bg">
+          <span style="color: black; font-size: 18px;">
+            18px
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p>The easiest way to return to a default is to clear the relevant cell.</p>
+  <p>
+    HTML uses hexadecimal codes ("hex codes") to assign color. You can use the
+    input's Color Picker to get a hex code, or you can copy paste and the hex
+    code from some other website.
+  </p>
+  <p>
+    Some useful websites for finding hex codes:
+    <ul>
+      <li>
+        W3 Schools has a list of
+        <a href="https://coolors.co/generate" class="link" >
+          the most popular colors
+        </a>
+        of 2021. You can find links to past years' popular colors in the
+        sidebar, as well as articles on topics such as
+        <a
+          href="https://www.w3schools.com/colors/colors_monochromatic.asp"
+          class="link"
+        >
+          color schemes
+        </a>
+        , 
+        <a
+          href="https://www.w3schools.com/colors/colors_psychology.asp"
+          class="link"
+        >
+          color psychology
+        </a>
+        , and more.
+      </li>
+      <li>
+        Coolors has
+        <a href="https://coolors.co/generate" class="link" >
+          a great tool
+        </a>
+        for generating color schemes.
+      </li>
+      <li>
+        CSS Gradient has
+        <a href="https://cssgradient.io/" class="link" >
+          a more powerful color picker
+        </a>
+        than the default provided here.
+      </li>
+    </ul>
+  </p>
+  <p>
+    For a quick look at HTML and CSS, check out my
+    <a href="https://drive.google.com/file/d/1ucVuGJ-h5fQe3dEhH8cUzip6XbCdfc7G/view?usp=sharing">
+      HTML and CSS cheatsheet
+    </a>
+    . For more details check out my
+    <a href="https://drive.google.com/file/d/17C-ceJCsx8wP2F1a8jv8p0rMjdXt0DC_/view?usp=sharing">
+      HTML and CSS guide
+    </a>
+    ; at the end of the document, you can find links to more information on HTML, CSS, and colors on the web.
+  </p>
 </div>
 
 {% endblock %}

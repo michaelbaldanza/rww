@@ -5,7 +5,15 @@
 {% load app_extras %}
 
   {% if perms.main_app.change_ministerial_record %}
-    <h3  class="main-text"><a class="edit-link" href="{% url 'ministerial_record_update' page.id %}">Edit</a></h3>
+    <h3  class="main-text">
+      <a class="edit-link" href="{% url 'ministerial_record_update' page.id %}">Edit</a>
+      |
+      <a
+        href="{% url 'style_control' style_control.id %}?next={{ request.path|urlencode }}"
+      >
+        Change Website Styles
+      </a>
+    </h3>
   {% endif %}
   <section id="part-one">
     <div class="floated-right">
@@ -43,11 +51,13 @@
               View my ministerial record.
             </a>
             {% else %}
-            <a class="link" href="mailto:revwayne@live.ca">
-              Contact Wayne for the guest credentials to view Wayne's ministerial record.
+            To view Wayne's ministerial record,
+            <a href="mailto:revwayne@live.ca" class="link" >
+              send
             </a>
-            If you have the guest credentials, you can 
-            <a class="link" href="{% url 'login' %}?next=/ministry/ministerial-record/">login</a>
+             him an email to receive the guest credentials.
+            If you already have the guest credentials, you can 
+            <a href="{% url 'login' %}?next=/ministry/ministry/" class="link">login</a>
             here.
           {% endif %}
           </div>

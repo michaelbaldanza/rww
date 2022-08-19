@@ -29,19 +29,39 @@
   <!-- User Submitted CSS -->
   <style>
     body {
-      {% if style_control.background_color %}background-color: #FAB139 {% endif %}
-      /* {% if style_control.color_rgba %}color: {{style_control.color_rbga}};{% endif %} */
-      color: {{style_control.color_rbga}};
+      background-color: {{ style_control.background_rgba }};
+      color: {{ style_control.color_rgba }};
+      {% if style_control.font_family %} font-family: {{ style_control.font_family }}{% endif %}
     }
 
-    .default-color {
-      color: {{ style_control.color_rgba }}
+    #logo, .primary-heading, .secondary-heading, .tertiary-heading, .content-heading {
+      color: {{ style_control.heading_rgba }};
+    }
+
+    .coda-slider-wrapper, .coda-slider {
+      color: {{ style_control.color_rgba }};
+    }
+
+    .img-frame:hover > .img-heading {
+      color: {{ style_control.color_rgba }};
+    }
+
+    #ham-container {
+      background-color: {{ style_control.background_rgba }};
+    }
+
+    .line {
+      background-color: {{ style_control.color_rgba }};
     }
 
     nav {
       border-top: 1px solid {{ style_control.color_rgba }};
       border-bottom: 1px solid {{ style_control.color_rgba }};
     }
+
+    /* #ham {
+      background-color: {{ style_control.color_rgba }};
+    } */
 
     .text-box {
     {% if style_control.opacity %} opacity: {{ style_control.opacity }}%; {% endif %}
@@ -69,10 +89,10 @@
       {% if style_control.header_smalltext_color %}color: {{style_control.header_smalltext_color}};{% endif %}
       {% if style_control.header_smalltext_font_family %}font-family: {{style_control.get_header_smalltext_font_family_display}};{% endif %}
     }
-
+/* 
     #ham {
       {% if style_control.font_color %}background-color: {{style_control.font_color}};{% endif %}
-    }
+    } */
 
     .img-frame:hover > .img-heading {
       color: {{ style_control.image_heading_color }};
@@ -171,7 +191,7 @@
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
-<body class="default-color">
+<body>
   <div
     id="page-wrap"
   >
@@ -183,15 +203,21 @@
         </a>
         <h2 id="by-rev-wayne">by Rev. Wayne Walder</h2>
       </div>
-      <div class="ham-container">
+      <div class="ham-container" >
+        <!-- <div id="ham">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div> -->
         <svg id="ham" viewBox="0 0 100 80" width="40" height="40">
-          <rect width="100" height="20"></rect>
-          <rect y="30" width="100" height="20"></rect>
-          <rect y="60" width="100" height="20"></rect>
+          <rect width="100" height="20" fill="{{ style_control.background_rgba }}"></rect>
+          <rect y="30" width="100" height="20" fill="{{ style_control.background_rgba }}"></rect>
+          <rect y="60" width="100" height="20" fill="{{ style_control.background_rgba }}"></rect>
         </svg>
       </div>
     </header>
-    <nav {% if style_control.font_color %}style="border-bottom: 1px solid {{ style_control.font_color }}"{% endif %}>
+    <nav>
       <ul class="nav-horizontal-menu">
         <li class="nav-link">
           <a href="{% url 'blog' %}">Blog</a>

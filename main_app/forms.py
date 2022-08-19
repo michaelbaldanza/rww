@@ -11,6 +11,7 @@ from .widgets import DatePickerInput
 widget_settings = {
   'primary_heading_color': ColorWidget,
   'background_color': ColorWidget,
+  'heading_color': ColorWidget,
   'header_maintext_color': ColorWidget,
   'header_smalltext_color': ColorWidget,
   'body_color': ColorWidget,
@@ -262,11 +263,6 @@ class StyleSheetForm(ModelForm):
 class StyleControlForm(ModelForm):
   class Meta:
     model = StyleControl
-    fields = '__all__'
-    # widgets = {
-    #   'font_color': ColorWidget,
-    #   'background_color': ColorWidget,
-    #   'header_maintext_color': ColorWidget,
-    #   'header_smalltext_color': ColorWidget,
-    # }
+    fields = select_fields(model, 'background_color', 'background_opacity',
+      'color', 'opacity', 'heading_color', 'heading_opacity', 'font_family',)
     widgets = widget_settings

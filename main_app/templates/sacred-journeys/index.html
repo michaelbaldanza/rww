@@ -5,10 +5,14 @@
 {% if perms.main_app.add_sacred_journey %}
   <h3>
     <a href="{% url 'sacred_journey_create' %}">Add a Sacred Journey</a>
-    {% if page %}
-      |
-      <a href="{% url 'sacred_journey_page_update' page.id %}">Edit page titles</a>
-    {% endif %}
+    | 
+    <a href="{% url 'sacred_journey_page_update' page.id %}">Edit</a>
+    |
+    <a
+    href="{% url 'style_control' style_control.id %}?next={{ request.path|urlencode }}"
+    >
+      Change Website Styles
+    </a>
   </h3>
 {% endif %}
 <div id="upcoming-journeys">
