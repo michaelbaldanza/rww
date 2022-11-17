@@ -36,8 +36,8 @@
         {% if page.tagline %}{{ page.tagline|safe }}{% endif %}
         {% if page.audio_file %}
         <div id="welcome-message-container">
-          <h2 class="primary-heading">{{ page.audio_file_caption }}</h2>
-          <audio id="welcome-audio" controls style="height: {{ page.style_sheet.primary_heading_font_size }}px">
+          <div>{{ page.audio_file_caption|safe }}</div>
+          <audio id="welcome-audio" controls style="height: {% if page.style_sheet.primary_heading_font_size %} {{ page.style_sheet.primary_heading_font_size }}px {% else %} 1em {% endif%}">
             <source src="{{ page.audio_link }}" type="audio/mp4">
           </audio>
         </div>

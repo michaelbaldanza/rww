@@ -413,7 +413,7 @@ class MainPage(models.Model):
   title = models.CharField(max_length=200, default='Main Page')
   tagline = models.TextField(blank=True, null=True)
   audio_file = models.FileField(blank=True, null=True, upload_to='media/')
-  audio_file_caption = models.TextField(blank=True, null=True)
+  audio_file_caption = models.TextField(verbose_name='welcome message', blank=True, null=True)
   body = models.TextField(blank=True, null=True)
   blog_image = models.FileField(upload_to='media/main-menu-images/', blank=True, null=True)
   spiritual_direction_image = models.FileField(upload_to='media/main-menu-images/', blank=True, null=True)

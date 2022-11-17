@@ -152,7 +152,7 @@ class MainPageForm(ModelForm):
 class MainPageStyleSheetForm(ModelForm):
   class Meta:
     model = StyleSheet
-    custom = {'primary_heading': 'tagline'}
+    custom = {'primary_heading': 'tagline and welcome message', }
     fields = select_fields(model, 'primary_heading_', 'image_heading_',
       'body_')
     labels = make_labels(fields, **custom)

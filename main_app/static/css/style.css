@@ -681,6 +681,10 @@ h2 {
     font-size: 1.2em;
   }
 
+  #welcome-message-container {
+    justify-content: right;
+  }
+
   #part-one {
     /* height: 600px; */
     /* display: flex; */
