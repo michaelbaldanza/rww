@@ -22,6 +22,19 @@ widget_settings = {
 }
 
 exclusions = ('title', 'style_sheet')
+mr_exclusions = ('title', 'style_sheet', 'first_name', 'middle_initial',
+  'last_name', 'mailing_address', 'city', 'state_prov', 'postal_zip', 'email',
+  'website', 'phone_home', 'phone_office', 'phone_mobile', 'present_position',
+  'present_position_startdate', 'preliminary_uu_fellowship_startdate',
+  'why_are_you_seeking_a_ministry_now',
+  'describe_the_new_ministry_you_hope_for', 'awards_and_honors',
+  'published_writings', 'personal_and_family_situation',
+  'background_and_development', 'denominational_and_community_activities',
+  'nonprofessional_interests', 'ministerial_development',
+  'ministerial_roles_and_functions',
+  'ministerial_skills_and_current_special_interests',
+  'approach_to_religious_education', 'role_of_music_and_arts',
+  'involvement_in_stewardship', 'theological_orientation',)
 
 ######## Helper functions ########
 
@@ -161,7 +174,7 @@ class MainPageStyleSheetForm(ModelForm):
 class MinisterialRecordForm(ModelForm):
   class Meta:
     model = MinisterialRecord
-    exclude = exclusions
+    exclude = mr_exclusions
 
 class MinisterialRecordStyleSheetForm(ModelForm):
   class Meta:

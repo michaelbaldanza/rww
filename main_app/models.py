@@ -382,7 +382,7 @@ class GalleryImage(models.Model):
 
   category = models.CharField(max_length=2, choices=CATEGORY_CHOICES)
   caption = models.CharField(max_length=250, blank=True, null=True)
-  image = models.FileField(upload_to='media/gallery-images/', blank=True, null=True)
+  image = models.FileField(upload_to='media/gallery-images/')
   updated_on = models.DateTimeField(auto_now=True)
   created_on = models.DateTimeField(auto_now=True)
   style_sheet = models.OneToOneField(
