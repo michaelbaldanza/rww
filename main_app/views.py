@@ -71,7 +71,6 @@ from .forms import (SacredJourneyForm, SlideImageForm, GalleryImageUpdateForm,
   SacredJourneyPageForm, SacredJourneyPageStyleSheetForm)
 
 def admin_check(user):
-  print('hitting admin_check')
   return user.is_staff
 
 def art_and_music(request):
@@ -411,10 +410,7 @@ class SpiritualDirectionUpdate(PermissionRequiredMixin, UpdateView):
   def get_context_data(self, **kwargs):
     # context = super(SpiritualDirectionUpdate, self).get_context_data(**kwargs)
     context = super().get_context_data(**kwargs)
-    print(context)
     page = self.object
-    print('printing self.form_class')
-    print(self.form_class)
     style = self.second_model.objects.get(id=page.style_sheet.id)
     if 'form' not in context:
       context['form'] = self.form_class(instance=page)
@@ -441,8 +437,6 @@ def get_rgba(hex, opacity):
 def home(request):
   page = MainPage.objects.first()
   style_control = StyleControl.objects.first()
-  print('Opacity: ', style_control.opacity)
-  print('RGBA: ', style_control.color_rgba)
   slide_image_form = SlideImageForm
   menu_images = make_menu_strings(page)
   num_visits = request.session.get('num_visits', 0)
@@ -606,7 +600,6 @@ class PostDetail(generic.DetailView):
     context['style_control'] = StyleControl.objects.first()
     context['page'] = post
     context['ss'] = post.style_sheet
-    print('trying with .self')
     for all_pair in all_posts.get_fields():
       for pair in post.get_fields():
         if all_pair[0] != 'id' and all_pair[0] == pair[0]:
@@ -614,7 +607,6 @@ class PostDetail(generic.DetailView):
             tuple_list.append(pair)
           elif all_pair[1] != None:
             tuple_list.append(all_pair)
-    print(tuple_list)
     return context
 
 class PostCreate(PermissionRequiredMixin, CreateView):
@@ -650,7 +642,6 @@ class PostUpdate(PermissionRequiredMixin, UpdateView):
       context['form2'] = self.second_form_class(instance=style)
     context['style_control'] = StyleControl.objects.first()
     context['is_update'] = True
-    print(context)
     return context
 
   def post(self, request, *args, **kwargs):
