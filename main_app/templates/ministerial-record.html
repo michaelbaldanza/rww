@@ -16,17 +16,24 @@
     </h3>
   {% endif %}
   <section id="part-one">
-    <div class="floated-right">
+    <div id="txt">
+      <h2 class="primary-heading">
+        {% if page.title %}{{ page.title|markdown|safe }}{% else %}Ministerial Record{% endif %}
+      </h2>
       <div class="video-caption-container">
         <div class="youtube-video-container">
           <iframe class="youtube-video" width="560" height="315" src="
           {% if ministry_page.video_link %}
             {{ ministry_page.video_link }}
           {% else %}
-            https://www.youtube.com/embed/r01EvyngNIk
+            https://www.youtube.com/embed/puvQbFCbhKE
           {% endif %}
           " title="YouTube video player
           " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+          </iframe>
+          <iframe class="youtube-video" width="560" height="315"
+            src="https://www.youtube.com/embed/8wpwhUngTgQ"
+            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
           </iframe>
         </div>
         <div class="secondary-heading video-caption">
@@ -37,11 +44,6 @@
           {% endif %}
         </div>
       </div>
-    </div>
-    <div id="txt">
-      <h2 class="primary-heading">
-        {% if page.title %}{{ page.title|markdown|safe }}{% else %}Ministerial Record{% endif %}
-      </h2>
       {% if page.blurb %}
         <div class="main-text">{{ page.blurb|markdown|safe }}</div>
       {% endif %}

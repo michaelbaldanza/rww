@@ -483,7 +483,7 @@ footer {
 
 .meditation {
   padding: 0 1em 1em 1em;
-  margin: 1em 1em 1em 0;
+  margin: 1em 0;
   width: 250px;
   border: 0.5px solid;
   border-color: inherit;
@@ -601,25 +601,28 @@ h2 {
   font-size: 0.8em;
 } */
 
+.youtube-video-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .youtube-video {
   width: 277.5px;
   height: 156px;
+  padding: 0.5em;
 }
 
 .video-caption {
   width: 277.5px;
   text-align: center;
+  margin: 0;
 }
 
 .video-caption-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.youtube-video-container {
-  display: flex;
-  justify-content: center;
 }
 
 @media screen and (min-width: 480px) {
@@ -721,23 +724,32 @@ h2 {
     display: flex;
   }
 
-  .floated-right {
+  /* .floated-right {
     float: right;
     margin-left: 15px;
     margin-bottom: 10px;
-  }
+  } */
 
   .video-caption-container {
     display: block;
+    /* align-items:flex-start; */
   }
 
   .youtube-video-container {
-    justify-content: left;
+    flex-direction: row;
+    /* align-items: flex-start; */
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .youtube-video {
+    padding: 0;
   }
 
   .video-caption {
     width: 370px;
     text-align: left;
+    font-size: 0.75em;
   }
 }
 
