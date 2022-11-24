@@ -153,4 +153,7 @@ import django_heroku
 django_heroku.settings(locals())
 
 import dj_database_url
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASE_URL = os.environ['DATABASE_URL']
+DATABASES = {
+    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+}
