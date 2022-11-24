@@ -724,11 +724,11 @@ h2 {
     display: flex;
   }
 
-  /* .floated-right {
+  .floated-right {
     float: right;
     margin-left: 15px;
     margin-bottom: 10px;
-  } */
+  }
 
   .video-caption-container {
     display: block;
