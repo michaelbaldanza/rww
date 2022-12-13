@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, RegexValidator
 from django.template.defaultfilters import slugify
 from django.urls import reverse
+from main_app.utils import image_resize
 
 MEDIA_PREFIX = 'https://revwaynew.s3.amazonaws.com/'
 
@@ -181,10 +182,10 @@ class StyleControl(models.Model):
 
   @property
   def color_rgba(self):
-    print('Hex is set to', self.color)
+    # print('Hex is set to', self.color)
     rgba = ('rgba(' + make_rgb(self.color, color_defaults['text']) +
       make_alpha(self.opacity, opacity_defaults['text']) + ')')
-    print('RGBA is ', rgba)
+    # print('RGBA is ', rgba)
     return rgba
 
   @property
@@ -396,6 +397,11 @@ class GalleryImage(models.Model):
   
   def get_absolute_url(self):
     return reverse('gallery_category', kwargs={'url_cat': slugify(self.get_category_display()) })
+
+  def save(self, *args, **kwargs):
+    print('SAVING IMAGE')
+    image_resize(self.image)
+    super(GalleryImage, self).save(*args, **kwargs)
 
   @property
   def image_link(self):

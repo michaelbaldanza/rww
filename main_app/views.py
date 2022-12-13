@@ -180,13 +180,14 @@ class GalleryImageDelete(PermissionRequiredMixin, DeleteView):
 
 def photos_category(request, url_cat):
   style_control = StyleControl.objects.first()
+  page = {}
   for cat in GalleryImage.CATEGORY_CHOICES:
     if cat[1].lower().replace(' ', '-') == url_cat:
       display = GalleryImage.objects.filter(category=cat[0]).order_by('-created_on')
-      title = cat[1]
+      page['title'] = cat[1]
   return render(request, 'art-and-music/photo-cat.html', {
     'display': display,
-    'title': title,
+    'page': page,
     'style_control': style_control,
     })
 
