@@ -3,10 +3,10 @@
 {% load static %}
 
 {% if perms.main_app.add_sacred_journey %}
-  <h3>
-    <a href="{% url 'sacred_journey_create' %}">Add a Sacred Journey</a>
-    | 
+  <h3> 
     <a href="{% url 'sacred_journey_page_update' page.id %}">Edit</a>
+    |
+    <a href="{% url 'sacred_journey_create' %}">Add a Sacred Journey</a>
     |
     <a
     href="{% url 'style_control' style_control.id %}?next={{ request.path|urlencode }}"
@@ -63,8 +63,13 @@
           </div>
         </a>
     {% endfor %}
+  {% elif page.upcoming_journeys_blurb %}
+  <p class="main-text">
+    {{ page.upcoming_journeys_blurb }}
   {% else %}
-  <p>There are no upcoming journeys.</p>
+    There are no upcoming journeys.
+  
+  </p>
   {% endif %}
 </div>
 <div id="previous-journeys">

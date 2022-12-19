@@ -261,6 +261,7 @@ class ArtAndMusicPage(models.Model):
 class SacredJourneyPage(models.Model):
   title = models.CharField(max_length=200, default='Sacred Journey Index')
   upcoming_journeys_heading = models.CharField(max_length=20, default='Upcoming Journeys')
+  upcoming_journeys_blurb = models.TextField(blank=True, null=True)
   previous_journeys_heading = models.CharField(max_length=20, default='Previous Journeys')
   style_sheet = models.OneToOneField(
     StyleSheet,

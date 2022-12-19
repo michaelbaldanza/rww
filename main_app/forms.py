@@ -253,9 +253,10 @@ class SacredJourneyPageStyleSheetForm(ModelForm):
   class Meta:
     model = StyleSheet
     fields = select_fields(model, 'primary_heading', 'content_heading',
-      'content_body', 'byline')
+      'body', 'content_body', 'byline')
     custom = {
       'primary_heading': 'upcoming/previous',
+      'body': 'upcoming journeys blurb',
       'content_heading': 'journey preview heading',
       'content_body': 'journey preview text',
       'byline': 'journey info'

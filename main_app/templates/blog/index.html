@@ -4,9 +4,9 @@
 {% load markdown_extras %}
 {% if perms.main_app.add_post %}
   <h3>
-    <a class="edit-link" href="{% url 'post_create' %}">Add a Post</a>
+    <a class="edit-link" href="{% url 'blog_index_page_update' page.id %}">Edit</a>
     |
-    <a class="edit-link" href="{% url 'blog_index_page_update' page.id %}">Change page styles</a>
+    <a class="edit-link" href="{% url 'post_create' %}">Add a Post</a>
     |
     <a
     href="{% url 'style_control' style_control.id %}?next={{ request.path|urlencode }}"

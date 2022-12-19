@@ -269,6 +269,8 @@ def sacred_journeys_index(request):
   today = date.today()
   upcoming_journeys = []
   previous_journeys = []
+  print(page.style_sheet)
+  print(page.style_sheet.body_opacity)
   for journey in journeys:
     if journey.start_date > today:
       upcoming_journeys.append(journey)
