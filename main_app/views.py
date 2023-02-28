@@ -179,9 +179,12 @@ class GalleryImageDelete(PermissionRequiredMixin, DeleteView):
     return context
 
 def photos_category(request, url_cat):
+  print('hitting photos_category')
   style_control = StyleControl.objects.first()
   page = {}
   for cat in GalleryImage.CATEGORY_CHOICES:
+    print(cat)
+    print(url_cat)
     if cat[1].lower().replace(' ', '-') == url_cat:
       display = GalleryImage.objects.filter(category=cat[0]).order_by('-created_on')
       page['title'] = cat[1]
@@ -219,7 +222,7 @@ class GalleryImageUpdate(PermissionRequiredMixin, UpdateView):
       form.save()
       form2.save()
     # return redirect('art_and_music')
-    return redirect('gallery_category', url_cat=page.get_category_display().lower())
+    return redirect('gallery_category', url_cat=page.get_category_display().lower().replace(' ', '-'))
 
 def ministerial_record(request):
   page = MinisterialRecord.objects.first()
