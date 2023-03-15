@@ -3,8 +3,8 @@ from django.forms import ModelForm, TextInput
 from .models import (Post, SacredJourney, SlideImage, GalleryImage,
   StyleControl, MainPage, BlogIndexPage, GlobalPostStyle, StyleSheet,
   SpiritualDirection, MinisterialRecord, ArtAndMusicPage, GuidedMeditation,
-  GuidedMeditationPage, ContactPage, SacredJourneyPage)
-from .widgets import DatePickerInput
+  GuidedMeditationPage, ContactPage, SacredJourneyPage, Event)
+from .widgets import DatePickerInput, TimePickerInput
 
 ######## Defaults ########
 
@@ -110,6 +110,23 @@ class ContactPageStyleSheetForm(ModelForm):
       'secondary_heading': 'contact_info'
     }
     labels = make_labels(fields, **custom)
+
+class EventForm(ModelForm):
+  class Meta:
+    model = Event
+    exclude = ('slug', 'status', 'style_sheet',)
+    widgets = {
+      'start_date': DatePickerInput(),
+      'end_date': DatePickerInput(),
+      'start_time': TimePickerInput(),
+      'end_time': TimePickerInput(),
+    }
+
+class EventStyleSheetForm(ModelForm):
+  class Meta:
+    model = StyleSheet
+    fields = select_fields(model, 'primary_heading', 'body', 'byline')
+    custom = {'primary_heading': 'title'}
 
 class GalleryImageCreateForm(ModelForm):
   class Meta:

@@ -1,5 +1,6 @@
 # Python Imports
 import inspect
+import datetime
 from colorfield.fields import ColorField
 from urllib import request as ulreq
 from PIL import Image, ImageOps
@@ -491,7 +492,51 @@ class SlideImage(models.Model):
   @property
   def image_link(self):
     return MEDIA_PREFIX + self.image.__str__()
+
+class Event(models.Model):
+  image = models.FileField(upload_to='media/event', blank=True, null=True)
+  title = models.CharField(max_length=200, unique=True)
+  blurb = models.CharField(max_length=50, blank=True, null=True)
+  start_date = models.DateField()
+  end_date = models.DateField()
+  start_time = models.TimeField(blank=True, null=True)
+  end_time = models.TimeField(blank=True, null=True)
+  location = models.CharField(max_length=50, blank=True, null=True)
+  zoom_link = models.TextField(blank=True, null=True)
+  description = models.TextField()
+  updated_on = models.DateTimeField(auto_now=True)
+  created_on = models.DateTimeField(auto_now=True)
+  status = models.IntegerField(choices=STATUS, default=1)
+  slug = models.SlugField(max_length=200, unique=True)
+  style_sheet = models.OneToOneField(
+    StyleSheet,
+    on_delete=models.CASCADE,
+    null=True,
+    )
+
+  class Meta:
+    ordering = ['-created_on']
   
+  def __str__(self):
+    return self.title
+
+  def get_absolute_url(self):
+    return reverse('event_detail', kwargs={'slug': self.slug})
+
+  def save(self, *args, **kwargs):
+    if not self.id:
+      self.slug = slugify(self.title)
+    super(Event, self).save(*args, **kwargs)
+
+  @property
+  def image_link(self):
+    return MEDIA_PREFIX + self.image.__str__()
+  
+  @property
+  def class_name(self):
+    return self.__class__.__name__
+
+
 class SacredJourney(models.Model):
   image = models.FileField(upload_to='media/', blank=True, null=True)
   title = models.CharField(max_length=200, unique=True)
@@ -532,6 +577,10 @@ class SacredJourney(models.Model):
   @property
   def image_link(self):
     return MEDIA_PREFIX + self.image.__str__()
+  
+  @property
+  def class_name(self):
+    return self.__class__.__name__
 
 class SpiritualDirection(models.Model):
   title = models.TextField(blank=True, null=True, default='Spiritual Direction')

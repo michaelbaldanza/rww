@@ -8,6 +8,8 @@
     |
     <a href="{% url 'sacred_journey_create' %}">Add a Sacred Journey</a>
     |
+    <a href="{% url 'event_create' %}">Add an Event</a>
+    |
     <a
     href="{% url 'style_control' style_control.id %}?next={{ request.path|urlencode }}"
     >
@@ -25,7 +27,11 @@
   </h2>
   {% if upcoming_journeys %}
     {% for journey in upcoming_journeys %}
-        <a class="post-link" href="{% url 'sacred_journey_detail' journey.slug %}">
+        {% if journey.class_name == 'SacredJourney' %}
+          <a class="post-link" href="{% url 'sacred_journey_detail' journey.slug %}">
+        {% elif journey.class_name == 'Event' %}
+          <a class="post-link" href="{% url 'event_detail' journey.slug %}">
+        {% endif %}
           <div class="post-preview">
             <div class="post-preview-image-container">
               {% if journey.image %}
@@ -47,13 +53,21 @@
                   |
                 {% endif %}
                 {% if perms.main_app.change_sacred_journey %}
-                  <a href="{% url 'sacred_journey_update' journey.slug %}">Edit</a>
+                  {% if journey.class_name == 'SacredJourney' %}
+                    <a href="{% url 'sacred_journey_update' journey.slug %}">Edit</a>
+                  {% elif journey.class_name == 'Event' %}
+                    <a href="{% url 'event_update' journey.slug %}">Edit</a>
+                  {% endif %}
                 {% endif %}
                 {% if perms.main_app.change_sacred_journey and perms.main_app.delete_sacred_journey %}
                   |
                 {% endif %}
                 {% if perms.main_app.delete_sacred_journey %}
-                  <a href="{% url 'sacred_journey_delete' journey.slug %}">Delete</a>
+                  {% if journey.class_name == 'SacredJourney' %}
+                    <a href="{% url 'sacred_journey_delete' journey.slug %}">Delete</a>
+                  {% elif journey.class_name == 'Event' %}
+                    <a href="{% url 'event_delete' journey.slug %}">Delete</a>
+                  {% endif %}
                 {% endif %}
               </p>
               <p class="post-preview-text content-body">
@@ -104,13 +118,21 @@
                   |
                 {% endif %}
                 {% if perms.main_app.change_sacred_journey %}
-                  <a href="{% url 'sacred_journey_update' journey.slug %}">Edit</a>
+                  {% if journey.class_name == 'SacredJourney' %}
+                    <a href="{% url 'sacred_journey_update' journey.slug %}">Edit</a>
+                  {% elif journey.class_name == 'Event' %}
+                    <a href="{% url 'event_update' journey.slug %}">Edit</a>
+                  {% endif %}
                 {% endif %}
                 {% if perms.main_app.change_sacred_journey and perms.main_app.delete_sacred_journey %}
                   |
                 {% endif %}
                 {% if perms.main_app.delete_sacred_journey %}
-                  <a href="{% url 'sacred_journey_delete' journey.slug %}">Delete</a>
+                  {% if journey.class_name == 'SacredJourney' %}
+                    <a href="{% url 'sacred_journey_delete' journey.slug %}">Delete</a>
+                  {% elif journey.class_name == 'Event' %}
+                    <a href="{% url 'event_delete' journey.slug %}">Delete</a>
+                  {% endif %}
                 {% endif %}
               </p>
               <p class="post-preview-text content-body">

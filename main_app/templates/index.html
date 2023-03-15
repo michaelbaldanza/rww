@@ -36,7 +36,10 @@
         {% if page.tagline %}{{ page.tagline|safe }}{% endif %}
         {% if page.audio_file %}
         <div id="welcome-message-container">
-          <div>{{ page.audio_file_caption|safe }}</div>
+          {% if new_event and new_event.blurb %}<a href="{% url 'event_detail' new_event.slug %}">{{ new_event.blurb }}</a>{% endif %}
+          <div>
+            <span>{{ page.audio_file_caption|safe }}</span>
+          </div>
           <audio id="welcome-audio" controls style="height: {% if page.style_sheet.primary_heading_font_size %} {{ page.style_sheet.primary_heading_font_size }}px {% else %} 1em {% endif%}">
             <source src="{{ page.audio_link }}" type="audio/mp4">
           </audio>

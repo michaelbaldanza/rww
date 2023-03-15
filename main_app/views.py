@@ -1,6 +1,7 @@
 # Python Imports
 import re, warnings
 from datetime import date
+from itertools import chain
 
 S3_PREFIX = 'https://revwaynew.s3.amazonaws.com/'
 
@@ -57,7 +58,7 @@ from .models import (Post, SacredJourney, SpiritualDirection,
   MinisterialRecord, MainPage, GuidedMeditation,
   GuidedMeditationPage, GalleryImage, SlideImage, Music, StyleControl,
   ArtAndMusicPage, SacredJourneyPage, BlogIndexPage, GlobalPostStyle,
-  StyleSheet, ContactPage)
+  StyleSheet, ContactPage, Event)
 
 from .forms import (SacredJourneyForm, SlideImageForm, GalleryImageUpdateForm,
   StyleControlForm, BlogIndexPageForm, PostForm, MainPageForm, StyleSheetForm,
@@ -68,7 +69,7 @@ from .forms import (SacredJourneyForm, SlideImageForm, GalleryImageUpdateForm,
   GuidedMeditationPageForm, GuidedMeditationPageStyleSheetForm,
   GalleryImageStyleSheetForm, GalleryImageCreateForm, ContactPageForm,
   ContactPageStyleSheetForm, BlogIndexPageForm, BlogIndexPageStyleSheetForm,
-  SacredJourneyPageForm, SacredJourneyPageStyleSheetForm)
+  SacredJourneyPageForm, SacredJourneyPageStyleSheetForm, EventForm, EventStyleSheetForm)
 
 def admin_check(user):
   return user.is_staff
@@ -269,12 +270,13 @@ def sacred_journeys_index(request):
   style_control = StyleControl.objects.first()
   page = SacredJourneyPage.objects.first()
   journeys = SacredJourney.objects.filter(status=1).order_by('-end_date')
+  events = Event.objects.filter(status=1).order_by('-end_date')
+  merged = sorted(chain(journeys, events), key=lambda instance: instance.end_date)
+  merged.reverse()
   today = date.today()
   upcoming_journeys = []
   previous_journeys = []
-  print(page.style_sheet)
-  print(page.style_sheet.body_opacity)
-  for journey in journeys:
+  for journey in merged:
     if journey.start_date > today:
       upcoming_journeys.append(journey)
     else:
@@ -380,6 +382,56 @@ class SacredJourneyDelete(PermissionRequiredMixin, DeleteView):
     context['style_control'] = StyleControl.objects.first()
     return context
 
+class EventDetail(generic.DetailView):
+  model = Event
+  template_name = 'events/detail.html'
+
+  def get_context_data(self, **kwargs):
+    journey = super().get_object()
+    context = super().get_context_data(**kwargs)
+    context['page'] = journey
+    context['ss'] = journey.style_sheet
+    context['style_control'] = StyleControl.objects.first()
+    return context
+
+class EventCreate(PermissionRequiredMixin, CreateView):
+  permission_required = 'event.add_events'
+  model = Event
+  form_class = EventForm
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['style_control'] = StyleControl.objects.first()
+    return context
+
+class EventUpdate(PermissionRequiredMixin, UpdateView):
+  permission_required = 'event.update_events'
+  model = Event
+  second_model = StyleSheet
+  form_class = EventForm
+  second_form_class = EventStyleSheetForm
+
+  def post(self, request, *args, **kwargs):
+    page = self.model.objects.get(slug=kwargs['slug'])
+    style = self.second_model.objects.get(id=page.style_sheet.id)
+    form = self.form_class(request.POST, request.FILES, instance=page)
+    form2 = self.second_form_class(request.POST, instance=style)
+    if form.is_valid() and form2.is_valid():
+      form.save()
+      form2.save()
+    return HttpResponseRedirect(reverse('event_detail', kwargs={'slug': page.slug}))
+
+class EventDelete(PermissionRequiredMixin, DeleteView):
+  permission_required = 'event.delete_event'
+  model = Event
+  success_url = '/journeys-and-events/'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['style_control'] = StyleControl.objects.first()
+    return context
+
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
@@ -443,6 +495,7 @@ def get_rgba(hex, opacity):
 def home(request):
   page = MainPage.objects.first()
   style_control = StyleControl.objects.first()
+  new_event = Event.objects.first()
   slide_image_form = SlideImageForm
   menu_images = make_menu_strings(page)
   num_visits = request.session.get('num_visits', 0)
@@ -450,6 +503,7 @@ def home(request):
   slide_images = page.slideimage_set.order_by('order')
   return render(request, 'index.html', {
     'menu_images': menu_images,
+    'new_event': new_event,
     'page': page,
     'ss': page.style_sheet,
     'slide_image_form': slide_image_form,
@@ -782,6 +836,10 @@ class ContactPageUpdate(PermissionRequiredMixin, UpdateView):
       form.save()
       form2.save()
     return redirect('contact')
+
+def redirect_journeys_and_events(request):
+  response = redirect('/journeys-and-events/')
+  return response
 
 def google_site_verification(request):
   return render(request, 'google2968686464ca0744.html')

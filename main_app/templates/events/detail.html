@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load markdown_extras %}
+<div id="blog-container">
+  <div class="post">
+    {% if event.image %}
+      <img class="post-image" src="{{ event.image_link }}">
+    {% endif %}
+    <div>
+      <h2 class="primary-heading"><a href="{{ event.worldwidequest_link }}">{{ event.title|safe }}</a></h2>
+      <div class="main-text">
+        {% if perms.main_app.change_sacred_journey %}
+          <a href="{% url 'event_update' event.slug %}">Edit</a>
+        {% endif %}
+        {% if perms.main_app.change_sacred_journey and perms.main_app.delete_sacred_journey %}
+          |
+        {% endif %}
+        {% if perms.main_app.delete_sacred_journey %}
+          <a href="{% url 'event_delete' event.slug %}">Delete</a>
+        {% endif %}
+      </div>
+    </div>
+    <div id="journey-info" class="byline">
+      <span>{{ event.start_date|date:"M j" }} - {{ event.end_date|date:"j Y" }}</span>
+      |
+      <span>{{ event.destination }}</span>
+      {% if event.worldwidequest_link %}
+      | <a href="{{ event.worldwidequest_link }}">View on worldwidequest.com</a>
+      {% endif %}
+    </div>
+    <div class="main-text">
+      <div id="journey-description">{{ event.description|markdown|safe }}</div>
+      <div id="journey-itinerary">{{ event.itinerary|markdown|safe}}</div>
+    </div>
+  </div>
+</div>
+{% endblock %}

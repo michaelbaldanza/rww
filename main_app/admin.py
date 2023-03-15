@@ -3,7 +3,7 @@ from .models import (GalleryImage, Post, GuidedMeditation,
     GuidedMeditationPage, SacredJourney, SpiritualDirection,
     MinisterialRecord, MainPage, SlideImage, Music, StyleControl,
     ArtAndMusicPage, SacredJourneyPage, BlogIndexPage, GlobalPostStyle,
-    StyleSheet, ContactPage)
+    StyleSheet, ContactPage, Event)
 
 class MinisterialRecordAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name')
@@ -47,6 +47,7 @@ admin.site.register(GuidedMeditation, GuidedMeditationAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(SacredJourney, SacredJourneyAdmin)
 admin.site.register(SlideImage)
+admin.site.register(Event)
 
 # individual pages
 admin.site.register(ArtAndMusicPage)
