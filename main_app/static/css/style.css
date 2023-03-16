@@ -429,7 +429,7 @@ section {
   margin-left: 50px;
 }
 
-#welcome-message-container {
+#welcome-and-audio-container {
   display: flex;
 }
 
@@ -437,6 +437,10 @@ section {
   /* margin: 5px 5px 0 0; */
   margin: 0;
 }
+
+  /* #welcome-message-container {
+    justify-content: right;
+  } */
 
 #welcome-audio {
   margin: 2px 0 0 5px;
@@ -685,9 +689,7 @@ h2 {
     font-size: 1.2em;
   }
 
-  #welcome-message-container {
-    justify-content: right;
-  }
+
 
   #part-one {
     /* height: 600px; */
@@ -816,5 +818,10 @@ h2 {
 
   #img-grid-item {
     width: 500px;
+  }
+
+  #welcome-message-container {
+    display: flex;
+    justify-content: space-between;
   }
 }
