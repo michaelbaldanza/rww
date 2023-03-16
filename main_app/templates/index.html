@@ -36,7 +36,7 @@
         {% if page.tagline %}{{ page.tagline|safe }}{% endif %}
         {% if page.audio_file %}
         <div id="welcome-message-container">
-          {% if new_event and new_event.blurb %}<a href="{% url 'event_detail' new_event.slug %}">{{ new_event.blurb }}</a>{% endif %}
+          {% if new_event and new_event.blurb %}<a href="{% url 'event_detail' new_event.slug %}"><span id="event-blurb">{{ new_event.blurb }}</span></a>{% endif %}
           <div id="welcome-and-audio-container">
             <div>
               <span>{{ page.audio_file_caption|safe }}</span>

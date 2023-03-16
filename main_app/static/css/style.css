@@ -15,6 +15,14 @@ body {
   color: #9ECE9A;
 }
 
+#event-blurb {
+  color: rgba(250,177,98,.7);
+}
+
+#event-blurb:hover {
+  filter: grayscale(100%);
+}
+
 .style-help-header {
   text-align: center;
 }
