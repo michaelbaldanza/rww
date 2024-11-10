@@ -495,12 +495,16 @@ def get_rgba(hex, opacity):
 def home(request):
   page = MainPage.objects.first()
   style_control = StyleControl.objects.first()
+  today = date.today()
   new_event = Event.objects.first()
   slide_image_form = SlideImageForm
   menu_images = make_menu_strings(page)
   num_visits = request.session.get('num_visits', 0)
   request.session['num_visits'] = num_visits + 1
   slide_images = page.slideimage_set.order_by('order')
+  today = date.today()
+  if today > new_event.start_date:
+    new_event = False
   return render(request, 'index.html', {
     'menu_images': menu_images,
     'new_event': new_event,
