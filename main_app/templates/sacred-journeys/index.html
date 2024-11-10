@@ -96,7 +96,12 @@
   </h2>
   {% if previous_journeys %}
     {% for journey in previous_journeys %}
-        <a class="post-link" href="{% url 'sacred_journey_detail' journey.slug %}">
+      {% if journey.class_name == 'SacredJourney' %}
+      <a class="post-link" href="{% url 'sacred_journey_detail' journey.slug %}">
+      {% elif journey.class_name == 'Event' %}
+      <a class="post-link" href="{% url 'event_detail' journey.slug %}">
+      {% endif %}
+        
           <div class="post-preview">
             <div class="post-preview-image-container">
               {% if journey.image %}
