@@ -183,6 +183,7 @@ td.first{
   float: left;
   padding: 0px 25px 2px 0px;
   max-width: 700px;
+  max-height: 500px;
   object-fit: cover;
 }
 
@@ -466,13 +467,20 @@ section {
   padding-right: 0.5em;
 }
 
-footer {
-  bottom: 0;
-  font-size: 12px;
+#page-wrap {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 #all-but-footer {
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  flex: 1;
+}
+
+footer {
+  bottom: 0;
+  font-size: 12px;
 }
 
 .preceding-list {
@@ -533,10 +541,6 @@ footer {
   text-align: center;
   font-weight: bold;
   font-size: 190%
-}
-
-#page-wrap {
-  margin: 0 auto;
 }
 
 nav {
